@@ -4,7 +4,7 @@ import model.Direction;
 import model.Position;
 import model.game.config.GameConfiguration;
 
-public class Player implements Character {
+public class Player implements Character, Damageable {
 
     private Position position;
     private int health;
@@ -56,6 +56,7 @@ public class Player implements Character {
     @Override
     public void takeDamage(int amount) {
         health -= amount;
+
     }
 
     public int getHealth() {
