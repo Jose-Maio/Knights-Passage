@@ -29,7 +29,6 @@ public class Level {
         if(player.getPosition().equals(key.getPosition())) player.pickUpKey();
         enemyList.forEach(Enemy::update);
         enemyList.removeIf(Enemy::isDead);
-
     }
 
     boolean isComplete(){

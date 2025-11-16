@@ -1,43 +1,44 @@
 package model.game;
 
 import model.entities.characters.Player;
-import model.entities.characters.enemies.Enemy;
-import model.game.Arena;
+import model.game.Level;
 
 import java.util.List;
 
 public class Game {
-    private final Arena arena;
+    private int current_level;
     private final Player player;
-    private final List<Enemy> enemies;
-    private int level;
+    private final List<Level> levels;
 
-
-    public Game(Arena arena, Player player, List<Enemy> enemies) {
-        this.arena = arena;
+    public Game(int current_level, Player player, List<Level> levels) {
+        this.current_level = current_level;
         this.player = player;
-        this.enemies = enemies;
-        this.level = 1; // when opening the game, the level is set to the first one
+        this.levels = levels;
     }
 
-    public Arena getArena(){
-        return arena;
+    public int getCurrent_level() {
+        return current_level;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return player;
     }
 
-    public List<Enemy> getEnemies(){
-        return enemies;
+    public List<Level> getLevels() {
+        return levels;
     }
 
-    public int getLevel(){
-        return level;
+    public Level nextLevel() {
+        Level current = levels.get(current_level);
+
+        if (!current.isComplete()) return current;
+
+        if (current_level == levels.size() - 1)
+            return current; // or game over
+
+        current_level++;
+
+        return levels.get(current_level);
     }
 
-    public int nextLevel(){
-        level++;
-        return level; // except for the case where level == 4, in that case, next level is game over
-    }
 }
