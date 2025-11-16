@@ -2,6 +2,7 @@ package model.entities.characters;
 
 import model.Direction;
 import model.Position;
+import model.game.config.GameConfiguration;
 
 public class Player implements Character {
 
@@ -22,6 +23,10 @@ public class Player implements Character {
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     @Override
