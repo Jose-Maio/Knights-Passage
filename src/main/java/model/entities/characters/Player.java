@@ -43,6 +43,16 @@ public class Player implements Character {
         }
     }
 
+    @Override
+    public boolean isDead() {
+        return health <= 0;
+    }
+
+    @Override
+    public void takeDamage(int amount) {
+        health -= amount;
+    }
+
     public int getHealth() {
         return health;
     }
