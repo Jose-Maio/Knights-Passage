@@ -6,18 +6,19 @@ import model.game.Level;
 import java.util.List;
 
 public class Game {
-    private int current_level;
+    private int currentLevel = 0;
     private final Player player;
     private final List<Level> levels;
+    private boolean gameOver = false;
 
     public Game(int current_level, Player player, List<Level> levels) {
-        this.current_level = current_level;
+        this.currentLevel = current_level;
         this.player = player;
         this.levels = levels;
     }
 
-    public int getCurrent_level() {
-        return current_level;
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
     public Player getPlayer() {
@@ -28,17 +29,35 @@ public class Game {
         return levels;
     }
 
-    public Level nextLevel() {
-        Level current = levels.get(current_level);
+    public void nextLevel() {
 
-        if (!current.isComplete()) return current;
+        if (currentLevel == levels.size() - 1)
+            gameOver = true; // or game over
 
-        if (current_level == levels.size() - 1)
-            return current; // or game over
+        else currentLevel++;
 
-        current_level++;
+    }
 
-        return levels.get(current_level);
+    public void setGameOver() {
+        this.gameOver = true;
+    }
+
+    public void update(){
+        if(player.isDead()){
+            gameOver = true;
+        }
+
+        Level level = levels.get(currentLevel);
+        level.update();
+
+        if(level.isComplete()){
+            nextLevel();
+        }
+
+        if(gameOver){
+            return;
+        }
+
     }
 
 }

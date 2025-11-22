@@ -1,4 +1,4 @@
-package com.view;
+package view;
 
 public class MenuView {
     public void render()

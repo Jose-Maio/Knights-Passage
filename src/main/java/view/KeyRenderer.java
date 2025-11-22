@@ -1,6 +1,4 @@
-package com.view;
-
-import model.entities.objects.Key;
+package view;
 
 public class KeyRenderer implements EntityRenderer {
 }
