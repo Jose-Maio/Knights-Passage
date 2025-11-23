@@ -5,7 +5,7 @@ import model.Position;
 public class Key implements Object{
     private final Position position;
 
-    Key(Position position){
+    public Key(Position position){
         this.position = position;
     }
 
