@@ -1,5 +1,5 @@
 package view;
 
 public class MenuView {
-    public void render()
+    public void render(){}
 }

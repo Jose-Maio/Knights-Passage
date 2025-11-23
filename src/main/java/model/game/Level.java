@@ -16,7 +16,7 @@ public class Level {
     private final Player player;
 
     Level(List<Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
-        enemyList = enemies;
+        this.enemyList = enemies;
         this.key = key;
         this.arena = arena;
         this.entryPosition = entryPosition;
@@ -34,6 +34,7 @@ public class Level {
     boolean isComplete(){
         return player.hasKey() && player.getPosition().equals(exitPosition);
     }
+
 
 
 
