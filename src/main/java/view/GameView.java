@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import model.game.Game;
+import model.game.Level;
 import view.entities.PlayerRenderer;
 
 import java.awt.*;
@@ -27,13 +28,13 @@ public class GameView {
         Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-        Font newfont = font.deriveFont(Font.PLAIN, 4);
+        Font newfont = font.deriveFont(Font.PLAIN, 3);
 
         AWTTerminalFontConfiguration fontConfig =
                 AWTTerminalFontConfiguration.newInstance(newfont);
 
         screen = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(1000, 400))
+                .setInitialTerminalSize(new TerminalSize(500, 200))
                 .setTerminalEmulatorFontConfiguration(fontConfig)
                 .setForceAWTOverSwing(true)
                 .createScreen();
@@ -45,8 +46,8 @@ public class GameView {
     public void render(Game game) throws IOException {
         screen.clear();
 
-        PlayerRenderer pr = new PlayerRenderer();
-        pr.render(game.getPlayer(), graphics);
+        LevelRenderer lr = new LevelRenderer();
+        lr.render(game.getCurrentLevel(), graphics);
 
         screen.refresh();
     }

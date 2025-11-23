@@ -17,8 +17,8 @@ public class Game {
         this.levels = levels;
     }
 
-    public int getCurrentLevel() {
-        return currentLevel;
+    public Level getCurrentLevel() {
+        return levels.get(currentLevel);
     }
 
     public Player getPlayer() {

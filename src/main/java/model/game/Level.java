@@ -15,7 +15,7 @@ public class Level {
     private final Position exitPosition;
     private final Player player;
 
-    Level(List<Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
+    public Level(List<Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
         this.enemyList = enemies;
         this.key = key;
         this.arena = arena;
@@ -23,6 +23,22 @@ public class Level {
         this.exitPosition = exitPosition;
         this.player = player;
         this.player.setPosition(entryPosition);
+    }
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
+    }
+
+    public Arena getArena() {
+        return arena;
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void update(){
