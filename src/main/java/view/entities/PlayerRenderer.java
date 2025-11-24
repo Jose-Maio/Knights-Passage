@@ -34,7 +34,6 @@ public class PlayerRenderer implements EntityRenderer {
                     TextCharacter c = new TextCharacter(' ', new TextColor.RGB(red, green, blue), new TextColor.RGB(red, green, blue));
                     graphics.setCharacter(player.getPosition().getX() + x, player.getPosition().getY() + y, c);
                 }
-                System.out.println(alpha + '\n');
             }
         }
     }

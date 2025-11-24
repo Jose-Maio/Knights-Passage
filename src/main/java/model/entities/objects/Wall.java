@@ -5,7 +5,7 @@ import model.Position;
 public class Wall implements Object{
     private final Position position;
 
-    Wall(Position position){
+    public Wall(Position position){
         this.position = position;
     }
 

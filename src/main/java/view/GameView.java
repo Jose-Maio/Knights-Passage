@@ -34,7 +34,7 @@ public class GameView {
                 AWTTerminalFontConfiguration.newInstance(newfont);
 
         screen = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(500, 200))
+                .setInitialTerminalSize(new TerminalSize(320, 160))
                 .setTerminalEmulatorFontConfiguration(fontConfig)
                 .setForceAWTOverSwing(true)
                 .createScreen();
