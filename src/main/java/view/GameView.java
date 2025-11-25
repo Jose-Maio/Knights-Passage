@@ -1,55 +1,26 @@
 package view;
 
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import model.game.Game;
-import model.game.Level;
-import view.entities.PlayerRenderer;
 
+import gui.LanternaGui;
+import model.game.Game;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class GameView {
 
-    private final Screen screen;
-    private final TextGraphics graphics;
+    private final LanternaGui gui;
 
     public GameView() throws Exception {
-
-        URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");
-        assert resource != null;
-
-        File fontFile = new File(resource.toURI());
-        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(font);
-        Font newfont = font.deriveFont(Font.PLAIN, 3);
-
-        AWTTerminalFontConfiguration fontConfig =
-                AWTTerminalFontConfiguration.newInstance(newfont);
-
-        screen = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(500, 200))
-                .setTerminalEmulatorFontConfiguration(fontConfig)
-                .setForceAWTOverSwing(true)
-                .createScreen();
-
-        screen.startScreen();
-        graphics = screen.newTextGraphics();
+        this.gui = new LanternaGui();
     }
 
     public void render(Game game) throws IOException {
-        screen.clear();
+        gui.clear();
 
         LevelRenderer lr = new LevelRenderer();
-        lr.render(game.getCurrentLevel(), graphics);
+        lr.render(game.getCurrentLevel(), gui);
 
-        screen.refresh();
+        gui.refresh();
     }
 }
 

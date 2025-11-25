@@ -1,30 +1,28 @@
 package view;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import model.entities.Entity;
+
+import gui.LanternaGui;
+import model.entities.objects.Object;
 import model.entities.objects.Tree;
 import model.entities.objects.Wall;
 import model.game.Arena;
 import view.entities.TreeRenderer;
 import view.entities.WallRenderer;
 
+import java.io.IOException;
+
 public class ArenaRenderer {
-    public void render(Arena arena, TextGraphics graphics){
+    public void render(Arena arena, LanternaGui gui) throws IOException {
         WallRenderer wr = new WallRenderer();
         TreeRenderer tr = new TreeRenderer();
 
-       // graphics.setBackgroundColor(arena.getBackgroundColor());
-        //graphics.fillRectangle(new TerminalPosition(0, 0), graphics.getSize(), ' ');
 
-        for(Entity object : arena.getObjectList()){
+        for(Object object : arena.getObjectList()){
             if(object.getClass() == Wall.class){
-                wr.render(object, graphics);
+                wr.render((Wall)object, gui);
             }
             else if(object.getClass() == Tree.class){
-                tr.render(object, graphics);
+                tr.render((Tree)object, gui);
             }
         }
     }

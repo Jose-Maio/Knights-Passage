@@ -1,5 +1,9 @@
 package view.entities;
 
-public class EnemyRenderer implements EntityRenderer {
+import gui.LanternaGui;
+import model.entities.characters.enemies.Enemy;
 
+public class EnemyRenderer implements EntityRenderer {
+    public void render(Enemy enemy, LanternaGui gui) {
+    }
 }
