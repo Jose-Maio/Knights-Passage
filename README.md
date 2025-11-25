@@ -18,26 +18,19 @@ This project was developed by José Maio (up202404872@up.pt) and Pedro Vilaça (
 
 ### DESIGN
 
-> This section should be organized in different subsections, each describing a different design problem that you had to solve during the project. Each subsection should be organized in four different parts:
+(https://help.github.com/en/articles/creating-a-permanent-link-to-a-code-snippet) (https://help.github.com/en/articles/about-readmes#relative-links-and-image-paths-in-readme-files). 
 
-- **Problem in Context.** The description of the design context and the concrete problem that motivated the instantiation of the pattern. Someone else other than the original developer should be able to read and understand all the motivations for the decisions made. When refering to the implementation before the pattern was applied, don’t forget to [link to the relevant lines of code](https://help.github.com/en/articles/creating-a-permanent-link-to-a-code-snippet) in the appropriate version.
-- **The Pattern.** Identify the design pattern to be applied, why it was selected and how it is a good fit considering the existing design context and the problem at hand.
-- **Implementation.** Show how the pattern roles, operations and associations were mapped to the concrete design classes. Illustrate it with a UML class diagram, and refer to the corresponding source code with links to the relevant lines (these should be [relative links](https://help.github.com/en/articles/about-readmes#relative-links-and-image-paths-in-readme-files). When doing this, always point to the latest version of the code.
-- **Consequences.** Benefits and liabilities of the design after the pattern instantiation, eventually comparing these consequences with those of alternative solutions.
-
-**Example of one of such subsections**:
-
-------
-
-#### THE JUMP ACTION OF THE KANGAROOBOY SHOULD BEHAVE DIFFERENTLY DEPENDING ON ITS STATE
+#### THE LEVELS SHOULD NOT BE CREATED BY THE GAME CLASS
 
 **Problem in Context**
 
-There was a lot of scattered conditional logic when deciding how the KangarooBoy should behave when jumping, as the jumps should be different depending on the items that came to his possession during the game (an helix will alow him to fly, driking a potion will allow him to jump double the height, etc.). This is a violation of the **Single Responsability Principle**. We could concentrate all the conditional logic in the same method to circumscribe the issue to that one method but the **Single Responsability Principle** would still be violated.
+A major challenge in the project was the complexity of building levels, arenas, and all their elements (enemies, walls, keys, spawn positions, exit positions…).
+At first, this logic was grouped in the Game class, making it and its constructor huge, even for just one level.
+This caused the Game class to have too many responsabilities, violating the SRP (Single Responsability Pattern).
 
 **The Pattern**
 
-We have applied the **State** pattern. This pattern allows you to represent different states with different subclasses. We can switch to a different state of the application by switching to another implementation (i.e., another subclass). This pattern allowed to address the identified problems because […].
+To solve this problem we applied the **Factory Method** pattern. This pattern allows us to centralize level objects creation in a single class that will have
 
 **Implementation**
 
@@ -55,11 +48,11 @@ These classes can be found in the following files:
 
 **Consequences**
 
-The use of the State Pattern in the current design allows the following benefits:
+The use of the Factory Method Pattern in the current design allows the following benefits:
 
-- The several states that represent the character’s hability to jump become explicit in the code, instead of relying on a series of flags.
-- We don’t need to have a long set of conditional if or switch statements associated with the various states; instead, polimorphism is used to activate the right behavior.
-- There are now more classes and instances to manage, but still in a reasonable number.
+- Centralizes complex level creation logic, as all level construction rules are in a single class.
+- Supports scalability as adding a new level is as simple as creating a new method, for example createLevel5().
+- Cleaner and more maintainable code because Game goes back to only managing gameplay flow and not constructing complex objects. 
 
 #### KNOWN CODE SMELLS
 
