@@ -3,22 +3,18 @@
 In this thrilling game you can guide the player through multiple levels, collecting keys and avoiding or defeating enemies to reach the exit. 
 Each level features unique arenas with walls, trees, and other obstacles, and the game offers multiple difficulty settings.
 
-This project was developed by José Maio (up202404872@up.pt) and Pedro Vilaça (up2024...@up.pt) for LDTS 2025⁄26.
+This project was developed by José Maio (up202404872@up.pt) and Pedro Vilaça (up202404967@up.pt) for LDTS 2025⁄26.
 
 
 ### IMPLEMENTED FEATURES
 
-> This section should contain a list of implemented features and their descriptions.
-> In the end of the section, include two or three screenshots that illustrate the most important features.
-
-**Examples**:
-
-- **Jumping** - The game character will jump when the space bar key is pressed.
-- **Getting hidden coins** - When the game character hits a platform from below (by jumping beneath it) it will smash that segment of the platform and will get any coins that may exist hidden there.
+- **Multiple levels** - The player can progress into the next level when collects a key or when kills all enemies.
+- 
 
 ### PLANNED FEATURES
 
-> This section is similar to the previous one but should list the features that are not yet implemented. Instead of screenshots you should include GUI mock-ups for the planned features.
+- **Attacking enemies** - The game character is able to damage enemies when close to them.
+- **Getting hidden keys** - When the game character gets close to a hidden key it reveals its position so the player can collect it.
 
 ### DESIGN
 
