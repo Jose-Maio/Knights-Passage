@@ -1,8 +1,8 @@
 package view.entities;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
+import gui.Gui;
 import model.entities.Entity;
 
 public interface EntityRenderer {
-    public default void render(Entity entity, TextGraphics graphics){}
+    public default void render(Entity entity, Gui gui){}
 }
