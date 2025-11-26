@@ -47,7 +47,7 @@ public class Level {
         enemyList.removeIf(Enemy::isDead);
     }
 
-    boolean isComplete(){
+    public boolean isComplete(){
         return player.hasKey() && player.getPosition().equals(exitPosition);
     }
 

@@ -22,7 +22,7 @@ public class Arena {
         return objectList;
     }
 
-    boolean isBlocked(Position position){
+    public boolean isBlocked(Position position){
         for(Object object : objectList){
             if(object.getPosition().equals(position)) return true;
         }
