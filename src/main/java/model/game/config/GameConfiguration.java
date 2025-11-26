@@ -5,7 +5,7 @@ public class GameConfiguration {
     private final double enemyDamageMultiplier;
     private final double enemyHealthMultiplier;
 
-    GameConfiguration(Difficulty difficulty){
+    public GameConfiguration(Difficulty difficulty){
         this.difficulty = difficulty;
 
         switch (difficulty){

@@ -6,20 +6,20 @@ import model.entities.objects.Object;
 import java.util.List;
 
 public class Arena {
-    private final List<Object> objectList;
-    private final TextColor backgroundColor;
+    private final List<? extends Object> objectList;
+    private final String backgroundImg;
+    private final int width;
+    private final int height;
 
-    public Arena(List<Object> objects, TextColor backgroundColor){
+    public Arena(List<? extends Object> objects, String backgroundImg){
         this.objectList = objects;
-        this.backgroundColor = backgroundColor;
+        this.backgroundImg = backgroundImg;
+        this.width = 400;
+        this.height = 208;
     }
 
-    public List<Object> getObjectList() {
+    public List<? extends Object> getObjectList() {
         return objectList;
-    }
-
-    public TextColor getBackgroundColor() {
-        return backgroundColor;
     }
 
     boolean isBlocked(Position position){
@@ -29,4 +29,15 @@ public class Arena {
         return false;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public String getBackgroundImg() {
+        return backgroundImg;
+    }
 }

@@ -36,7 +36,7 @@ public class LanternaGui implements Gui {
                 AWTTerminalFontConfiguration.newInstance(newfont);
 
         screen = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(320, 160))
+                .setInitialTerminalSize(new TerminalSize(400, 208))
                 .setTerminalEmulatorFontConfiguration(fontConfig)
                 .setForceAWTOverSwing(true)
                 .createScreen();
