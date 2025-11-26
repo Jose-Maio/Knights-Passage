@@ -72,4 +72,3 @@ public class LanternaGui implements Gui {
         screen.refresh();
     }
 }
-
