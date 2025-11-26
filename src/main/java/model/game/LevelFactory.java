@@ -2,7 +2,6 @@ package model.game;
 
 import model.Position;
 import model.entities.characters.Player;
-import model.entities.characters.enemies.Enemy;
 import model.entities.characters.enemies.ForestEnemy;
 import model.entities.objects.Key;
 import model.entities.objects.Object;

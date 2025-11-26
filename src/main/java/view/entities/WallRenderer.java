@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class WallRenderer implements EntityRenderer {
+public class WallRenderer implements EntityRenderer<Wall,LanternaGui> {
 
     BufferedImage sprite = ImageIO.read(
             Objects.requireNonNull(
