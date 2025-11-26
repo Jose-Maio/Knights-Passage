@@ -8,14 +8,14 @@ import model.entities.objects.Key;
 import java.util.List;
 
 public class Level {
-    private final List<Enemy> enemyList;
+    private final List<? extends Enemy> enemyList;
     private final Key key;
     private final Arena arena;
     private final Position entryPosition;
     private final Position exitPosition;
     private final Player player;
 
-    public Level(List<Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
+    public Level(List<? extends Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
         this.enemyList = enemies;
         this.key = key;
         this.arena = arena;
@@ -25,7 +25,7 @@ public class Level {
         this.player.setPosition(entryPosition);
     }
 
-    public List<Enemy> getEnemyList() {
+    public List<? extends Enemy> getEnemyList() {
         return enemyList;
     }
 

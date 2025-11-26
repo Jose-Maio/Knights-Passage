@@ -8,14 +8,13 @@ public class Player implements Character, Damageable {
 
     private Position position;
     private int health;
-    private int attack_power;
+    private int attackPower;
     private Direction facing;
     private boolean hasKey;
 
-    public Player(Position startPosition, int health, int attack_power) {
-        this.position = startPosition;
+    public Player(int health, int attackPower) {
         this.health = health;
-        this.attack_power = attack_power;
+        this.attackPower = attackPower;
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
     }
@@ -63,8 +62,8 @@ public class Player implements Character, Damageable {
         return health;
     }
 
-    public int getAttack_power() {
-        return attack_power;
+    public int getAttackpower() {
+        return attackPower;
     }
 
     public Direction getFacing() {

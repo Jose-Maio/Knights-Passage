@@ -2,28 +2,25 @@ package model.game;
 
 import model.entities.characters.Player;
 import model.game.Level;
+import model.game.config.GameConfiguration;
 
 import java.util.List;
 
 public class Game {
     private int currentLevel = 0;
-    private final Player player;
     private final List<Level> levels;
     private boolean gameOver = false;
 
-    public Game(int current_level, Player player, List<Level> levels) {
-        this.currentLevel = current_level;
-        this.player = player;
-        this.levels = levels;
+    public Game(GameConfiguration configuration) {
+
+        LevelFactory factory = LevelFactory.getInstance(configuration);
+        this.levels = factory.getLevels();
     }
 
     public Level getCurrentLevel() {
         return levels.get(currentLevel);
     }
 
-    public Player getPlayer() {
-        return player;
-    }
 
     public List<Level> getLevels() {
         return levels;
@@ -43,11 +40,11 @@ public class Game {
     }
 
     public void update(){
-        if(player.isDead()){
+        Level level = levels.get(currentLevel);
+
+        if(level.getPlayer().isDead()){
             gameOver = true;
         }
-
-        Level level = levels.get(currentLevel);
         level.update();
 
         if(level.isComplete()){
