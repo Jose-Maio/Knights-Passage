@@ -101,7 +101,7 @@ UML do pattern:
 This class can be found in the following file:
 
 - [LevelFactory](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/model/game/LevelFactory.java)
-- 
+  
 **Consequences**
 
 The use of the Singleton Pattern in the current design allows the following benefits:
