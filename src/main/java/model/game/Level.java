@@ -60,10 +60,4 @@ public class Level {
     public boolean isComplete(){
         return player.hasKey() && player.getPosition().equals(exitPosition);
     }
-
-
-
-
-
-
 }
