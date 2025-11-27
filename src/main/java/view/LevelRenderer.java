@@ -25,9 +25,11 @@ public class LevelRenderer {
         kr.render(level.getKey(), gui);
 
         for(Enemy enemy : level.getEnemyList()){
-            fer.render(new ForestEnemy(), gui);
+            if(ForestEnemy.class == enemy.getClass()){
+            fer.render((ForestEnemy) enemy, gui);
         }
 
 
     }
+        }
 }

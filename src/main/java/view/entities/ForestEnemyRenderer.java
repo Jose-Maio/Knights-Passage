@@ -2,23 +2,18 @@ package view.entities;
 
 import gui.LanternaGui;
 import model.entities.characters.enemies.ForestEnemy;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class ForestEnemyRenderer implements EntityRenderer<ForestEnemy, LanternaGui>{
 
-    BufferedImage sprite = ImageIO.read(
-            Objects.requireNonNull(
-                    getClass().getClassLoader().getResourceAsStream("sprites/ForestEnemy right.png")
-            )
-    );
+    private final String img;
 
     public ForestEnemyRenderer() throws IOException {
+        this.img = "sprites/ForestEnemy front.png";
     }
 
-    public void render(ForestEnemy forestEnemy, LanternaGui gui) {
-        gui.drawImage(sprite, forestEnemy.getPosition());
+    public void render(ForestEnemy forestEnemy, LanternaGui gui) throws IOException {
+        gui.drawImage(img, forestEnemy.getPosition());
     }
 }
