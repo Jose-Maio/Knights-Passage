@@ -12,7 +12,7 @@ public class PlayerRenderer implements EntityRenderer<Player,LanternaGui> {
 
     BufferedImage sprite = ImageIO.read(
             Objects.requireNonNull(
-                    getClass().getClassLoader().getResourceAsStream("sprites/Monkey.png")
+                    getClass().getClassLoader().getResourceAsStream("sprites/Knight right.png")
             )
     );
 
