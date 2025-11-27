@@ -8,7 +8,6 @@ import model.entities.objects.Wall;
 import model.game.Arena;
 import view.entities.TreeRenderer;
 import view.entities.WallRenderer;
-
 import java.io.IOException;
 
 public class ArenaRenderer {
@@ -16,6 +15,7 @@ public class ArenaRenderer {
         WallRenderer wr = new WallRenderer();
         TreeRenderer tr = new TreeRenderer();
 
+        gui.fillBackground(arena.getBackgroundImg());
 
         for(Object object : arena.getObjectList()){
             if(object.getClass() == Wall.class){

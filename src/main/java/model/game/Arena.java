@@ -6,19 +6,15 @@ import model.entities.objects.Object;
 import java.util.List;
 
 public class Arena {
-    private final List<? extends Object> objectList;
-    private final String backgroundImg;
-    private final int width;
-    private final int height;
+    private final List<Object> objectList;
+    private final String backgroundImg;;
 
-    public Arena(List<? extends Object> objects, String backgroundImg){
+    public Arena(List<Object> objects, String backgroundImg){
         this.objectList = objects;
         this.backgroundImg = backgroundImg;
-        this.width = 400;
-        this.height = 208;
     }
 
-    public List<? extends Object> getObjectList() {
+    public List<Object> getObjectList() {
         return objectList;
     }
 
@@ -29,13 +25,6 @@ public class Arena {
         return false;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
 
     public String getBackgroundImg() {
         return backgroundImg;

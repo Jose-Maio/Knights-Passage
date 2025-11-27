@@ -44,7 +44,7 @@ public class LevelTest {
         ForestEnemy e = (ForestEnemy) level.getEnemyList().get(0);
 
         // kill enemy
-        e.takeDamage(100);
+        e.takeDamage(1000);
         level.update();
 
         assertEquals(0, level.getEnemyList().size());

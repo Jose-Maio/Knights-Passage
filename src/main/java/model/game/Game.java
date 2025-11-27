@@ -29,8 +29,7 @@ public class Game {
     public void nextLevel() {
 
         if (currentLevel == levels.size() - 1)
-            gameOver = true; // or game over
-
+            gameOver = true;
         else currentLevel++;
 
     }
