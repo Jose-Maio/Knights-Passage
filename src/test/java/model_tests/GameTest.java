@@ -30,6 +30,7 @@ public class GameTest {
         g.nextLevel();
         g.update();
         assertTrue(g.isGameOver());
+        assertEquals(levels.get(1),  g.getCurrentLevel());
     }
 
 }

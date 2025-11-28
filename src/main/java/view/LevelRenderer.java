@@ -2,8 +2,9 @@ package view;
 
 import gui.LanternaGui;
 import model.entities.characters.enemies.Enemy;
+import model.entities.characters.enemies.ForestEnemy;
 import model.game.Level;
-import view.entities.EnemyRenderer;
+import view.entities.ForestEnemyRenderer;
 import view.entities.KeyRenderer;
 import view.entities.PlayerRenderer;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 public class LevelRenderer {
     public void render(Level level, LanternaGui gui) throws IOException {
         PlayerRenderer pr = new PlayerRenderer();
-        EnemyRenderer er = new EnemyRenderer();
+        ForestEnemyRenderer fer = new ForestEnemyRenderer();
         ArenaRenderer ar = new ArenaRenderer();
         KeyRenderer kr = new KeyRenderer();
 
@@ -24,9 +25,11 @@ public class LevelRenderer {
         kr.render(level.getKey(), gui);
 
         for(Enemy enemy : level.getEnemyList()){
-            er.render(enemy, gui);
+            if(ForestEnemy.class == enemy.getClass()){
+            fer.render((ForestEnemy) enemy, gui);
         }
 
 
     }
+        }
 }

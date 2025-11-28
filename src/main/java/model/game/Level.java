@@ -5,18 +5,19 @@ import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Key;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Level {
-    private final List<? extends Enemy> enemyList;
+    private final List<Enemy> enemyList;
     private final Key key;
     private final Arena arena;
     private final Position entryPosition;
     private final Position exitPosition;
     private final Player player;
 
-    public Level(List<? extends Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
-        this.enemyList = enemies;
+    public Level(List<Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
+        this.enemyList = new ArrayList<>(enemies);
         this.key = key;
         this.arena = arena;
         this.entryPosition = entryPosition;
@@ -25,7 +26,7 @@ public class Level {
         this.player.setPosition(entryPosition);
     }
 
-    public List<? extends Enemy> getEnemyList() {
+    public List<Enemy> getEnemyList() {
         return enemyList;
     }
 
@@ -43,17 +44,20 @@ public class Level {
 
     public void update(){
         if(player.getPosition().equals(key.getPosition())) player.pickUpKey();
-        enemyList.forEach(Enemy::update);
-        enemyList.removeIf(Enemy::isDead);
+
+        for (int i = 0; i < enemyList.size(); i++) {
+            Enemy enemy = enemyList.get(i);
+            enemy.update();
+            if (enemy.isDead()) {
+                enemyList.remove(i);
+                i--;
+            }
+        }
+
+
     }
 
     public boolean isComplete(){
         return player.hasKey() && player.getPosition().equals(exitPosition);
     }
-
-
-
-
-
-
 }

@@ -1,13 +1,13 @@
 package gui;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
-import model.Position;
 
-import java.awt.image.BufferedImage;
+import model.Position;
+import java.io.IOException;
 
 public interface Gui {
-     public void drawImage(BufferedImage sprite,  Position position);
+     public void drawImage(String img,  Position position) throws IOException;
+
+     public void fillBackground(String img) throws IOException;
 
 
 }

@@ -101,7 +101,7 @@ UML do pattern:
 This class can be found in the following file:
 
 - [LevelFactory](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/model/game/LevelFactory.java)
-- 
+  
 **Consequences**
 
 The use of the Singleton Pattern in the current design allows the following benefits:
@@ -117,6 +117,7 @@ However this Pattern also comes with certain liabilities:
 #### KNOWN CODE SMELLS
 
 The LevelFactory is also responsible for creating the arena for each level, taking another domain of responsability, something that we hope to change soon.
+
 The LevelRenderer and ArenaRenderer both violate the Open/Closed Principle as if we were to add a new object class to our game we would need to modidy this classes. This will be hopefully solved by using a map to track each class to its designated renderer.
 
 ### TESTING

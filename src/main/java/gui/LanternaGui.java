@@ -10,17 +10,21 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import model.Position;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 
 
 public class LanternaGui implements Gui {
     private final Screen screen;
     private final TextGraphics graphics;
+    private final int width;
+    private final int height;
 
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");
@@ -43,10 +47,19 @@ public class LanternaGui implements Gui {
 
         screen.startScreen();
         graphics = screen.newTextGraphics();
+
+        this.width = 400;
+        this.height = 208;
     }
 
     @Override
-    public void drawImage(BufferedImage sprite, Position position) {
+    public void drawImage(String img, Position position) throws IOException {
+
+        BufferedImage sprite = ImageIO.read(
+                Objects.requireNonNull(
+                        getClass().getClassLoader().getResourceAsStream(img)
+                )
+        );
         for (int x = 0; x < sprite.getWidth(); x++){
             for (int y = 0; y < sprite.getHeight(); y++){
                 int a = sprite.getRGB(x, y);
@@ -62,6 +75,22 @@ public class LanternaGui implements Gui {
 
             }
         }
+    }
+
+    @Override
+    public void fillBackground(String img) throws IOException {
+        BufferedImage sprite = ImageIO.read(
+                Objects.requireNonNull(
+                        getClass().getClassLoader().getResourceAsStream(img)
+                )
+        );
+
+        for(int i = 0; i < width; i+= 16){
+            for(int j = 0; j < height; j += 16){
+                drawImage(img , new Position(i,j));
+            }
+        }
+
     }
 
     public void clear(){

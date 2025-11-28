@@ -3,23 +3,18 @@ package view.entities;
 
 import gui.LanternaGui;
 import model.entities.characters.Player;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class PlayerRenderer implements EntityRenderer<Player,LanternaGui> {
 
-    BufferedImage sprite = ImageIO.read(
-            Objects.requireNonNull(
-                    getClass().getClassLoader().getResourceAsStream("sprites/Monkey.png")
-            )
-    );
+    private final String img;
 
     public PlayerRenderer() throws IOException {
+        this.img = "sprites/Knight right.png";
     }
 
-    public void render(Player player, LanternaGui gui) {
-        gui.drawImage(sprite, player.getPosition());
+    public void render(Player player, LanternaGui gui) throws IOException {
+        gui.drawImage(img, player.getPosition());
     }
 }
