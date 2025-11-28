@@ -1,6 +1,6 @@
 package view_tests;
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.ForestEnemy;
 import model.entities.objects.Key;
@@ -17,12 +17,12 @@ import java.util.Arrays;
 class LevelRendererTest {
 
     private Level level;
-    private LanternaGui gui;
+    private Gui gui;
     private LevelRenderer renderer;
 
     @BeforeEach
     void setUp() {
-        gui = Mockito.mock(LanternaGui.class);
+        gui = Mockito.mock(Gui.class);
 
         Arena arena = Mockito.mock(Arena.class);
         Player player = Mockito.mock(Player.class);
@@ -42,7 +42,7 @@ class LevelRendererTest {
     }
 
     @Test
-    void rendercallsArena() throws IOException {
+    void renderCallsArena() throws IOException {
         renderer.render(level, gui);
 
         Mockito.verify(gui, Mockito.atLeastOnce()).drawImage(Mockito.anyString(), Mockito.any());
