@@ -56,8 +56,9 @@ public class GameTest {
         levels.add(createSimpleLevel1());
         levels.add(createSimpleLevel2());
         boolean gameOver = false;
+        g.nextLevel();
         g.update();
-        assertEquals(1,  g.getCurrentLevel());
+        assertEquals(levels.get(1),  g.getCurrentLevel());
     }
 
 
