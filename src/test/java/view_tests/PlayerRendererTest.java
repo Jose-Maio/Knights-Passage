@@ -1,6 +1,6 @@
 package view_tests;
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.Position;
 import model.entities.characters.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ class PlayerRendererTest {
 
     private Player player;
     private PlayerRenderer renderer;
-    private LanternaGui gui;
+    private Gui gui;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -20,7 +20,7 @@ class PlayerRendererTest {
         Mockito.when(player.getPosition()).thenReturn(new Position(10, 10));
 
         renderer = new PlayerRenderer();
-        gui = Mockito.mock(LanternaGui.class);
+        gui = Mockito.mock(Gui.class);
     }
 
     @Test

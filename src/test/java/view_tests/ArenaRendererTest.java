@@ -1,6 +1,6 @@
 package view_tests;
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.Position;
 import model.entities.objects.Tree;
 import model.entities.objects.Wall;
@@ -16,13 +16,13 @@ import java.util.Arrays;
 class ArenaRendererTest {
 
     private Arena arena;
-    private LanternaGui gui;
+    private Gui gui;
     private ArenaRenderer renderer;
 
     @BeforeEach
     void setUp() {
         arena = Mockito.mock(Arena.class);
-        gui = Mockito.mock(LanternaGui.class);
+        gui = Mockito.mock(Gui.class);
         renderer = new ArenaRenderer();
 
         Mockito.when(arena.getBackgroundImg()).thenReturn("bg.png");
