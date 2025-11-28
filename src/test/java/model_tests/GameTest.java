@@ -51,11 +51,9 @@ public class GameTest {
     @Test
     void testNextLevel() {
         Game g = createSimpleGame();
-        int currentLevel = 0;
         List<Level> levels = new ArrayList<>();
         levels.add(createSimpleLevel1());
         levels.add(createSimpleLevel2());
-        boolean gameOver = false;
         g.nextLevel();
         g.update();
         assertEquals(levels.get(1),  g.getCurrentLevel());
