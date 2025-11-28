@@ -32,4 +32,14 @@ public class GameTest {
         assertTrue(g.isGameOver());
     }
 
+    @Test
+    void testGameOverIfPlayerDies(){
+        Game g = createSimpleGame();
+        Level lvl = g.getCurrentLevel();
+        Player p = lvl.getPlayer();
+        p.takeDamage(p.getHealth());
+        g.update();
+        assertTrue(g.isGameOver());
+    }
+
 }
