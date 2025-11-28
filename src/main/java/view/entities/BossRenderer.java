@@ -1,19 +1,19 @@
 package view.entities;
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.entities.characters.enemies.Boss;
 import java.io.IOException;
 
 
-public class BossRenderer implements EntityRenderer<Boss, LanternaGui>{
+public class BossRenderer implements EntityRenderer<Boss>{
 
     private final String img ;
 
-    public BossRenderer() throws IOException {
+    public BossRenderer() {
         this.img = "sprites/Boss right.png";
     }
 
-    public void render(Boss boss, LanternaGui gui) throws IOException {
+    public void render(Boss boss, Gui gui) throws IOException {
         gui.drawImage(img, boss.getPosition());
     }
 }

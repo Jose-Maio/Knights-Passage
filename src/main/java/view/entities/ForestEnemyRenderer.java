@@ -1,11 +1,11 @@
 package view.entities;
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.entities.characters.enemies.ForestEnemy;
 import java.io.IOException;
 
 
-public class ForestEnemyRenderer implements EntityRenderer<ForestEnemy, LanternaGui>{
+public class ForestEnemyRenderer implements EntityRenderer<ForestEnemy>{
 
     private final String img;
 
@@ -13,7 +13,7 @@ public class ForestEnemyRenderer implements EntityRenderer<ForestEnemy, Lanterna
         this.img = "sprites/ForestEnemy front.png";
     }
 
-    public void render(ForestEnemy forestEnemy, LanternaGui gui) throws IOException {
+    public void render(ForestEnemy forestEnemy, Gui gui) throws IOException {
         gui.drawImage(img, forestEnemy.getPosition());
     }
 }

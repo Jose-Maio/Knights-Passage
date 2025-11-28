@@ -1,7 +1,7 @@
 package view;
 
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.entities.objects.Object;
 import model.entities.objects.Tree;
 import model.entities.objects.Wall;
@@ -11,7 +11,7 @@ import view.entities.WallRenderer;
 import java.io.IOException;
 
 public class ArenaRenderer {
-    public void render(Arena arena, LanternaGui gui) throws IOException {
+    public void render(Arena arena, Gui gui) throws IOException {
         WallRenderer wr = new WallRenderer();
         TreeRenderer tr = new TreeRenderer();
 

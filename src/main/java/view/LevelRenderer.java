@@ -1,6 +1,6 @@
 package view;
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.entities.characters.enemies.Enemy;
 import model.entities.characters.enemies.ForestEnemy;
 import model.game.Level;
@@ -12,7 +12,7 @@ import java.io.IOException;
 
 
 public class LevelRenderer {
-    public void render(Level level, LanternaGui gui) throws IOException {
+    public void render(Level level, Gui gui) throws IOException {
         PlayerRenderer pr = new PlayerRenderer();
         ForestEnemyRenderer fer = new ForestEnemyRenderer();
         ArenaRenderer ar = new ArenaRenderer();

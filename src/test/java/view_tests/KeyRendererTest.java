@@ -1,6 +1,7 @@
 package view_tests;
 
-import gui.LanternaGui;
+
+import gui.Gui;
 import model.Position;
 import model.entities.objects.Key;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,7 @@ class KeyRendererTest {
 
     private Key key;
     private KeyRenderer renderer;
-    private LanternaGui gui;
+    private Gui gui;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -20,7 +21,7 @@ class KeyRendererTest {
         Mockito.when(key.getPosition()).thenReturn(new Position(5, 15));
 
         renderer = new KeyRenderer();
-        gui = Mockito.mock(LanternaGui.class);
+        gui = Mockito.mock(Gui.class);
     }
 
     @Test

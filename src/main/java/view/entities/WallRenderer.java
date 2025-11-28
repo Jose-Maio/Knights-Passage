@@ -1,20 +1,20 @@
 package view.entities;
 
 
-import gui.LanternaGui;
+import gui.Gui;
 import model.entities.objects.Wall;
 import java.io.IOException;
 
 
-public class WallRenderer implements EntityRenderer<Wall,LanternaGui> {
+public class WallRenderer implements EntityRenderer<Wall> {
 
     private final String img;
 
-    public WallRenderer() throws IOException {
+    public WallRenderer() {
         this.img = "sprites/wall.png";
     }
 
-    public void render(Wall wall, LanternaGui gui) throws IOException {
+    public void render(Wall wall, Gui gui) throws IOException {
         gui.drawImage(img, wall.getPosition());
 
     }
