@@ -38,6 +38,10 @@ public class Game {
         this.gameOver = true;
     }
 
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
     public void update(){
         Level level = levels.get(currentLevel);
 
