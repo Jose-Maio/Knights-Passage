@@ -42,7 +42,7 @@ class LevelRendererTest {
     }
 
     @Test
-    void rendercallsArena() throws IOException {
+    void renderCallsArena() throws IOException {
         renderer.render(level, gui);
 
         Mockito.verify(gui, Mockito.atLeastOnce()).drawImage(Mockito.anyString(), Mockito.any());
