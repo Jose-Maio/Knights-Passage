@@ -19,30 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameTest {
 
-    Level createSimpleLevel1() {
-        Player p = new Player(20, 5);
-
-        ForestEnemy enemy = new ForestEnemy(new Position(10,10), 10, 2);
-
-        Key key = new Key(new Position(5,5));
-
-        Arena arena = new Arena(List.of(new Tree(new Position(20,20))), "bg");
-
-        return new Level(List.of(enemy), key, arena, new Position(0,0), new Position(100,100), p);
-    }
-
-    Level createSimpleLevel2() {
-        Player p = new Player(20, 5);
-
-        ForestEnemy enemy = new ForestEnemy(new Position(10,10), 10, 2);
-
-        Key key = new Key(new Position(5,5));
-
-        Arena arena = new Arena(List.of(new Tree(new Position(20,20))), "bg");
-
-        return new Level(List.of(enemy), key, arena, new Position(0,0), new Position(100,100), p);
-    }
-
     Game createSimpleGame() {
         GameConfiguration gc = new GameConfiguration(Difficulty.MEDIUM);
         return new Game(gc);
@@ -51,14 +27,10 @@ public class GameTest {
     @Test
     void testNextLevel() {
         Game g = createSimpleGame();
-        int currentLevel = 0;
-        List<Level> levels = new ArrayList<>();
-        levels.add(createSimpleLevel1());
-        levels.add(createSimpleLevel2());
-        boolean gameOver = false;
+        g.nextLevel();
         g.update();
+        assertTrue(g.isGameOver());
         assertEquals(levels.get(1),  g.getCurrentLevel());
     }
-
 
 }
