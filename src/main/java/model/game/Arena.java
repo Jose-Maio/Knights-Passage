@@ -20,7 +20,7 @@ public class Arena {
 
     public boolean isBlocked(Position position){
         for(Object object : objectList){
-            if(object.getPosition().equals(position)) return true;
+            if(object.getPosition().equals(position) && object.isSolid()) return true;
         }
         return false;
     }

@@ -1,7 +1,6 @@
 package model.game;
 
-import model.entities.characters.Player;
-import model.game.Level;
+
 import model.game.config.GameConfiguration;
 
 import java.util.List;
