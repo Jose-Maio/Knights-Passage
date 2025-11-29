@@ -1,7 +1,5 @@
-package model_tests;
+package model;
 
-import model.Direction;
-import model.Position;
 import model.entities.characters.enemies.Enemy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

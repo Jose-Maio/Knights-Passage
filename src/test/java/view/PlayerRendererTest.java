@@ -1,4 +1,4 @@
-package view_tests;
+package view;
 
 import gui.Gui;
 import model.Position;

@@ -1,4 +1,4 @@
-package model_tests;
+package model;
 
 import model.entities.characters.Player;
 import model.game.Game;
@@ -9,10 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class GameTest {
     private Game g;
@@ -50,6 +50,13 @@ public class GameTest {
         levels.add(g.getCurrentLevel());
         assertEquals(g.getLevels(), levels);
     }
+
+    @Test
+    void testIsGameOverIsFalseInitially() {
+        assertFalse(g.isGameOver());
+    }
+
+
 
 
 }

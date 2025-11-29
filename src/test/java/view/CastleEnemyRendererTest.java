@@ -1,27 +1,25 @@
-package view_tests;
+package view;
 
 import gui.Gui;
 import model.Position;
 import model.entities.characters.enemies.CastleEnemy;
-import model.entities.characters.enemies.DungeonEnemy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import view.entities.CastleEnemyRenderer;
-import view.entities.DungeonEnemyRenderer;
 
-class DungeonEnemyRendererTest {
+class CastleEnemyRendererTest {
 
-    private DungeonEnemy enemy;
-    private DungeonEnemyRenderer renderer;
+    private CastleEnemy enemy;
+    private CastleEnemyRenderer renderer;
     private Gui gui;
 
     @BeforeEach
     void setUp() throws Exception {
-        enemy = Mockito.mock(DungeonEnemy.class);
+        enemy = Mockito.mock(CastleEnemy.class);
         Mockito.when(enemy.getPosition()).thenReturn(new Position(7, 12));
 
-        renderer = new DungeonEnemyRenderer();
+        renderer = new CastleEnemyRenderer();
         gui = Mockito.mock(Gui.class);
     }
 
@@ -29,6 +27,6 @@ class DungeonEnemyRendererTest {
     void drawElement() throws Exception {
         renderer.render(enemy, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/DungeonEnemy right.png", enemy.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/CastleEnemy right.png", enemy.getPosition());
     }
 }

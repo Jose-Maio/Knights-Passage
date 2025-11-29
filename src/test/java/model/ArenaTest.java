@@ -1,6 +1,5 @@
-package model_tests;
+package model;
 
-import model.Position;
 import model.entities.objects.Object;
 import model.game.Arena;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,12 +1,10 @@
-package view_tests;
+package view;
 
 import gui.Gui;
 import model.game.Game;
 import model.game.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view.GameView;
-import view.LevelRenderer;
 
 import java.io.IOException;
 

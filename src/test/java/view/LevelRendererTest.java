@@ -1,4 +1,4 @@
-package view_tests;
+package view;
 
 import gui.Gui;
 import model.entities.characters.Player;
@@ -9,7 +9,6 @@ import model.game.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.LevelRenderer;
 
 import java.io.IOException;
 import java.util.Arrays;

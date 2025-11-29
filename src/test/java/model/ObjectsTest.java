@@ -1,6 +1,5 @@
-package model_tests;
+package model;
 
-import model.Position;
 import model.entities.objects.Key;
 import model.entities.objects.Tree;
 import model.entities.objects.Wall;

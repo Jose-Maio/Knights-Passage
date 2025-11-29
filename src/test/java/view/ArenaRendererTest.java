@@ -1,4 +1,4 @@
-package view_tests;
+package view;
 
 import gui.Gui;
 import model.Position;
@@ -8,7 +8,6 @@ import model.game.Arena;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.ArenaRenderer;
 
 import java.io.IOException;
 import java.util.Arrays;

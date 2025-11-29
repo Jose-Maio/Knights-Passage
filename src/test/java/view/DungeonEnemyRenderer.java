@@ -1,27 +1,25 @@
-package view_tests;
+package view;
 
 import gui.Gui;
 import model.Position;
-import model.entities.characters.enemies.Boss;
-
+import model.entities.characters.enemies.DungeonEnemy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.BossRenderer;
+import view.entities.DungeonEnemyRenderer;
 
+class DungeonEnemyRendererTest {
 
-class BossRendererTest {
-
-    private Boss enemy;
-    private BossRenderer renderer;
+    private DungeonEnemy enemy;
+    private DungeonEnemyRenderer renderer;
     private Gui gui;
 
     @BeforeEach
     void setUp() throws Exception {
-        enemy = Mockito.mock(Boss.class);
+        enemy = Mockito.mock(DungeonEnemy.class);
         Mockito.when(enemy.getPosition()).thenReturn(new Position(7, 12));
 
-        renderer = new BossRenderer();
+        renderer = new DungeonEnemyRenderer();
         gui = Mockito.mock(Gui.class);
     }
 
@@ -29,6 +27,6 @@ class BossRendererTest {
     void drawElement() throws Exception {
         renderer.render(enemy, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Boss right.png", enemy.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/DungeonEnemy right.png", enemy.getPosition());
     }
 }
