@@ -16,7 +16,8 @@ This project was developed by José Maio (up202404872@up.pt) and Pedro Vilaça (
 - **Attacking Enemies** - The game character is able to damage enemies when close to them.
 - **Getting Hidden Keys** - When the game character gets close to a hidden key it reveals its position so the player can collect it.
 - **Starting Menu** - The game will include a starting menu that will allow the user to choose the configuration/difficulty settings for the game.
-- **Basic Enemy Moving Algorithm** - The enemies will follow a strict algorithm, making them always move closer to the player.  
+- **Basic Enemy Moving Algorithm** - The enemies will follow a strict algorithm, making them always move closer to the player.
+- **Hitboxes** - The player and enemies will collide witth objects, based on fixed hitboxes.
 
 ### DESIGN
 
@@ -36,11 +37,11 @@ To solve this problem we applied the **Factory Method** pattern. This pattern al
 
 UML :
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+![FactoryMethod](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/docs/UML/FactoryMethod_SingletonPatternUML.png)
 
 This class can be found in the following file:
 
-- [LevelFactory](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/model/game/LevelFactory.java)
+- [LevelFactory](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/model/game/LevelFactory.java)
 
 **Consequences**
 
@@ -64,16 +65,19 @@ To solve this problem we applied the **Strategy** pattern. This pattern allows u
 
 UML do pattern:
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+![Strategy](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/docs/UML/StrategyPatternUML.png)
 
 These classes can be found in the following files:
 
-- [EntityRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/view/entities/EntityRenderer.java)
-- [EnemyRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/view/entities/EnemyRenderer.java)
-- [PlayerRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/view/entities/PlayerRenderer.java)
-- [WallRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/view/entities/WallRenderer.java)
-- [TreeRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/view/entities/TreeRenderer.java)
-- [KeyRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/view/entities/KeyRenderer.java)
+- [EntityRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/EntityRenderer.java)
+- [BossRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/BossRenderer.java)
+- [CastleEnemyRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/CastleEnemyRenderer.java)
+- [DungeonEnemyRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/DungeonEnemyRenderer.java)
+- [ForestEnemyRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/ForestEnemyRenderer.java)
+- [PlayerRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/PlayerRenderer.java)
+- [WallRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/WallRenderer.java)
+- [TreeRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/TreeRenderer.java)
+- [KeyRenderer](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/view/entities/KeyRenderer.java)
 
 **Consequences**
 
@@ -94,13 +98,13 @@ To solve this problem we applied the **Singleton** pattern. This pattern allows 
 
 **Implementation**
 
-UML do pattern:
+UML:
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+![Singleton](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/docs/UML/FactoryMethod_SingletonPatternUML.png)
 
 This class can be found in the following file:
 
-- [LevelFactory](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/504947cb5df0180ccc2882429f0d2288fa7f98a8/src/main/java/model/game/LevelFactory.java)
+- [LevelFactory](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/80d2aa8197970523bf50b39f1cc1181334eed805/src/main/java/model/game/LevelFactory.java)
   
 **Consequences**
 
@@ -122,14 +126,10 @@ The LevelRenderer and ArenaRenderer both violate the Open/Closed Principle as if
 
 ### TESTING
 
-- Screenshot of coverage report.
-- Link to mutation testing report.
+![CoverageReport](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/a2a864112282a1701d0a72b5d4502b7fc48bde10/docs/CoverageReport.png)
+- [Mutation Testing]([index.html](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/e5a37063770ee534c66438c03602bcb3d477db86/docs/reports/pitest/202511291941/index.html))
 
 ### SELF-EVALUATION
 
-> In this section describe how the work regarding the project was divided between the students. In the event that members of the group do not agree on a work distribution, the group should send an email to the teacher explaining the disagreement.
-
-**Example**:
-
-- John Doe: 40%
-- Jane Doe: 60%
+- José Maio: 60%
+- Pedro Vilaça: 40%
