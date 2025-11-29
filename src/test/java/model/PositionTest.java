@@ -1,6 +1,5 @@
-package model_tests;
+package model;
 
-import model.Position;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

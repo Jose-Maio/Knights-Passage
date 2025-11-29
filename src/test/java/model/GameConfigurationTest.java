@@ -1,4 +1,4 @@
-package model_tests;
+package model;
 
 
 import model.game.config.Difficulty;

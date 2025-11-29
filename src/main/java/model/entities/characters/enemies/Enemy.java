@@ -53,4 +53,12 @@ public abstract class Enemy implements Character {
     }
 
     public void update(){}
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }
