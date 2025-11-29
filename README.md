@@ -127,9 +127,9 @@ The LevelRenderer and ArenaRenderer both violate the Open/Closed Principle as if
 ### TESTING
 
 ![CoverageReport](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/a2a864112282a1701d0a72b5d4502b7fc48bde10/docs/CoverageReport.png)
-- [Mutation Testing]([index.html](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/e5a37063770ee534c66438c03602bcb3d477db86/docs/reports/pitest/202511291941/index.html))
+[Mutation Testing](https://github.com/FEUP-LDTS-2025/project-t02g09/blob/e5a37063770ee534c66438c03602bcb3d477db86/docs/reports/pitest/202511291941/index.html)
 
 ### SELF-EVALUATION
 
-- José Maio: 60%
-- Pedro Vilaça: 40%
+- José Maio: 50%
+- Pedro Vilaça: 50%
