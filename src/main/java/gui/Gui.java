@@ -10,4 +10,7 @@ public interface Gui {
      public void fillBackground(String img) throws IOException;
 
 
+    void clear();
+
+    void refresh() throws IOException;
 }

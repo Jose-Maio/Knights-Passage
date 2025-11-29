@@ -5,19 +5,25 @@ import model.game.Game;
 import model.game.Level;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
+    private Game g;
 
-    Game createSimpleGame() {
-        GameConfiguration gc = new GameConfiguration(Difficulty.MEDIUM);
-        return new Game(gc);
-    }
+
+    @BeforeEach
+    void setup(){
+        g = new Game(new GameConfiguration(Difficulty.MEDIUM));}
 
     @Test
     void testNextLevel() {
-        Game g = createSimpleGame();
         g.nextLevel();
         g.update();
         assertTrue(g.isGameOver());
@@ -25,12 +31,25 @@ public class GameTest {
 
     @Test
     void testGameOverIfPlayerDies(){
-        Game g = createSimpleGame();
         Level lvl = g.getCurrentLevel();
         Player p = lvl.getPlayer();
         p.takeDamage(p.getHealth());
         g.update();
         assertTrue(g.isGameOver());
     }
+
+    @Test
+    void testSetGameOver(){
+        g.setGameOver();
+        assertTrue(g.isGameOver());
+    }
+
+    @Test
+    void testGetLevels(){
+        List<Level> levels = new ArrayList<>();
+        levels.add(g.getCurrentLevel());
+        assertEquals(g.getLevels(), levels);
+    }
+
 
 }

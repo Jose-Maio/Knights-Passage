@@ -14,15 +14,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LevelTest {
+    private Key key;
+    private Arena arena;
 
     Level createSimpleLevel() {
         Player p = new Player(20, 5);
 
         ForestEnemy enemy = new ForestEnemy(new Position(10,10), 10, 2);
 
-        Key key = new Key(new Position(5,5));
+        key = new Key(new Position(5,5));
 
-        Arena arena = new Arena(List.of(new Tree(new Position(20,20))), "bg");
+        arena = new Arena(List.of(new Tree(new Position(20,20))), "bg");
 
         return new Level(List.of(enemy), key, arena, new Position(0,0), new Position(100,100), p);
     }                                                 // entry                   // exit
@@ -63,5 +65,17 @@ public class LevelTest {
         p.setPosition(new Position(100,100));
 
         assertTrue(level.isComplete());
+    }
+    @Test
+    void testGetArena() {
+        Level level = createSimpleLevel();
+        assertEquals(arena, level.getArena());
+    }
+
+
+    @Test
+    void testGetKey() {
+        Level level = createSimpleLevel();
+        assertEquals(key, level.getKey());
     }
 }
