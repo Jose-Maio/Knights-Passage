@@ -25,7 +25,7 @@ public class GameTest {
     @Test
     void testNextLevel() {
         g.nextLevel();
-        g.update();
+        g.update(Direction.RIGHT);
         assertTrue(g.isGameOver());
     }
 
@@ -34,7 +34,7 @@ public class GameTest {
         Level lvl = g.getCurrentLevel();
         Player p = lvl.getPlayer();
         p.takeDamage(p.getHealth());
-        g.update();
+        g.update(Direction.RIGHT);
         assertTrue(g.isGameOver());
     }
 

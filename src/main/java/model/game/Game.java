@@ -1,6 +1,7 @@
 package model.game;
 
 
+import model.Direction;
 import model.game.config.GameConfiguration;
 
 import java.util.List;
@@ -41,13 +42,13 @@ public class Game {
         return gameOver;
     }
 
-    public void update(){
+    public void update(Direction direction){
         Level level = levels.get(currentLevel);
 
         if(level.getPlayer().isDead()){
             gameOver = true;
         }
-        level.update();
+        level.update(direction);
 
         if(level.isComplete()){
             nextLevel();

@@ -2,20 +2,14 @@ package model.entities.objects;
 
 import model.Position;
 
-public class Key implements Object{
-    private final Position position;
 
-    public Key(Position position){
-        this.position = position;
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
+public class Key extends Object{
     @Override
     public boolean isSolid() {
         return false;
     }
+    public Key(Position position) {
+        super(position);
+    }
+
 }

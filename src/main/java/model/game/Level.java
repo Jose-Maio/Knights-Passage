@@ -1,10 +1,13 @@
 package model.game;
 
+import model.Direction;
 import model.Position;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Key;
+import model.entities.objects.Object;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,14 +45,50 @@ public class Level {
         return player;
     }
 
-    public void update(){
-        if(player.getPosition().equals(key.getPosition())) player.pickUpKey();
+    public List<Enemy> getCloseEnemyList(){
+        List<Enemy> closeEnemy = new ArrayList<>();
+        for(Enemy enemy : enemyList){
+            if(enemy.getVision().intersects(player.getHitbox())){
+                closeEnemy.add(enemy);
+            }
+        }
+        return closeEnemy;
+    }
 
-        for (int i = 0; i < enemyList.size(); i++) {
-            Enemy enemy = enemyList.get(i);
+    public boolean checkPlayerCollisions(Rectangle newHitbox){
+
+
+        for(Object object : arena.getObjectList()){
+            if(object.isSolid() && object.getHitbox().intersects(newHitbox)){
+                return true;
+            }
+        }
+
+        for(Enemy enemy : getCloseEnemyList()){
+            if(enemy.getHitbox().intersects(newHitbox)){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public void update(Direction direction){
+        Position newPosition = player.nextPos(direction);
+        Rectangle newHitbox = new Rectangle(newPosition.getX(), newPosition.getY(), 16, 16);
+        if(!checkPlayerCollisions(newHitbox)){
+            player.move(direction);
+        }
+
+        if(player.getHitbox().intersects(key.getHitbox())) player.pickUpKey();
+
+        List<Enemy> closeEnemy = getCloseEnemyList();
+
+        for (int i = 0; i < closeEnemy.size(); i++) {
+            Enemy enemy = closeEnemy.get(i);
             enemy.update();
             if (enemy.isDead()) {
-                enemyList.remove(i);
+                closeEnemy.remove(i);
                 i--;
             }
         }
@@ -58,6 +97,7 @@ public class Level {
     }
 
     public boolean isComplete(){
-        return player.hasKey() && player.getPosition().equals(exitPosition);
+
+        return player.hasKey() && player.getHitbox().intersects(new Rectangle(exitPosition.getX(), exitPosition.getY()));
     }
 }
