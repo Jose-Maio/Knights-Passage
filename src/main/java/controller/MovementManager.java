@@ -38,6 +38,7 @@ public class MovementManager {
     }
 
     public void movePlayer(Level level, Direction direction){
+        if (direction == null) return;
         Player player = level.getPlayer();
         Position next = player.nextPos(direction);
         if(!CollisionManager.checkPlayerCollisions(next, level)){

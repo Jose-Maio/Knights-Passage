@@ -16,7 +16,7 @@ public class LevelRenderer {
     ForestEnemyRenderer fer = new ForestEnemyRenderer();
     ArenaRenderer ar = new ArenaRenderer();
     KeyRenderer kr = new KeyRenderer();
-    private boolean arenaRendered = false;
+
 
     public LevelRenderer() throws IOException {
     }

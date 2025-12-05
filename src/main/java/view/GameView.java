@@ -27,6 +27,10 @@ public class GameView {
 
         gui.refresh();
     }
+
+    public Gui getGui() {
+        return gui;
+    }
 }
 
 

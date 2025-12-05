@@ -3,6 +3,8 @@ package view.entities;
 
 import gui.Gui;
 import model.entities.objects.Wall;
+
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 
@@ -17,5 +19,11 @@ public class WallRenderer implements EntityRenderer<Wall> {
     public void render(Wall wall, Gui gui) throws IOException {
         gui.drawImage(img, wall.getPosition());
 
+    }
+    public void renderToBuffer(Wall wall, BufferedImage buffer, Gui gui) throws IOException {
+        gui.drawImageToBuffer(img,
+                wall.getPosition().getX(),
+                wall.getPosition().getY(),
+                buffer);
     }
 }

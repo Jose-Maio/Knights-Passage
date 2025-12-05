@@ -77,22 +77,6 @@ public class LanternaGui implements Gui {
         }
     }
 
-    @Override
-    public void fillBackground(String img) throws IOException {
-        BufferedImage sprite = ImageIO.read(
-                Objects.requireNonNull(
-                        getClass().getClassLoader().getResourceAsStream(img)
-                )
-        );
-
-        for(int i = 0; i < width; i+= 16){
-            for(int j = 0; j < height; j += 16){
-                drawImage(img , new Position(i,j));
-            }
-        }
-
-    }
-
     public void clear(){
         screen.clear();
     }
@@ -101,4 +85,51 @@ public class LanternaGui implements Gui {
         screen.refresh();
     }
 
+    public void drawImageToBuffer(String img, int xOffset, int yOffset, BufferedImage buffer) throws IOException {
+        BufferedImage sprite = ImageIO.read(
+                Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(img))
+        );
+
+        for (int x = 0; x < sprite.getWidth(); x++) {
+            for (int y = 0; y < sprite.getHeight(); y++) {
+                int rgb = sprite.getRGB(x, y);
+                int alpha = (rgb >> 24) & 0xff;
+                if (alpha != 0) {
+                    buffer.setRGB(x + xOffset, y + yOffset, rgb);
+                }
+            }
+        }
+    }
+
+    public void drawBuffer(BufferedImage buffer)  {
+        for (int x = 0; x < buffer.getWidth(); x++) {
+            for (int y = 0; y < buffer.getHeight(); y++) {
+                int rgb = buffer.getRGB(x, y);
+                int alpha = (rgb >> 24) & 0xff;
+                if (alpha != 0) {
+                    int red = (rgb >> 16) & 0xff;
+                    int green = (rgb >> 8) & 0xff;
+                    int blue = rgb & 0xff;
+
+                    TextCharacter c = new TextCharacter(' ',
+                            new com.googlecode.lanterna.TextColor.RGB(red, green, blue),
+                            new com.googlecode.lanterna.TextColor.RGB(red, green, blue));
+
+                    graphics.setCharacter(x, y, c);
+                }
+            }
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
 }

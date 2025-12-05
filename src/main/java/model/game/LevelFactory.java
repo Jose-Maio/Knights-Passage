@@ -47,7 +47,7 @@ public class LevelFactory {
                 new Tree(new Position(160,70 )),
                 new Tree(new Position(320, 98))
         );
-        return new Arena(objects, "sprites/grass.png");
+        return new Arena(objects, "sprites/forestbg.png");
     }
 
     public List<Level> getLevels(){

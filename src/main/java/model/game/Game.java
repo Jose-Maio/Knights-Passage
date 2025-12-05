@@ -42,22 +42,5 @@ public class Game {
         return gameOver;
     }
 
-    public void update(Direction direction){
-        Level level = levels.get(currentLevel);
-
-        if(level.getPlayer().isDead()){
-            gameOver = true;
-        }
-        level.update(direction);
-
-        if(level.isComplete()){
-            nextLevel();
-        }
-
-        if(gameOver){
-            return;
-        }
-
-    }
 
 }
