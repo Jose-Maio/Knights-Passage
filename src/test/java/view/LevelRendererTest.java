@@ -20,7 +20,7 @@ class LevelRendererTest {
     private LevelRenderer renderer;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         gui = Mockito.mock(Gui.class);
 
         Arena arena = Mockito.mock(Arena.class);

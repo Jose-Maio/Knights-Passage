@@ -12,11 +12,16 @@ import java.io.IOException;
 
 
 public class LevelRenderer {
+    PlayerRenderer pr = new PlayerRenderer();
+    ForestEnemyRenderer fer = new ForestEnemyRenderer();
+    ArenaRenderer ar = new ArenaRenderer();
+    KeyRenderer kr = new KeyRenderer();
+    private boolean arenaRendered = false;
+
+    public LevelRenderer() throws IOException {
+    }
+
     public void render(Level level, Gui gui) throws IOException {
-        PlayerRenderer pr = new PlayerRenderer();
-        ForestEnemyRenderer fer = new ForestEnemyRenderer();
-        ArenaRenderer ar = new ArenaRenderer();
-        KeyRenderer kr = new KeyRenderer();
 
         ar.render(level.getArena(), gui);
 
@@ -31,5 +36,5 @@ public class LevelRenderer {
 
 
     }
-        }
+    }
 }

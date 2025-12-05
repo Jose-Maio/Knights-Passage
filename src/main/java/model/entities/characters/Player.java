@@ -12,7 +12,7 @@ public class Player implements Character, Damageable {
     private final int attackPower;
     private Direction facing;
     private boolean hasKey;
-    private final Rectangle hitbox;
+    private Rectangle hitbox;
 
     public Player(int health, int attackPower) {
         this.health = health;
@@ -35,12 +35,14 @@ public class Player implements Character, Damageable {
 
     public void setPosition(Position position) {
         this.position = position;
+        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
     }
 
     @Override
     public void move(Direction direction) {
         this.position = nextPos(direction);
         this.facing = direction;
+        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
     }
 
     @Override
@@ -80,13 +82,13 @@ public class Player implements Character, Damageable {
 
         switch(facing){
             case UP:
-                return new Position(position.getX(), position.getY() + 1);
-            case DOWN:
                 return new Position(position.getX(), position.getY() - 1);
+            case DOWN:
+                return new Position(position.getX(), position.getY() + 1);
             case LEFT:
-                return new Position(position.getX() + 1, position.getY());
-            case RIGHT:
                 return new Position(position.getX() - 1, position.getY());
+            case RIGHT:
+                return new Position(position.getX() + 1, position.getY());
         }
         return null;
     }

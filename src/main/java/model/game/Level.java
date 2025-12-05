@@ -55,30 +55,11 @@ public class Level {
         return closeEnemy;
     }
 
-    public boolean checkPlayerCollisions(Rectangle newHitbox){
-
-
-        for(Object object : arena.getObjectList()){
-            if(object.isSolid() && object.getHitbox().intersects(newHitbox)){
-                return true;
-            }
-        }
-
-        for(Enemy enemy : getCloseEnemyList()){
-            if(enemy.getHitbox().intersects(newHitbox)){
-                return true;
-            }
-        }
-        return false;
-
-    }
 
     public void update(Direction direction){
         Position newPosition = player.nextPos(direction);
         Rectangle newHitbox = new Rectangle(newPosition.getX(), newPosition.getY(), 16, 16);
-        if(!checkPlayerCollisions(newHitbox)){
-            player.move(direction);
-        }
+
 
         if(player.getHitbox().intersects(key.getHitbox())) player.pickUpKey();
 

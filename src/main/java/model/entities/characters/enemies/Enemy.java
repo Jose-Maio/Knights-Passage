@@ -7,12 +7,14 @@ import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 
+import static java.lang.Math.abs;
+
 public abstract class Enemy implements Character {
     private Position position;
     private Direction facing;
     private int health;
     private int damage;
-    private final Rectangle hitbox;
+    private Rectangle hitbox;
     private final Rectangle vision;
 
     public Enemy(Position startPosition, int health, int damage){
@@ -21,12 +23,18 @@ public abstract class Enemy implements Character {
         this.damage = damage;
         this.facing = Direction.RIGHT; // default direction
         this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
-        this.vision = new Rectangle(position.getX(), position.getY(), 50, 50);
+        this.vision = new Rectangle(position.getX() - 50, position.getY() - 50, 100, 100 );
     }
 
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
+        this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
     }
 
     @Override

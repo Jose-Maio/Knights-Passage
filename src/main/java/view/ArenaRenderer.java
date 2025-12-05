@@ -11,6 +11,7 @@ import view.entities.WallRenderer;
 import java.io.IOException;
 
 public class ArenaRenderer {
+
     public void render(Arena arena, Gui gui) throws IOException {
         WallRenderer wr = new WallRenderer();
         TreeRenderer tr = new TreeRenderer();
