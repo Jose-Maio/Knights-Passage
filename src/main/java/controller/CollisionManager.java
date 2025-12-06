@@ -13,25 +13,35 @@ import java.util.List;
 public class CollisionManager {
 
 
-    public static boolean checkPlayerCollisions(Position position , Level level){
-        Rectangle newHitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
 
-        for(Object object : level.getArena().getObjectList()){
-            if(object.isSolid() && object.getHitbox().intersects(newHitbox)){
+
+    public boolean checkPlayerCollisions(Position position , Level level) {
+        Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+
+        for (Object object : level.getArena().getObjectList()) {
+            if (object.isSolid() && newHitbox.intersects(object.getHitbox())) {
                 return true;
             }
         }
 
-        for(Enemy enemy : level.getCloseEnemyList()){
-            if(enemy.getHitbox().intersects(newHitbox)){
+        for (Enemy enemy : level.getEnemyList()) {
+            if (enemy.getHitbox().intersects(newHitbox)) {
                 return true;
             }
         }
+
+        //Check inside Arena
+        if (!level.getArena().isInsideArena(newHitbox)) {
+            System.out.println("Outside arena");
+            return true;
+        }
+
         return false;
 
+
     }
-    public static boolean checkEnemyCollisions(Position position, Enemy enemy,  Level level) {
-        Rectangle newHitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
+    public boolean checkEnemyCollisions(Position position, Enemy enemy,  Level level) {
+        Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
         // Collisions with Arena Objects
         for (Object object : level.getArena().getObjectList()) {
             if (object.isSolid() && object.getHitbox().intersects(newHitbox)) {
@@ -48,9 +58,13 @@ public class CollisionManager {
         }
 
         //Collisions with player
-        if(newHitbox.intersects(level.getPlayer().getHitbox())) return true;
+        if(newHitbox.intersects(level.getPlayer().getHitbox())){
+            return true;
+        }
 
-        return false;
+        //Check insideArena
+        return !level.getArena().isInsideArena(newHitbox);
+
     }
 
 }

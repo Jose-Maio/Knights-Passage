@@ -22,7 +22,7 @@ public abstract class Enemy implements Character {
         this.health = health;
         this.damage = damage;
         this.facing = Direction.RIGHT; // default direction
-        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
         this.vision = new Rectangle(position.getX() - 50, position.getY() - 50, 100, 100 );
     }
 
@@ -33,7 +33,7 @@ public abstract class Enemy implements Character {
 
     public void setPosition(Position position) {
         this.position = position;
-        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
         this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
     }
 
@@ -54,6 +54,8 @@ public abstract class Enemy implements Character {
                 this.position.setX(position.getX() + 1);
                 break;
         }
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
     }
 
     @Override
@@ -65,8 +67,6 @@ public abstract class Enemy implements Character {
     public void takeDamage(int amount) {
         health -= amount;
     }
-
-    public void update(){}
 
     public int getHealth() {
         return health;

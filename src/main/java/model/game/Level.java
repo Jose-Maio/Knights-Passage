@@ -67,7 +67,6 @@ public class Level {
 
         for (int i = 0; i < closeEnemy.size(); i++) {
             Enemy enemy = closeEnemy.get(i);
-            enemy.update();
             if (enemy.isDead()) {
                 closeEnemy.remove(i);
                 i--;

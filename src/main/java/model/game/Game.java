@@ -21,7 +21,6 @@ public class Game {
         return levels.get(currentLevel);
     }
 
-
     public List<Level> getLevels() {
         return levels;
     }

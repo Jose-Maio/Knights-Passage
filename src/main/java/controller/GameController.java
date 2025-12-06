@@ -1,6 +1,8 @@
 package controller;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import gui.Gui;
+import gui.LanternaGui;
 import model.Direction;
 import model.game.Game;
 import model.game.Level;
@@ -21,37 +23,26 @@ public class GameController {
 
 
     public void start() throws IOException {
+
         while(!game.isGameOver()){
+
             gameView.render(game);
+
             update();
 
-            try {
+           /*try {
                 Thread.sleep(50); // ~20 FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }
     }
 
     public Direction handleInput() throws IOException {
+        return gameView.getGui().step();
 
-        KeyStroke keyStroke = gameView.getGui().getScreen().readInput();
 
-        if (keyStroke != null) {
-            switch (keyStroke.getKeyType()) {
-                case ArrowUp:
-                    return Direction.UP;
-                case ArrowDown:
-                    return  Direction.DOWN;
-                case ArrowLeft:
-                    return Direction.LEFT;
-                case ArrowRight:
-                    return Direction.RIGHT;
-
-            }
-        }
-        return null;
     }
 
 
@@ -69,10 +60,6 @@ public class GameController {
 
         if(level.isComplete()){
             game.nextLevel();
-        }
-
-        if(game.isGameOver()){
-            return;
         }
 
     }

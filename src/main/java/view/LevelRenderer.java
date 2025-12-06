@@ -31,7 +31,8 @@ public class LevelRenderer {
 
         for(Enemy enemy : level.getEnemyList()){
             if(ForestEnemy.class == enemy.getClass()){
-            fer.render((ForestEnemy) enemy, gui);
+                fer.render((ForestEnemy) enemy, gui);
+
         }
 
 

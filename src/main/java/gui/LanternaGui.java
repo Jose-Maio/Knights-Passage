@@ -4,9 +4,11 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import model.Direction;
 import model.Position;
 
 
@@ -131,5 +133,23 @@ public class LanternaGui implements Gui {
 
     public Screen getScreen() {
         return screen;
+    }
+
+    public Direction step() throws IOException {
+        KeyStroke keyStroke = screen.pollInput();
+        if (keyStroke != null) {
+            switch (keyStroke.getKeyType()) {
+                case ArrowUp:
+                    return Direction.UP;
+                case ArrowDown:
+                    return  Direction.DOWN;
+                case ArrowLeft:
+                    return Direction.LEFT;
+                case ArrowRight:
+                    return Direction.RIGHT;
+
+            }
+        }
+        return null;
     }
 }

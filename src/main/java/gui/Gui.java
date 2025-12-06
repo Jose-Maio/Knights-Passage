@@ -2,6 +2,7 @@ package gui;
 
 
 import com.googlecode.lanterna.screen.Screen;
+import model.Direction;
 import model.Position;
 
 import java.awt.image.BufferedImage;
@@ -23,4 +24,6 @@ public interface Gui {
     int getWidth();
 
     Screen getScreen();
+
+    Direction step() throws IOException;
 }
