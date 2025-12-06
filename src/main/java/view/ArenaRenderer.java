@@ -1,15 +1,12 @@
 package view;
 
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.TextColor;
 import gui.Gui;
-import gui.LanternaGui;
 import model.entities.objects.Object;
 import model.entities.objects.Tree;
 import model.entities.objects.Wall;
 import model.game.Arena;
-import view.entities.TreeRenderer;
-import view.entities.WallRenderer;
+import view.entities.objects.TreeRenderer;
+import view.entities.objects.WallRenderer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

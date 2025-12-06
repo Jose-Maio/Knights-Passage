@@ -1,8 +1,9 @@
-package view.entities;
+package view.entities.objects;
 
 
 import gui.Gui;
 import model.entities.objects.Wall;
+import view.entities.EntityRenderer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

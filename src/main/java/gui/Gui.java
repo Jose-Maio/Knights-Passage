@@ -7,6 +7,7 @@ import model.Position;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Set;
 
 public interface Gui {
     void drawImage(String img,  Position position) throws IOException;
@@ -24,6 +25,9 @@ public interface Gui {
     int getWidth();
 
     Screen getScreen();
+
+
+    Set<Integer> getActiveKeys();
 
     Direction step() throws IOException;
 }

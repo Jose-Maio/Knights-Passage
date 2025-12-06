@@ -8,12 +8,16 @@ import model.game.Game;
 import model.game.Level;
 import view.GameView;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Set;
 
 public class GameController {
     private Game game;
     private final MovementManager movementManager;
     private final GameView gameView;
+    private long lastEnemyMove = 0;
+    private final long enemyDelay = 300;
 
     public GameController(Game game) throws Exception {
         this.game = game;
@@ -24,8 +28,9 @@ public class GameController {
 
     public void start() throws IOException {
 
+        Gui gui = gameView.getGui();
         while(!game.isGameOver()){
-
+            gui.step();
             gameView.render(game);
 
             update();
@@ -37,31 +42,40 @@ public class GameController {
             }*/
 
         }
+        gui.getScreen().close();
     }
 
     public Direction handleInput() throws IOException {
         return gameView.getGui().step();
-
-
     }
 
 
     public void update() throws IOException {
+        long now = System.currentTimeMillis();
         Direction pressed = handleInput();
         Level level = game.getCurrentLevel();
 
-        if(level.getPlayer().isDead()){
+        if (level.getPlayer().isDead()) {
             game.setGameOver();
         }
 
         movementManager.movePlayer(level, pressed);
+        if(level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
+            level.getArena().getKey().pick();
+            level.getPlayer().pickUpKey();
 
-        movementManager.moveEnemies(level);
+        }
 
-        if(level.isComplete()){
+        if (now - lastEnemyMove >= enemyDelay) {
+            movementManager.moveEnemies(level);
+            lastEnemyMove = now;
+        }
+
+        if (level.isComplete()) {
             game.nextLevel();
         }
 
+        }
     }
-}
+
 

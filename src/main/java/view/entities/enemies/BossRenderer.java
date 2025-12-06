@@ -1,11 +1,13 @@
-package view.entities;
+package view.entities.enemies;
 
 import gui.Gui;
 import model.entities.characters.enemies.Boss;
+import view.entities.EntityRenderer;
+
 import java.io.IOException;
 
 
-public class BossRenderer implements EntityRenderer<Boss>{
+public class BossRenderer implements EntityRenderer<Boss> {
 
     private final String img ;
 

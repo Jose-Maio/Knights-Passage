@@ -7,7 +7,7 @@ import model.entities.characters.enemies.Boss;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.BossRenderer;
+import view.entities.enemies.BossRenderer;
 
 
 class BossRendererTest {

@@ -13,18 +13,17 @@ import java.util.List;
 public class CollisionManager {
 
 
-
-
     public boolean checkPlayerCollisions(Position position , Level level) {
         Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
 
         for (Object object : level.getArena().getObjectList()) {
             if (object.isSolid() && newHitbox.intersects(object.getHitbox())) {
+                System.out.println("object in the player way");
                 return true;
             }
         }
 
-        for (Enemy enemy : level.getEnemyList()) {
+        for (Enemy enemy : level.getCloseEnemyList()) {
             if (enemy.getHitbox().intersects(newHitbox)) {
                 return true;
             }
@@ -32,7 +31,6 @@ public class CollisionManager {
 
         //Check inside Arena
         if (!level.getArena().isInsideArena(newHitbox)) {
-            System.out.println("Outside arena");
             return true;
         }
 

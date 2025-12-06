@@ -4,8 +4,8 @@ import gui.Gui;
 import model.entities.characters.enemies.Enemy;
 import model.entities.characters.enemies.ForestEnemy;
 import model.game.Level;
-import view.entities.ForestEnemyRenderer;
-import view.entities.KeyRenderer;
+import view.entities.enemies.ForestEnemyRenderer;
+import view.entities.objects.KeyRenderer;
 import view.entities.PlayerRenderer;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class LevelRenderer {
 
         pr.render(level.getPlayer(), gui);
 
-        kr.render(level.getKey(), gui);
+        kr.render(level.getArena().getKey(), gui);
 
         for(Enemy enemy : level.getEnemyList()){
             if(ForestEnemy.class == enemy.getClass()){

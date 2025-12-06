@@ -88,4 +88,7 @@ public class Player implements Character, Damageable {
         };
     }
 
+    public void setFacing(Direction facing) {
+        this.facing = facing;
+    }
 }

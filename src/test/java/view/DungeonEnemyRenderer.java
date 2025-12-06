@@ -6,7 +6,7 @@ import model.entities.characters.enemies.DungeonEnemy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.DungeonEnemyRenderer;
+import view.entities.enemies.DungeonEnemyRenderer;
 
 class DungeonEnemyRendererTest {
 

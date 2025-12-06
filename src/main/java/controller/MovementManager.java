@@ -45,6 +45,7 @@ public class MovementManager {
         if(!collisionManager.checkPlayerCollisions(next, level)){
             player.move(direction);
         }
+        else {player.setFacing(direction);}
 
     }
 

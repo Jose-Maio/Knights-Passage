@@ -2,7 +2,7 @@ package model.entities.objects;
 
 import model.Position;
 import model.entities.Entity;
-import org.w3c.dom.css.Rect;
+
 
 import java.awt.*;
 
@@ -14,7 +14,7 @@ public abstract class Object implements Entity {
 
     public Object(Position position){
         this.position = position;
-        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
     }
 
     @Override

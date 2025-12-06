@@ -34,7 +34,7 @@ class LevelRendererTest {
 
         Mockito.when(level.getArena()).thenReturn(arena);
         Mockito.when(level.getPlayer()).thenReturn(player);
-        Mockito.when(level.getKey()).thenReturn(key);
+        //Mockito.when(level.getKey()).thenReturn(key);
         Mockito.when(level.getEnemyList()).thenReturn(Arrays.asList(e1, e2));
 
         renderer = new LevelRenderer();

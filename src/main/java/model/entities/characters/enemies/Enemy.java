@@ -83,4 +83,8 @@ public abstract class Enemy implements Character {
     public Rectangle getVision() {
         return vision;
     }
+
+    public void setFacing(Direction facing) {
+        this.facing = facing;
+    }
 }

@@ -1,15 +1,16 @@
-package view.entities;
+package view.entities.enemies;
 
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import gui.Gui;
 import model.entities.characters.enemies.ForestEnemy;
+import view.entities.EntityRenderer;
 
 import java.awt.*;
 import java.io.IOException;
 
 
-public class ForestEnemyRenderer implements EntityRenderer<ForestEnemy>{
+public class ForestEnemyRenderer implements EntityRenderer<ForestEnemy> {
 
     private final String img;
 

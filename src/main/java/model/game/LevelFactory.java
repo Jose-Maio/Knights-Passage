@@ -8,6 +8,7 @@ import model.entities.objects.Key;
 import model.entities.objects.Object;
 import model.entities.objects.Tree;
 import model.game.config.GameConfiguration;
+import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,18 +36,19 @@ public class LevelFactory {
         enemies.add(new ForestEnemy(new Position(170,104), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
         enemies.add(new ForestEnemy(new Position(350, 130), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
-        Key level1Key = new Key(new Position(40,20));
+
         Position entryPosition = new Position(100,100);
-        Position exitPosition = new Position(390,200);
+        Rectangle exitPosition = new Rectangle(384, 192, 16,16);
         Player p = new Player(10,10);
-        return new Level(enemies, level1Key, createArena1(), entryPosition, exitPosition,p );
+        return new Level(enemies, createArena1(), entryPosition, exitPosition,p );
     }
 
     public Arena createArena1(){
         List<Object> objects = List.of(
                 new Tree(new Position(40, 20)),
                 new Tree(new Position(160,70 )),
-                new Tree(new Position(320, 98))
+                new Tree(new Position(320, 98)),
+                new Key(new Position(200,100))
         );
         return new Arena(objects, "sprites/forestbg.png", new Rectangle(0,0,400,208));
     }

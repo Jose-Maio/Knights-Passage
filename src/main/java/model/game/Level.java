@@ -13,15 +13,13 @@ import java.util.List;
 
 public class Level {
     private final List<Enemy> enemyList;
-    private final Key key;
     private final Arena arena;
     private final Position entryPosition;
-    private final Position exitPosition;
+    private final Rectangle exitPosition;
     private final Player player;
 
-    public Level(List<Enemy> enemies, Key key, Arena arena, Position entryPosition, Position exitPosition, Player player){
+    public Level(List<Enemy> enemies,  Arena arena, Position entryPosition, Rectangle exitPosition, Player player){
         this.enemyList = new ArrayList<>(enemies);
-        this.key = key;
         this.arena = arena;
         this.entryPosition = entryPosition;
         this.exitPosition = exitPosition;
@@ -37,9 +35,6 @@ public class Level {
         return arena;
     }
 
-    public Key getKey() {
-        return key;
-    }
 
     public Player getPlayer() {
         return player;
@@ -55,29 +50,8 @@ public class Level {
         return closeEnemy;
     }
 
-
-    public void update(Direction direction){
-        Position newPosition = player.nextPos(direction);
-        Rectangle newHitbox = new Rectangle(newPosition.getX(), newPosition.getY(), 16, 16);
-
-
-        if(player.getHitbox().intersects(key.getHitbox())) player.pickUpKey();
-
-        List<Enemy> closeEnemy = getCloseEnemyList();
-
-        for (int i = 0; i < closeEnemy.size(); i++) {
-            Enemy enemy = closeEnemy.get(i);
-            if (enemy.isDead()) {
-                closeEnemy.remove(i);
-                i--;
-            }
-        }
-
-
-    }
-
     public boolean isComplete(){
 
-        return player.hasKey() && player.getHitbox().intersects(new Rectangle(exitPosition.getX(), exitPosition.getY()));
+        return player.hasKey() && player.getHitbox().intersects(exitPosition);
     }
 }

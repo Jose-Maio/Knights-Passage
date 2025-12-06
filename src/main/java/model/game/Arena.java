@@ -1,6 +1,7 @@
 package model.game;
 
 import model.Position;
+import model.entities.objects.Key;
 import model.entities.objects.Object;
 
 import java.awt.*;
@@ -51,5 +52,14 @@ public class Arena {
                 top >= arenaTop &&
                 right <= arenaRight &&
                 bottom <= arenaBottom;
+    }
+
+    public Key getKey(){
+        for(Object object : objectList){
+            if(object instanceof Key){
+                return (Key) object;
+            }
+        }
+        return null;
     }
 }
