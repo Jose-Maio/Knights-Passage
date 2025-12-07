@@ -1,30 +1,28 @@
-import com.googlecode.lanterna.TextColor;
-import controller.GameController;
-import model.Position;
-import model.entities.characters.Player;
-import model.entities.objects.Key;
-import model.entities.objects.Wall;
-import model.game.Arena;
-import model.game.Game;
-import model.game.Level;
-import model.game.config.Difficulty;
-import model.game.config.GameConfiguration;
-import view.GameView;
+import controller.StartMenuController;
+import gui.LanternaGui;
+import model.game.StartMenu;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 
 public class App {
+    private final LanternaGui gui;
+
+    public App() throws IOException, URISyntaxException, FontFormatException {
+        this.gui = new LanternaGui();
+    }
+
     public static void main(String[] args) throws Exception {
 
+        new App().start();
 
-        Game game = new Game(new GameConfiguration(Difficulty.MEDIUM));
+    }
 
-        GameController gameController = new GameController(game);
+    public void start() throws Exception {
+        StartMenu menu = new StartMenu();
+        StartMenuController menuController= new StartMenuController(menu,gui);
 
-        gameController.start();
-
+        menuController.start();
     }
 }

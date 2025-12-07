@@ -169,17 +169,8 @@ public class LanternaGui implements Gui {
         return screen;
     }
 
-    public Direction step() throws IOException {
-        KeyStroke keyStroke = screen.pollInput();
-        if (keyStroke == null) return null;
-
-        return switch (keyStroke.getKeyType()) {
-            case ArrowUp -> Direction.UP;
-            case ArrowDown -> Direction.DOWN;
-            case ArrowLeft -> Direction.LEFT;
-            case ArrowRight -> Direction.RIGHT;
-            default -> null;
-        };
+    public KeyStroke step() throws IOException {
+        return screen.pollInput();
 
     }
 
