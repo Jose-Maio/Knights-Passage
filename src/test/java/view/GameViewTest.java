@@ -28,7 +28,7 @@ class GameViewTest {
 
         when(mockGame.getCurrentLevel()).thenReturn(mockLevel);
 
-        gameView = new GameView(mockGui, mockLevelRenderer);
+        //gameView = new GameView(mockGui, mockLevelRenderer);
     }
 
     @Test

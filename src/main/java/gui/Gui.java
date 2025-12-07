@@ -1,6 +1,7 @@
 package gui;
 
 
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import model.Direction;
 import model.Position;
@@ -29,5 +30,5 @@ public interface Gui {
 
     Set<Integer> getActiveKeys();
 
-    Direction step() throws IOException;
+    KeyStroke step() throws IOException;
 }

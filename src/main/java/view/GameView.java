@@ -10,15 +10,12 @@ import java.io.IOException;
 public class GameView {
 
     private final Gui gui;
-    private final LevelRenderer lr;
+    private final LevelRenderer lr = new LevelRenderer();
 
-    public GameView() throws Exception {
-        this.gui = new LanternaGui();
-        this.lr = new LevelRenderer();
-    }
-    public GameView(Gui gui, LevelRenderer levelRenderer) {
+
+    public GameView(Gui gui) throws IOException {
         this.gui = gui;
-        this.lr = levelRenderer;
+
     }
 
     public void render(Game game) throws IOException {

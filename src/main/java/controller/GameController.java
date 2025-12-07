@@ -12,25 +12,25 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Set;
 
+import static com.googlecode.lanterna.input.KeyType.*;
+
 public class GameController {
-    private Game game;
-    private final MovementManager movementManager;
+    private final Game game;
     private final GameView gameView;
     private long lastEnemyMove = 0;
-    private final long enemyDelay = 300;
+    private final Gui gui;
 
-    public GameController(Game game) throws Exception {
+    public GameController(Game game, Gui gui) throws Exception {
         this.game = game;
-        this.movementManager = new MovementManager();
-        this.gameView = new GameView();
+        this.gameView = new GameView(gui);
+        this.gui = gui;
     }
 
 
     public void start() throws IOException {
 
-        Gui gui = gameView.getGui();
         while(!game.isGameOver()){
-            gui.step();
+
             gameView.render(game);
 
             update();
@@ -46,7 +46,16 @@ public class GameController {
     }
 
     public Direction handleInput() throws IOException {
-        return gameView.getGui().step();
+        KeyStroke keystroke = gameView.getGui().step();
+        if (keystroke == null) return null;
+
+        return switch (keystroke.getKeyType()) {
+            case ArrowUp -> Direction.UP;
+            case ArrowDown -> Direction.DOWN;
+            case ArrowLeft -> Direction.LEFT;
+            case ArrowRight -> Direction.RIGHT;
+            default -> null;
+        };
     }
 
 
@@ -66,8 +75,9 @@ public class GameController {
 
         }
 
+        long enemyDelay = 300;
         if (now - lastEnemyMove >= enemyDelay) {
-            movementManager.moveEnemies(level);
+            MovementManager.moveEnemies(level);
             lastEnemyMove = now;
         }
 
