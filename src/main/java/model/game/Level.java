@@ -14,14 +14,12 @@ import java.util.List;
 public class Level {
     private final List<Enemy> enemyList;
     private final Arena arena;
-    private final Position entryPosition;
     private final Rectangle exitPosition;
     private final Player player;
 
     public Level(List<Enemy> enemies,  Arena arena, Position entryPosition, Rectangle exitPosition, Player player){
         this.enemyList = new ArrayList<>(enemies);
         this.arena = arena;
-        this.entryPosition = entryPosition;
         this.exitPosition = exitPosition;
         this.player = player;
         this.player.setPosition(entryPosition);

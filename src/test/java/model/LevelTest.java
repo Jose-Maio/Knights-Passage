@@ -9,6 +9,7 @@ import model.game.Arena;
 import model.game.Level;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class LevelTest {
 
         key = new Key(new Position(5, 5));
 
-        arena = new Arena(List.of(new Tree(new Position(20, 20))), "bg");
+        arena = new Arena(List.of(new Tree(new Position(20, 20))), "bg", new Rectangle(0,0,400,208));
         List<Enemy> enemies = new ArrayList<Enemy>();
         enemies.add(enemy);
-        return new Level(enemies, key, arena, new Position(0, 0), new Position(100, 100), p);
+        return new Level(enemies, arena, new Position(0, 0), new Rectangle(40,40 , 10 ,10) , p);
     }                                                 // entry                   // exit
 
     @Test
