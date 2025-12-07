@@ -68,7 +68,7 @@ public class GameController {
             game.setGameOver();
         }
 
-        movementManager.movePlayer(level, pressed);
+        MovementManager.movePlayer(level, pressed);
         if(level.getArena().getKey() != null && level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
             level.getArena().pickKey();
             level.getPlayer().pickUpKey();

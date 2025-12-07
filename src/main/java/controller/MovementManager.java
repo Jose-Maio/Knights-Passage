@@ -23,7 +23,7 @@ public class MovementManager {
         }
     }
 
-    private Direction calculateNextEnemyMove(Enemy enemy, Player player) {
+    private static Direction calculateNextEnemyMove(Enemy enemy, Player player) {
         Position ePos = enemy.getPosition();
         Position pPos = player.getPosition();
         int distX = pPos.getX() - ePos.getX();
