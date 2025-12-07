@@ -7,7 +7,6 @@ import model.entities.objects.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.objects.KeyRenderer;
 
 class KeyRendererTest {
 
@@ -28,6 +27,6 @@ class KeyRendererTest {
     void drawElement() throws Exception {
         renderer.render(key, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Key.png", key.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/objects/Key.png", key.getPosition());
     }
 }

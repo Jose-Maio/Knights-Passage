@@ -10,4 +10,16 @@ public class ForestEnemy extends Enemy {
         super(startPosition, health, damage);
     }
 
+    @Override
+    public String toStringImg() {
+        return "ForestEnemy " + switch (getFacing()){
+            case LEFT -> "left";
+            case RIGHT -> "right";
+            case DOWN -> "front";
+            case UP -> "back";
+            case null -> "";
+
+    };
+    }
+
 }

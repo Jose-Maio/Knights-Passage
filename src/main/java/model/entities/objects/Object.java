@@ -26,4 +26,7 @@ public abstract class Object implements Entity {
     public Rectangle getHitbox() {
         return hitbox;
     }
+
+    @Override
+    public abstract String toStringImg();
 }

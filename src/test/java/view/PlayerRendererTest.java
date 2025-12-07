@@ -6,7 +6,6 @@ import model.entities.characters.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.PlayerRenderer;
 
 class PlayerRendererTest {
 
@@ -27,7 +26,7 @@ class PlayerRendererTest {
     void drawElement() throws Exception {
         renderer.render(player, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Knight right.png", player.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/characters/Knight right.png", player.getPosition());
     }
 }
 
