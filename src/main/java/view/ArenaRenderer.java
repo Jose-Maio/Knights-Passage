@@ -25,7 +25,7 @@ public class ArenaRenderer {
         }
 
         gui.drawBuffer(arenaBuffer);
-        objectRenderer.render(arena.getKey(), gui);
+        if(arena.getKey() != null )objectRenderer.render(arena.getKey(), gui);
     }
 
     private void renderArenaToBuffer(Arena arena, Gui gui, BufferedImage buffer) throws IOException {
@@ -39,16 +39,7 @@ public class ArenaRenderer {
         }
     }
 
-    public void drawHitboxOutline(Rectangle hb, Color color, BufferedImage buffer) {
-        Graphics2D g = buffer.createGraphics();
 
-        g.setColor(color);
-        g.setStroke(new BasicStroke(1)); // 1-pixel thick border
-
-        g.drawRect(hb.x, hb.y, hb.width, hb.height);
-
-        g.dispose();
-    }
 
 
 

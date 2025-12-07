@@ -27,6 +27,6 @@ class KeyRendererTest {
     void drawElement() throws Exception {
         renderer.render(key, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Key.png", key.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/objects/Key.png", key.getPosition());
     }
 }

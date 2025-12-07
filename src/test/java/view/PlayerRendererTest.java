@@ -26,7 +26,7 @@ class PlayerRendererTest {
     void drawElement() throws Exception {
         renderer.render(player, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Knight right.png", player.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/characters/Knight right.png", player.getPosition());
     }
 }
 

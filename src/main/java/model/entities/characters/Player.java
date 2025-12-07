@@ -93,7 +93,6 @@ public class Player implements Character, Damageable {
 
     @Override
     public String toStringImg(){
-        System.out.println("its calling me");
         return "Knight " + switch (facing){
             case LEFT -> "left";
             case RIGHT -> "right";

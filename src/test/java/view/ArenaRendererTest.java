@@ -40,20 +40,20 @@ class ArenaRendererTest {
     void drawWalls() throws IOException {
         renderer.render(arena, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Wall.png", new Position(1, 2));
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/objects/Wall.png", new Position(1, 2));
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Wall.png", new Position(3, 4));
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/objects/Wall.png", new Position(3, 4));
 
         // total walls drawn
-        Mockito.verify(gui, Mockito.times(2)).drawImage(Mockito.eq("sprites/Wall.png"), Mockito.any());
+        Mockito.verify(gui, Mockito.times(2)).drawImage(Mockito.eq("sprites/objects/Wall.png"), Mockito.any());
     }
 
     @Test
     void drawTrees() throws IOException {
         renderer.render(arena, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Tree.png", new Position(5, 5));
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/objects/Tree.png", new Position(5, 5));
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage(Mockito.eq("sprites/Tree.png"), Mockito.any());
+        Mockito.verify(gui, Mockito.times(1)).drawImage(Mockito.eq("sprites/objects/Tree.png"), Mockito.any());
     }
 }

@@ -3,6 +3,7 @@ package view;
 import gui.Gui;
 import model.entities.characters.enemies.Enemy;
 import model.game.Level;
+import view.entities.CharacterRenderer;
 
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ public class LevelRenderer {
 
 
 
-    public LevelRenderer() throws IOException {
+    public LevelRenderer() {
     }
 
     public void render(Level level, Gui gui) throws IOException {

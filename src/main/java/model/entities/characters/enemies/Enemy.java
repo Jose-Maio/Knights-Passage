@@ -39,22 +39,19 @@ public abstract class Enemy implements Character {
     @Override
     public void move(Direction direction) {
         this.facing = direction;
-        switch(facing){
-            case UP:
-                this.position.setY(position.getY() - 1);
-                break;
-            case DOWN:
-                this.position.setY(position.getY() + 1);
-                break;
-            case LEFT:
-                this.position.setX(position.getX() - 1);
-                break;
-            case RIGHT:
-                this.position.setX(position.getX() + 1);
-                break;
-        }
+        this.position = nextPos(direction);
         this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
         this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
+    }
+
+    public Position nextPos(Direction direction) {
+
+        return switch (direction) {
+            case UP -> new Position(position.getX(), position.getY() - 1);
+            case DOWN -> new Position(position.getX(), position.getY() + 1);
+            case LEFT -> new Position(position.getX() - 1, position.getY());
+            case RIGHT -> new Position(position.getX() + 1, position.getY());
+        };
     }
 
     @Override

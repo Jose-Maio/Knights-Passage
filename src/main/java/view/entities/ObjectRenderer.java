@@ -9,7 +9,7 @@ import java.io.IOException;
 public class ObjectRenderer extends EntityRenderer<Object>{
 
     public String getImgPath(Object object){
-        return "sprites/" + object.toStringImg() + ".png";
+        return "sprites/objects/" + object.toStringImg() + ".png";
     }
     @Override
     public void render(Object object, Gui gui) throws IOException {

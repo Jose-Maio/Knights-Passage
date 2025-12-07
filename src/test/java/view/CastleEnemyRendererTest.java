@@ -27,6 +27,6 @@ class CastleEnemyRendererTest {
     void drawElement() throws Exception {
         renderer.render(enemy, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/CastleEnemy right.png", enemy.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/characters/CastleEnemy right.png", enemy.getPosition());
     }
 }
