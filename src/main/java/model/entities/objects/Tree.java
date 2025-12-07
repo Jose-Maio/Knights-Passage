@@ -2,16 +2,12 @@ package model.entities.objects;
 
 import model.Position;
 
-public class Tree implements Object{
-    private final Position position;
+import java.awt.*;
+
+public class Tree extends Object{
 
     public Tree(Position position){
-        this.position = position;
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
+        super(position);
     }
 
     @Override

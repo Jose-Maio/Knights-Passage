@@ -4,6 +4,8 @@ import model.entities.objects.Object;
 import model.game.Arena;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +30,7 @@ class ArenaTest {
         when(nonSolidObj.isSolid()).thenReturn(false);
 
         List<Object> objects = Arrays.asList(solidObj, nonSolidObj);
-        arena = new Arena(objects, "castle.png");
+        arena = new Arena(objects, "castle.png", new Rectangle(0,0,400,208));
     }
 
     @Test

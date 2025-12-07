@@ -22,12 +22,17 @@ public class GameView {
     }
 
     public void render(Game game) throws IOException {
-        gui.clear();
 
         lr.render(game.getCurrentLevel(), gui);
 
         gui.refresh();
     }
+
+    public Gui getGui() {
+        return gui;
+    }
+
+
 }
 
 

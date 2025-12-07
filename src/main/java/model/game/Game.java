@@ -1,6 +1,7 @@
 package model.game;
 
 
+import model.Direction;
 import model.game.config.GameConfiguration;
 
 import java.util.List;
@@ -19,7 +20,6 @@ public class Game {
     public Level getCurrentLevel() {
         return levels.get(currentLevel);
     }
-
 
     public List<Level> getLevels() {
         return levels;
@@ -41,22 +41,5 @@ public class Game {
         return gameOver;
     }
 
-    public void update(){
-        Level level = levels.get(currentLevel);
-
-        if(level.getPlayer().isDead()){
-            gameOver = true;
-        }
-        level.update();
-
-        if(level.isComplete()){
-            nextLevel();
-        }
-
-        if(gameOver){
-            return;
-        }
-
-    }
 
 }

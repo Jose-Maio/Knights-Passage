@@ -20,7 +20,7 @@ class LevelRendererTest {
     private LevelRenderer renderer;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         gui = Mockito.mock(Gui.class);
 
         Arena arena = Mockito.mock(Arena.class);
@@ -34,7 +34,7 @@ class LevelRendererTest {
 
         Mockito.when(level.getArena()).thenReturn(arena);
         Mockito.when(level.getPlayer()).thenReturn(player);
-        Mockito.when(level.getKey()).thenReturn(key);
+        //Mockito.when(level.getKey()).thenReturn(key);
         Mockito.when(level.getEnemyList()).thenReturn(Arrays.asList(e1, e2));
 
         renderer = new LevelRenderer();

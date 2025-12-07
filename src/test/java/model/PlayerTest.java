@@ -20,7 +20,7 @@ class PlayerTest {
     @Test
     void testInitialValues() {
         assertEquals(20, player.getHealth());
-        assertEquals(5, player.getAttackpower());
+        assertEquals(5, player.getAttackPower());
         assertEquals(Direction.RIGHT, player.getFacing());
         assertFalse(player.hasKey());
         assertFalse(player.isDead());

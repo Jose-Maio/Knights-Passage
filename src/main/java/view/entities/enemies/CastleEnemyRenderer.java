@@ -1,11 +1,13 @@
-package view.entities;
+package view.entities.enemies;
 
 import gui.Gui;
 import model.entities.characters.enemies.CastleEnemy;
+import view.entities.EntityRenderer;
+
 import java.io.IOException;
 
 
-public class CastleEnemyRenderer implements EntityRenderer<CastleEnemy>{
+public class CastleEnemyRenderer implements EntityRenderer<CastleEnemy> {
 
     private final String img;
 

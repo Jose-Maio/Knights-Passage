@@ -2,21 +2,25 @@ package model.entities.characters;
 
 import model.Direction;
 import model.Position;
-import model.game.config.GameConfiguration;
+
+import java.awt.*;
 
 public class Player implements Character, Damageable {
 
     private Position position;
     private int health;
-    private int attackPower;
+    private final int attackPower;
     private Direction facing;
     private boolean hasKey;
+    private Rectangle hitbox;
 
     public Player(int health, int attackPower) {
         this.health = health;
         this.attackPower = attackPower;
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
+        this.position = new Position(0,0);
+        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
     }
 
     @Override
@@ -24,27 +28,21 @@ public class Player implements Character, Damageable {
         return position;
     }
 
+    @Override
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
     public void setPosition(Position position) {
         this.position = position;
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
     }
 
     @Override
     public void move(Direction direction) {
+        this.position = nextPos(direction);
         this.facing = direction;
-        switch(facing){
-            case UP:
-                this.position.setY(position.getY() - 1);
-                break;
-            case DOWN:
-                this.position.setY(position.getY() + 1);
-                break;
-            case LEFT:
-                this.position.setX(position.getX() - 1);
-                break;
-            case RIGHT:
-                this.position.setX(position.getX() + 1);
-                break;
-        }
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class Player implements Character, Damageable {
         return health;
     }
 
-    public int getAttackpower() {
+    public int getAttackPower() {
         return attackPower;
     }
 
@@ -79,5 +77,18 @@ public class Player implements Character, Damageable {
     }
 
     public void attack() {
+    }
+    public Position nextPos(Direction direction) {
+
+        return switch (direction) {
+            case UP -> new Position(position.getX(), position.getY() - 1);
+            case DOWN -> new Position(position.getX(), position.getY() + 1);
+            case LEFT -> new Position(position.getX() - 1, position.getY());
+            case RIGHT -> new Position(position.getX() + 1, position.getY());
+        };
+    }
+
+    public void setFacing(Direction facing) {
+        this.facing = facing;
     }
 }

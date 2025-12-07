@@ -6,7 +6,7 @@ import model.entities.characters.enemies.CastleEnemy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.CastleEnemyRenderer;
+import view.entities.enemies.CastleEnemyRenderer;
 
 class CastleEnemyRendererTest {
 

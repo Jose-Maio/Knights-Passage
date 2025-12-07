@@ -4,20 +4,29 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+import model.Direction;
 import model.Position;
 
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class LanternaGui implements Gui {
@@ -25,8 +34,45 @@ public class LanternaGui implements Gui {
     private final TextGraphics graphics;
     private final int width;
     private final int height;
+    private final Set<Integer> activeKeys = new HashSet<>();
+
 
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
+
+        DefaultTerminalFactory factory = new DefaultTerminalFactory()
+                .setInitialTerminalSize(new TerminalSize(400, 208))
+                .setTerminalEmulatorFontConfiguration(createFont())
+                .setForceAWTOverSwing(true);
+
+        Terminal terminal = factory.createTerminal();
+
+        screen = new TerminalScreen(terminal);
+        screen.startScreen();
+        graphics = screen.newTextGraphics();
+
+        this.width = 400;
+        this.height = 208;
+
+        //Tried to have multiple keys at once
+        /*if (terminal instanceof AWTTerminalFrame terminalFrame) {
+
+            terminalFrame.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    activeKeys.add(e.getKeyCode());
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    activeKeys.remove(e.getKeyCode());
+                }
+            });
+
+        } else {
+            System.err.println("Warning: Terminal is not a graphical frame, KeyListener may not work as expected.");
+        }*/
+    }
+    private AWTTerminalFontConfiguration createFont() throws IOException, FontFormatException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");
         assert resource != null;
 
@@ -39,17 +85,7 @@ public class LanternaGui implements Gui {
         AWTTerminalFontConfiguration fontConfig =
                 AWTTerminalFontConfiguration.newInstance(newfont);
 
-        screen = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(400, 208))
-                .setTerminalEmulatorFontConfiguration(fontConfig)
-                .setForceAWTOverSwing(true)
-                .createScreen();
-
-        screen.startScreen();
-        graphics = screen.newTextGraphics();
-
-        this.width = 400;
-        this.height = 208;
+        return fontConfig;
     }
 
     @Override
@@ -77,22 +113,6 @@ public class LanternaGui implements Gui {
         }
     }
 
-    @Override
-    public void fillBackground(String img) throws IOException {
-        BufferedImage sprite = ImageIO.read(
-                Objects.requireNonNull(
-                        getClass().getClassLoader().getResourceAsStream(img)
-                )
-        );
-
-        for(int i = 0; i < width; i+= 16){
-            for(int j = 0; j < height; j += 16){
-                drawImage(img , new Position(i,j));
-            }
-        }
-
-    }
-
     public void clear(){
         screen.clear();
     }
@@ -100,4 +120,73 @@ public class LanternaGui implements Gui {
     public void refresh() throws IOException {
         screen.refresh();
     }
+
+    public void drawImageToBuffer(String img, int xOffset, int yOffset, BufferedImage buffer) throws IOException {
+        BufferedImage sprite = ImageIO.read(
+                Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(img))
+        );
+
+        for (int x = 0; x < sprite.getWidth(); x++) {
+            for (int y = 0; y < sprite.getHeight(); y++) {
+                int rgb = sprite.getRGB(x, y);
+                int alpha = (rgb >> 24) & 0xff;
+                if (alpha != 0) {
+                    buffer.setRGB(x + xOffset, y + yOffset, rgb);
+                }
+            }
+        }
+    }
+
+    public void drawBuffer(BufferedImage buffer)  {
+        for (int x = 0; x < buffer.getWidth(); x++) {
+            for (int y = 0; y < buffer.getHeight(); y++) {
+                int rgb = buffer.getRGB(x, y);
+                int alpha = (rgb >> 24) & 0xff;
+                if (alpha != 0) {
+                    int red = (rgb >> 16) & 0xff;
+                    int green = (rgb >> 8) & 0xff;
+                    int blue = rgb & 0xff;
+
+                    TextCharacter c = new TextCharacter(' ',
+                            new com.googlecode.lanterna.TextColor.RGB(red, green, blue),
+                            new com.googlecode.lanterna.TextColor.RGB(red, green, blue));
+
+                    graphics.setCharacter(x, y, c);
+                }
+            }
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public Direction step() throws IOException {
+        KeyStroke keyStroke = screen.pollInput();
+        if (keyStroke == null) return null;
+
+        return switch (keyStroke.getKeyType()) {
+            case ArrowUp -> Direction.UP;
+            case ArrowDown -> Direction.DOWN;
+            case ArrowLeft -> Direction.LEFT;
+            case ArrowRight -> Direction.RIGHT;
+            default -> null;
+        };
+
+    }
+
+    @Override
+    public Set<Integer> getActiveKeys() {
+        return activeKeys;
+    }
+
+
 }

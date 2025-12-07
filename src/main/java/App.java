@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TextColor;
+import controller.GameController;
 import model.Position;
 import model.entities.characters.Player;
 import model.entities.objects.Key;
@@ -17,9 +18,13 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        GameView g = new GameView();
+
 
         Game game = new Game(new GameConfiguration(Difficulty.MEDIUM));
-        g.render(game);
+
+        GameController gameController = new GameController(game);
+
+        gameController.start();
+
     }
 }
