@@ -7,7 +7,6 @@ import model.entities.objects.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import view.entities.objects.KeyRenderer;
 
 class KeyRendererTest {
 

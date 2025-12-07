@@ -5,6 +5,7 @@ import model.entities.objects.Key;
 import model.entities.objects.Object;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Arena {
@@ -13,7 +14,7 @@ public class Arena {
     private final Rectangle dimensions;
 
     public Arena(List<Object> objects, String backgroundImg, Rectangle dimensions){
-        this.objectList = objects;
+        this.objectList = new ArrayList<>(objects);
         this.backgroundImg = backgroundImg;
         this.dimensions = dimensions;
     }
@@ -61,5 +62,11 @@ public class Arena {
             }
         }
         return null;
+    }
+
+    public void pickKey(){
+        getKey().pick();
+        objectList.remove(getKey());
+
     }
 }

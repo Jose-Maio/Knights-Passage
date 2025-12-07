@@ -12,6 +12,7 @@ public class Player implements Character, Damageable {
     private final int attackPower;
     private Direction facing;
     private boolean hasKey;
+    private boolean attacking = false;
     private Rectangle hitbox;
 
     public Player(int health, int attackPower) {
@@ -76,8 +77,6 @@ public class Player implements Character, Damageable {
         this.hasKey = true;
     }
 
-    public void attack() {
-    }
     public Position nextPos(Direction direction) {
 
         return switch (direction) {
@@ -90,5 +89,17 @@ public class Player implements Character, Damageable {
 
     public void setFacing(Direction facing) {
         this.facing = facing;
+    }
+
+    @Override
+    public String toStringImg(){
+        System.out.println("its calling me");
+        return "Knight " + switch (facing){
+            case LEFT -> "left";
+            case RIGHT -> "right";
+            case DOWN -> "front";
+            case UP -> "back";
+            case null -> "front";
+        } + (attacking ? " attack" : "");
     }
 }

@@ -3,7 +3,6 @@ package model.entities.characters.enemies;
 import model.Direction;
 import model.Position;
 import model.entities.characters.Character;
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 
@@ -84,7 +83,11 @@ public abstract class Enemy implements Character {
         return vision;
     }
 
-    public void setFacing(Direction facing) {
-        this.facing = facing;
+    @Override
+    public Direction getFacing() {
+        return facing;
     }
+
+    @Override
+    public abstract String toStringImg();
 }

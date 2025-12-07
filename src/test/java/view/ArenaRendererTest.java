@@ -40,12 +40,12 @@ class ArenaRendererTest {
     void drawWalls() throws IOException {
         renderer.render(arena, gui);
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/wall.png", new Position(1, 2));
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Wall.png", new Position(1, 2));
 
-        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/wall.png", new Position(3, 4));
+        Mockito.verify(gui, Mockito.times(1)).drawImage("sprites/Wall.png", new Position(3, 4));
 
         // total walls drawn
-        Mockito.verify(gui, Mockito.times(2)).drawImage(Mockito.eq("sprites/wall.png"), Mockito.any());
+        Mockito.verify(gui, Mockito.times(2)).drawImage(Mockito.eq("sprites/Wall.png"), Mockito.any());
     }
 
     @Test

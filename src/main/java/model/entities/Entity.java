@@ -5,6 +5,7 @@ import model.Position;
 import java.awt.*;
 
 public interface Entity {
-    public Position getPosition();
-    public Rectangle getHitbox();
+    Position getPosition();
+    Rectangle getHitbox();
+    String toStringImg();
 }

@@ -16,6 +16,11 @@ public class Key extends Object{
         this.picked = false;
     }
 
+    @Override
+    public String toStringImg() {
+        return "Key";
+    }
+
     public boolean isPicked() {
         return picked;
     }

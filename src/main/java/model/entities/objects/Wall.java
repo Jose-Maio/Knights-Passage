@@ -10,6 +10,11 @@ public class Wall extends Object{
     }
 
     @Override
+    public String toStringImg() {
+        return "Wall";
+    }
+
+    @Override
     public boolean isSolid() {
         return true;
     }
