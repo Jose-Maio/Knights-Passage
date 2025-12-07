@@ -18,7 +18,6 @@ public class CollisionManager {
 
         for (Object object : level.getArena().getObjectList()) {
             if (object.isSolid() && newHitbox.intersects(object.getHitbox())) {
-                System.out.println("object in the player way");
                 return true;
             }
         }

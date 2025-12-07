@@ -14,28 +14,27 @@ public class MovementManager {
     public void moveEnemies(Level level) {
         for (Enemy enemy : level.getCloseEnemyList()) {
 
-            Position next = calculateNextEnemyMove(enemy, level.getPlayer());
+            Direction nextDir = calculateNextEnemyMove(enemy,level.getPlayer());
+            Position next = enemy.nextPos(nextDir);
             if(!collisionManager.checkEnemyCollisions(next, enemy, level)){
-                enemy.setPosition(next);
+                enemy.move(nextDir);
 
             }
         }
     }
 
-    private Position calculateNextEnemyMove(Enemy enemy, Player player) {
+    private Direction calculateNextEnemyMove(Enemy enemy, Player player) {
         Position ePos = enemy.getPosition();
         Position pPos = player.getPosition();
         int distX = pPos.getX() - ePos.getX();
         int distY = pPos.getY() - ePos.getY();
-        int stepX = 0;
-        int stepY = 0;
 
         if (abs(distX) > abs(distY)) {
-            stepX = distX > 0 ? 1 : -1;
+            return distX > 0 ? Direction.RIGHT : Direction.LEFT;
         } else {
-            stepY = distY > 0 ? 1 : -1;
+            return distY > 0 ? Direction.DOWN : Direction.UP;
         }
-        return new Position(ePos.getX() + stepX, ePos.getY() + stepY);
+
     }
 
     public void movePlayer(Level level, Direction direction){

@@ -60,8 +60,8 @@ public class GameController {
         }
 
         movementManager.movePlayer(level, pressed);
-        if(level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
-            level.getArena().getKey().pick();
+        if(level.getArena().getKey() != null && level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
+            level.getArena().pickKey();
             level.getPlayer().pickUpKey();
 
         }

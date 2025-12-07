@@ -11,6 +11,11 @@ public class Tree extends Object{
     }
 
     @Override
+    public String toStringImg() {
+        return "Tree";
+    }
+
+    @Override
     public boolean isSolid() {
         return true;
     }

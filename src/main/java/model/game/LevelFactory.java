@@ -8,7 +8,6 @@ import model.entities.objects.Key;
 import model.entities.objects.Object;
 import model.entities.objects.Tree;
 import model.game.config.GameConfiguration;
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class LevelFactory {
                 new Tree(new Position(320, 98)),
                 new Key(new Position(200,100))
         );
-        return new Arena(objects, "sprites/forestbg.png", new Rectangle(0,0,400,208));
+        return new Arena(objects, "sprites/backgrounds/forestbg.png", new Rectangle(0,0,400,208));
     }
 
     public List<Level> getLevels(){
