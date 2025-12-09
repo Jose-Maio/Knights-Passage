@@ -38,8 +38,8 @@ public class LevelFactory {
 
         Position entryPosition = new Position(100,100);
         Rectangle exitPosition = new Rectangle(384, 192, 16,16);
-        Player p = new Player(10,10);
-        return new Level(enemies, createArena1(), entryPosition, exitPosition,p );
+        Player p = new Player(200000,10);
+        return new Level(enemies, createArena1(), entryPosition, exitPosition, p);
     }
 
     public Arena createArena1(){

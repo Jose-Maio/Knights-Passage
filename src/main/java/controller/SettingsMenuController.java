@@ -3,11 +3,10 @@ package controller;
 import com.googlecode.lanterna.input.KeyStroke;
 import gui.Gui;
 import model.Options;
-import model.game.SettingsMenu;
+import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
 import view.SettingsMenuView;
 
-import java.awt.*;
 import java.io.IOException;
 
 

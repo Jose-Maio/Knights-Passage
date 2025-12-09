@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class LanternaGui implements Gui {
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(400, 208))
+                .setInitialTerminalSize(new TerminalSize(320, 176))
                 .setTerminalEmulatorFontConfiguration(createFont())
                 .setForceAWTOverSwing(true);
 
@@ -53,10 +55,8 @@ public class LanternaGui implements Gui {
         this.width = 400;
         this.height = 208;
 
-        //Tried to have multiple keys at once
-        /*if (terminal instanceof AWTTerminalFrame terminalFrame) {
-
-            terminalFrame.addKeyListener(new KeyAdapter() {
+        if (terminal instanceof AWTTerminalFrame terminalFrame) {
+            terminalFrame.getComponent(0).addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     activeKeys.add(e.getKeyCode());
@@ -68,9 +68,19 @@ public class LanternaGui implements Gui {
                 }
             });
 
+            terminalFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    try {
+                        screen.close();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            });
         } else {
             System.err.println("Warning: Terminal is not a graphical frame, KeyListener may not work as expected.");
-        }*/
+        }
     }
     private AWTTerminalFontConfiguration createFont() throws IOException, FontFormatException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");

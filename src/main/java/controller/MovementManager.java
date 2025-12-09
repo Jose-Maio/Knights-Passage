@@ -20,6 +20,7 @@ public class MovementManager {
                 enemy.move(nextDir);
 
             }
+            else enemy.setFacing(nextDir);
         }
     }
 

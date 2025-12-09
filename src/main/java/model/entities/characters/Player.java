@@ -57,6 +57,14 @@ public class Player implements Character, Damageable {
 
     }
 
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public void setAttacking(boolean value) {
+        this.attacking = value;
+    }
+
     public int getHealth() {
         return health;
     }

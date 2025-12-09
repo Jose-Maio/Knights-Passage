@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Set;
 
 import static com.googlecode.lanterna.input.KeyType.*;
-
+//Probably a LevelController needed for key, player and enemy logic because right now nothing tells the level to remove enemy if dead
 public class GameController {
     private final Game game;
     private final GameView gameView;
@@ -46,8 +46,10 @@ public class GameController {
     }
 
     public Direction handleInput() throws IOException {
-        KeyStroke keystroke = gameView.getGui().step();
+        KeyStroke keystroke = gui.step();
         if (keystroke == null) return null;
+
+        System.out.println(gui.getActiveKeys());
 
         return switch (keystroke.getKeyType()) {
             case ArrowUp -> Direction.UP;
@@ -69,15 +71,17 @@ public class GameController {
         }
 
         MovementManager.movePlayer(level, pressed);
+        AttackManager.playerAttack(level);
         if(level.getArena().getKey() != null && level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
             level.getArena().pickKey();
             level.getPlayer().pickUpKey();
 
         }
 
-        long enemyDelay = 300;
+        long enemyDelay = 100;
         if (now - lastEnemyMove >= enemyDelay) {
             MovementManager.moveEnemies(level);
+            AttackManager.enemyAttack(level);
             lastEnemyMove = now;
         }
 
