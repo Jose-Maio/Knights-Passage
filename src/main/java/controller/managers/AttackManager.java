@@ -1,4 +1,4 @@
-package controller;
+package controller.managers;
 
 
 import model.Direction;
@@ -30,7 +30,7 @@ public class AttackManager {
             if((collideDir != null) && (collideDir == enemy.getFacing())){
                 player.takeDamage(enemy.getDamage());
                 enemy.setAttacking(true);
-                System.out.println("enemy is attcking player " + enemy.getDamage() + " " + player.getHealth());
+
             }
         }
     }

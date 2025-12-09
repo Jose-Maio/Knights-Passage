@@ -1,4 +1,4 @@
-package controller;
+package controller.managers;
 
 import model.Direction;
 import model.Position;

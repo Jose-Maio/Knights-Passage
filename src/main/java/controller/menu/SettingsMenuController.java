@@ -1,6 +1,7 @@
-package controller;
+package controller.menu;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import controller.Controller;
 import gui.Gui;
 import model.Options;
 import model.game.menu.SettingsMenu;

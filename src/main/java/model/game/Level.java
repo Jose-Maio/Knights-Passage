@@ -52,4 +52,9 @@ public class Level {
 
         return player.hasKey() && player.getHitbox().intersects(exitPosition);
     }
+
+    public void removeDeadEnemies(){
+        enemyList.removeIf(Enemy::isDead);
+
+    }
 }

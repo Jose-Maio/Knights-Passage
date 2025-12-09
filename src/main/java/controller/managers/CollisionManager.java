@@ -1,16 +1,13 @@
-package controller;
+package controller.managers;
 
 import model.Direction;
 import model.Position;
 import model.entities.Entity;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Object;
-import model.game.Arena;
 import model.game.Level;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Math.abs;
 

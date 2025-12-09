@@ -1,4 +1,4 @@
-import controller.StartMenuController;
+import controller.menu.StartMenuController;
 import gui.LanternaGui;
 import model.game.menu.StartMenu;
 
