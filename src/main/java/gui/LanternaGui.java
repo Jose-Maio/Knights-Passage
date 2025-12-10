@@ -50,8 +50,8 @@ public class LanternaGui implements Gui {
         screen.startScreen();
         graphics = screen.newTextGraphics();
 
-        this.width = 400;
-        this.height = 208;
+        this.width = 256;
+        this.height = 160;
 
         //Tried to have multiple keys at once
         /*if (terminal instanceof AWTTerminalFrame terminalFrame) {
