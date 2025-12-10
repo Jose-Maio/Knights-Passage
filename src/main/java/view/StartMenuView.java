@@ -1,7 +1,7 @@
 package view;
 
 import gui.Gui;
-import model.game.StartMenu;
+import model.game.menu.StartMenu;
 
 import java.io.IOException;
 

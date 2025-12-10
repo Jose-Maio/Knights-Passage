@@ -1,11 +1,13 @@
-package controller;
+package controller.menu;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import controller.Controller;
+import controller.GameController;
 import gui.Gui;
 import model.Options;
 import model.game.Game;
-import model.game.StartMenu;
-import model.game.SettingsMenu;
+import model.game.menu.StartMenu;
+import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
 import view.StartMenuView;
@@ -13,7 +15,7 @@ import view.StartMenuView;
 import java.io.IOException;
 
 
-public class StartMenuController implements Controller<Void>{
+public class StartMenuController implements Controller<Void> {
     private final StartMenu menu;
     private final StartMenuView menuView;
     private final Gui gui;

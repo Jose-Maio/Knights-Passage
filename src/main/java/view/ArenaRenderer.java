@@ -36,6 +36,10 @@ public class ArenaRenderer {
         }
     }
 
+    public void resetArennaBuffer(){
+        this.arenaBuffer = null;
+    }
+
 
 
 

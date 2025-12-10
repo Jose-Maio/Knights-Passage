@@ -9,7 +9,7 @@ public class CastleEnemy extends Enemy {
 
     @Override
     public String toStringImg() {
-        return "CstleEnemy " + switch (getFacing()){
+        return "CastleEnemy " + switch (getFacing()){
             case LEFT -> "left";
             case RIGHT -> "right";
             case DOWN -> "front";

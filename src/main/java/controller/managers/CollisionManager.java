@@ -1,17 +1,38 @@
-package controller;
+package controller.managers;
 
+import model.Direction;
 import model.Position;
+import model.entities.Entity;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Object;
-import model.game.Arena;
 import model.game.Level;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import static java.lang.Math.abs;
 
 public class CollisionManager {
 
+    //Get Side Entity1 is hitting Entity2
+    public Direction getCollisionSide(Entity entity1, Entity entity2){
+        Rectangle entity1H = new Rectangle(entity1.getPosition().getX() - 1, entity1.getPosition().getY() - 1, entity1.getHitbox().width + 2, entity1.getHitbox().height +2);
+        Rectangle entity2H = new Rectangle(entity2.getPosition().getX() - 1, entity2.getPosition().getY() - 1, entity2.getHitbox().width + 2, entity2.getHitbox().height +2);
+
+        if(entity1H.intersects(entity2H)){
+            Position entity1Position = entity1.getPosition();
+            Position entity2Position = entity2.getPosition();
+            int distX = entity1Position.getX() - entity2Position.getX();
+            int distY = entity1Position.getY() - entity2Position.getY();
+
+            if(abs(distX) < abs(distY)){
+                return distY < 0 ? Direction.DOWN : Direction.UP;
+            }
+            else{
+                return distX < 0 ? Direction.RIGHT : Direction.LEFT;
+            }
+        }
+        return null;
+    }
 
     public boolean checkPlayerCollisions(Position position , Level level) {
         Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);

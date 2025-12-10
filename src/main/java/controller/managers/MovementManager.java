@@ -1,4 +1,4 @@
-package controller;
+package controller.managers;
 
 import model.Direction;
 import model.Position;
@@ -20,6 +20,7 @@ public class MovementManager {
                 enemy.move(nextDir);
 
             }
+            else enemy.setFacing(nextDir);
         }
     }
 

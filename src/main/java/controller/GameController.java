@@ -1,37 +1,36 @@
 package controller;
 
-import com.googlecode.lanterna.input.KeyStroke;
+
 import gui.Gui;
-import gui.LanternaGui;
 import model.Direction;
 import model.game.Game;
 import model.game.Level;
 import view.GameView;
-
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.Set;
-
-import static com.googlecode.lanterna.input.KeyType.*;
+import java.util.HashSet;
 
 public class GameController {
     private final Game game;
     private final GameView gameView;
-    private long lastEnemyMove = 0;
     private final Gui gui;
+
+    private final LevelController levelController;
 
     public GameController(Game game, Gui gui) throws Exception {
         this.game = game;
         this.gameView = new GameView(gui);
         this.gui = gui;
+        this.levelController = new LevelController();
     }
-
 
     public void start() throws IOException {
 
         while(!game.isGameOver()){
 
             gameView.render(game);
+
+            levelController.update(game.getCurrentLevel(), handleMovInput(), isAttackPressed());
 
             update();
 
@@ -45,45 +44,33 @@ public class GameController {
         gui.getScreen().close();
     }
 
-    public Direction handleInput() throws IOException {
-        KeyStroke keystroke = gameView.getGui().step();
-        if (keystroke == null) return null;
+    public HashSet<Direction> handleMovInput() {
+        HashSet<Direction> directions = new HashSet<>();
 
-        return switch (keystroke.getKeyType()) {
-            case ArrowUp -> Direction.UP;
-            case ArrowDown -> Direction.DOWN;
-            case ArrowLeft -> Direction.LEFT;
-            case ArrowRight -> Direction.RIGHT;
-            default -> null;
-        };
+        for(int k : gui.getActiveKeys()){
+            if (k == KeyEvent.VK_UP) directions.add(Direction.UP);
+            if (k == KeyEvent.VK_DOWN) directions.add(Direction.DOWN);
+            if (k == KeyEvent.VK_LEFT) directions.add(Direction.LEFT);
+            if (k == KeyEvent.VK_RIGHT) directions.add(Direction.RIGHT);
+        }
+
+        return directions;
+    }
+
+    public boolean isAttackPressed(){
+        return gui.getActiveKeys().contains(KeyEvent.VK_E);
     }
 
 
     public void update() throws IOException {
-        long now = System.currentTimeMillis();
-        Direction pressed = handleInput();
+
         Level level = game.getCurrentLevel();
 
         if (level.getPlayer().isDead()) {
             game.setGameOver();
         }
 
-        MovementManager.movePlayer(level, pressed);
-
-        if(level.getArena().getKey() != null && level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
-            System.out.println("ok till here");
-            level.getArena().pickKey();
-            level.getPlayer().pickUpKey();
-
-        }
-
-
-
-        long enemyDelay = 300;
-        if (now - lastEnemyMove >= enemyDelay) {
-            MovementManager.moveEnemies(level);
-            lastEnemyMove = now;
-        }
+    
 
         if (level.isComplete()) {
             game.nextLevel();

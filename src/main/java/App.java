@@ -1,6 +1,6 @@
-import controller.StartMenuController;
+import controller.menu.StartMenuController;
 import gui.LanternaGui;
-import model.game.StartMenu;
+import model.game.menu.StartMenu;
 
 import java.awt.*;
 import java.io.IOException;

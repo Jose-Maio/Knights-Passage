@@ -15,6 +15,7 @@ public abstract class Enemy implements Character {
     private int damage;
     private Rectangle hitbox;
     private final Rectangle vision;
+    private boolean attacking = false;
 
     public Enemy(Position startPosition, int health, int damage){
         this.position = startPosition;
@@ -72,6 +73,14 @@ public abstract class Enemy implements Character {
         return damage;
     }
 
+    public void setAttacking(boolean value){
+        this.attacking = value;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
     public Rectangle getHitbox(){
         return hitbox;
     }
@@ -83,6 +92,10 @@ public abstract class Enemy implements Character {
     @Override
     public Direction getFacing() {
         return facing;
+    }
+
+    public void setFacing(Direction facing) {
+        this.facing = facing;
     }
 
     @Override

@@ -12,14 +12,14 @@ public class ForestEnemy extends Enemy {
 
     @Override
     public String toStringImg() {
-        return "ForestEnemy " + switch (getFacing()){
+        return "ForestEnemy " + switch (getFacing()) {
             case LEFT -> "left";
             case RIGHT -> "right";
             case DOWN -> "front";
             case UP -> "back";
             case null -> "";
+        } + (isAttacking()? " attack" : "");
 
-    };
     }
 
 }
