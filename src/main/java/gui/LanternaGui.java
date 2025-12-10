@@ -42,7 +42,7 @@ public class LanternaGui implements Gui {
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(320, 176))
+                .setInitialTerminalSize(new TerminalSize(256, 160))
                 .setTerminalEmulatorFontConfiguration(createFont())
                 .setForceAWTOverSwing(true);
 
@@ -52,8 +52,8 @@ public class LanternaGui implements Gui {
         screen.startScreen();
         graphics = screen.newTextGraphics();
 
-        this.width = 400;
-        this.height = 208;
+        this.width = 256;
+        this.height = 160;
 
         if (terminal instanceof AWTTerminalFrame terminalFrame) {
             terminalFrame.getComponent(0).addKeyListener(new KeyAdapter() {

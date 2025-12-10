@@ -6,7 +6,6 @@ import model.entities.objects.Object;
 import model.game.Arena;
 import view.entities.ObjectRenderer;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

@@ -2,16 +2,19 @@ package model.entities.objects;
 
 import model.Position;
 
-public class Wall extends Object{
+import java.awt.*;
+
+public class SmallWallH extends Object{
 
 
-    public Wall(Position position){
+    public SmallWallH(Position position){
         super(position);
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 15, 8);
     }
 
     @Override
     public String toStringImg() {
-        return "Wall";
+        return "SmallWallH";
     }
 
     @Override

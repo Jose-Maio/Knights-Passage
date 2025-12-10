@@ -2,8 +2,8 @@ package view;
 
 import gui.Gui;
 import model.Position;
+import model.entities.objects.BigWallH;
 import model.entities.objects.Tree;
-import model.entities.objects.Wall;
 import model.game.Arena;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class ArenaRendererTest {
 
         Mockito.when(arena.getBackgroundImg()).thenReturn("bg.png");
 
-        Mockito.when(arena.getObjectList()).thenReturn(Arrays.asList(new Wall(new Position(1, 2)), new Tree(new Position(5, 5)), new Wall(new Position(3, 4))));
+        Mockito.when(arena.getObjectList()).thenReturn(Arrays.asList(new BigWallH(new Position(1, 2)), new Tree(new Position(5, 5)), new BigWallH(new Position(3, 4))));
     }
 
     @Test
