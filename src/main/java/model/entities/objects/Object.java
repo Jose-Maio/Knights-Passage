@@ -8,7 +8,7 @@ import java.awt.*;
 
 public abstract class Object implements Entity {
     private final Position position;
-    Rectangle hitbox;
+    protected Rectangle hitbox;
 
     public abstract boolean isSolid();
 

@@ -69,11 +69,15 @@ public class GameController {
         }
 
         MovementManager.movePlayer(level, pressed);
+
         if(level.getArena().getKey() != null && level.getPlayer().getHitbox().intersects(level.getArena().getKey().getHitbox())) {
+            System.out.println("ok till here");
             level.getArena().pickKey();
             level.getPlayer().pickUpKey();
 
         }
+
+
 
         long enemyDelay = 300;
         if (now - lastEnemyMove >= enemyDelay) {

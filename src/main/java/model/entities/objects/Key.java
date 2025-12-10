@@ -2,6 +2,8 @@ package model.entities.objects;
 
 import model.Position;
 
+import java.awt.*;
+
 
 public class Key extends Object{
     private boolean picked;
@@ -14,6 +16,7 @@ public class Key extends Object{
     public Key(Position position) {
         super(position);
         this.picked = false;
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
     }
 
     @Override
