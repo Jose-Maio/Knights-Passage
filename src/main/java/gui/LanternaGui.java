@@ -189,7 +189,7 @@ public class LanternaGui implements Gui {
         return activeKeys;
     }
 
-
-
-
+    public TextGraphics getGraphics() {
+        return graphics;
+    }
 }

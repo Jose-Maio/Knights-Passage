@@ -1,6 +1,7 @@
 package gui;
 
 
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import model.Direction;
@@ -26,6 +27,8 @@ public interface Gui {
     int getWidth();
 
     Screen getScreen();
+
+    TextGraphics getGraphics();
 
 
     Set<Integer> getActiveKeys();

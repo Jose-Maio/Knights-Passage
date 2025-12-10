@@ -1,12 +1,9 @@
 package model.game;
 
-import model.Direction;
+
 import model.Position;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
-import model.entities.objects.Key;
-import model.entities.objects.Object;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +13,7 @@ public class Level {
     private final Arena arena;
     private final Rectangle exitPosition;
     private final Player player;
+    private final Position entryPoition;
 
     public Level(List<Enemy> enemies,  Arena arena, Position entryPosition, Rectangle exitPosition, Player player){
         this.enemyList = new ArrayList<>(enemies);
@@ -23,6 +21,7 @@ public class Level {
         this.exitPosition = exitPosition;
         this.player = player;
         this.player.setPosition(entryPosition);
+        this.entryPoition = entryPosition;
     }
 
     public List<Enemy> getEnemyList() {
@@ -56,5 +55,9 @@ public class Level {
     public void removeDeadEnemies(){
         enemyList.removeIf(Enemy::isDead);
 
+    }
+
+    public Position getEntryPoition() {
+        return entryPoition;
     }
 }

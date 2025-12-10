@@ -45,6 +45,7 @@ public class CollisionManager {
 
         for (Enemy enemy : level.getCloseEnemyList()) {
             if (enemy.getHitbox().intersects(newHitbox)) {
+                System.out.println("hits boss");
                 return true;
             }
         }
@@ -59,7 +60,7 @@ public class CollisionManager {
 
     }
     public boolean checkEnemyCollisions(Position position, Enemy enemy,  Level level) {
-        Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, enemy.getHitbox().width, enemy.getHitbox().height);
         // Collisions with Arena Objects
         for (Object object : level.getArena().getObjectList()) {
             if (object.isSolid() && object.getHitbox().intersects(newHitbox)) {

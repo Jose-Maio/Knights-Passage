@@ -15,6 +15,8 @@ public class LevelFactory {
     private static LevelFactory instance;
     private final GameConfiguration configuration;
 
+    private Player player = new Player(20000, 10);
+
     private LevelFactory(GameConfiguration configuration) {
         this.configuration = configuration;
     }
@@ -35,10 +37,9 @@ public class LevelFactory {
         enemies.add(new ForestEnemy(new Position(25, 130), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
 
-        Position entryPosition = new Position(100,100);
-        Rectangle exitPosition = new Rectangle(384, 192, 16,16);
-        Player p = new Player(200000,10);
-        return new Level(enemies, createArena1(), entryPosition, exitPosition, p);
+        Position entryPosition = new Position(0,144);
+        Rectangle exitPosition = new Rectangle(240, 144, 16,16);
+        return new Level(enemies, createArena1(), entryPosition, exitPosition, player);
     }
 
     public Arena createArena1() {
@@ -60,10 +61,9 @@ public class LevelFactory {
         enemies.add(new DungeonEnemy(new Position(198, 137), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
 
-        Position entryPosition = new Position(5, 140);
+        Position entryPosition = new Position(0, 144);
         Rectangle exitPosition = new Rectangle(252, 0, 4, 16);
-        Player p = new Player(10, 10);
-        return new Level(enemies, createArena2(), entryPosition, exitPosition, p);
+        return new Level(enemies, createArena2(), entryPosition, exitPosition, player);
     }
 
     public Arena createArena2() {
@@ -101,8 +101,7 @@ public class LevelFactory {
 
         Position entryPosition = new Position(1, 71);
         Rectangle exitPosition = new Rectangle(253, 68, 4, 25);
-        Player p = new Player(10, 10);
-        return new Level(enemies, createArena3(), entryPosition, exitPosition, p);
+        return new Level(enemies, createArena3(), entryPosition, exitPosition, player);
     }
 
     public Arena createArena3() {
@@ -132,8 +131,7 @@ public class LevelFactory {
 
         Position entryPosition = new Position(1, 71);
         Rectangle exitPosition = new Rectangle(234, 51, 15, 61);
-        Player p = new Player(10, 10);
-        return new Level(enemies, createArena4(), entryPosition, exitPosition, p);
+        return new Level(enemies, createArena4(), entryPosition, exitPosition, player);
     }
 
     public Arena createArena4() {

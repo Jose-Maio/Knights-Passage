@@ -9,20 +9,19 @@ import java.awt.*;
 import static java.lang.Math.abs;
 
 public abstract class Enemy implements Character {
-    private Position position;
-    private Direction facing;
+    protected Position position;
+    protected Direction facing;
     private int health;
     private int damage;
-    private Rectangle hitbox;
+    protected Rectangle hitbox;
     private final Rectangle vision;
-    private boolean attacking = false;
+    protected boolean attacking = false;
 
     public Enemy(Position startPosition, int health, int damage){
         this.position = startPosition;
         this.health = health;
         this.damage = damage;
         this.facing = Direction.RIGHT; // default direction
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
         this.vision = new Rectangle(position.getX() - 50, position.getY() - 50, 100, 100 );
     }
 
@@ -33,7 +32,7 @@ public abstract class Enemy implements Character {
 
     public void setPosition(Position position) {
         this.position = position;
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, hitbox.width,  hitbox.height);
         this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
     }
 
@@ -41,7 +40,7 @@ public abstract class Enemy implements Character {
     public void move(Direction direction) {
         this.facing = direction;
         this.position = nextPos(direction);
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, hitbox.width, hitbox.height);
         this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
     }
 

@@ -109,4 +109,8 @@ public class Player implements Character, Damageable {
             case null -> "front";
         } + (attacking ? " attack" : "");
     }
+
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = hasKey;
+    }
 }
