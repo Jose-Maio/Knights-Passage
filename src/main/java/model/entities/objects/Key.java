@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class Key extends Object{
     private boolean picked;
+    private boolean visible;
 
     @Override
     public boolean isSolid() {
@@ -17,6 +18,7 @@ public class Key extends Object{
         super(position);
         this.picked = false;
         this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+
     }
 
     @Override
@@ -30,5 +32,13 @@ public class Key extends Object{
 
     public void pick() {
         this.picked = true;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 }

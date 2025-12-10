@@ -1,10 +1,11 @@
-package model.game;
+package model.game.level;
 
 import model.Position;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.*;
 import model.entities.objects.*;
 import model.entities.objects.Object;
+import model.game.Arena;
 import model.game.config.GameConfiguration;
 
 import java.awt.*;
@@ -39,7 +40,7 @@ public class LevelFactory {
 
         Position entryPosition = new Position(0,144);
         Rectangle exitPosition = new Rectangle(240, 144, 16,16);
-        return new Level(enemies, createArena1(), entryPosition, exitPosition, player);
+        return new Level(enemies, createArena1(), entryPosition, exitPosition, player, new KeyCollectedRule());
     }
 
     public Arena createArena1() {
@@ -63,7 +64,7 @@ public class LevelFactory {
 
         Position entryPosition = new Position(0, 144);
         Rectangle exitPosition = new Rectangle(252, 0, 4, 16);
-        return new Level(enemies, createArena2(), entryPosition, exitPosition, player);
+        return new Level(enemies, createArena2(), entryPosition, exitPosition, player, new KeyCollectedRule());
     }
 
     public Arena createArena2() {
@@ -101,7 +102,7 @@ public class LevelFactory {
 
         Position entryPosition = new Position(1, 71);
         Rectangle exitPosition = new Rectangle(253, 68, 4, 25);
-        return new Level(enemies, createArena3(), entryPosition, exitPosition, player);
+        return new Level(enemies, createArena3(), entryPosition, exitPosition, player , new KeyCollectedRule());
     }
 
     public Arena createArena3() {
@@ -131,7 +132,7 @@ public class LevelFactory {
 
         Position entryPosition = new Position(1, 71);
         Rectangle exitPosition = new Rectangle(234, 51, 15, 61);
-        return new Level(enemies, createArena4(), entryPosition, exitPosition, player);
+        return new Level(enemies, createArena4(), entryPosition, exitPosition, player , new AllEnemiesDeadRule());
     }
 
     public Arena createArena4() {

@@ -4,7 +4,7 @@ package controller;
 import gui.Gui;
 import model.Direction;
 import model.game.Game;
-import model.game.Level;
+import model.game.level.Level;
 import view.GameView;
 import java.awt.event.KeyEvent;
 import java.io.IOException;

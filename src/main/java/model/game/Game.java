@@ -1,13 +1,14 @@
 package model.game;
 
 
-import model.Direction;
 import model.game.config.GameConfiguration;
+import model.game.level.Level;
+import model.game.level.LevelFactory;
 
 import java.util.List;
 
 public class Game {
-    private int currentLevel = 3;
+    private int currentLevel = 0;
     private final List<Level> levels;
     private boolean gameOver = false;
 

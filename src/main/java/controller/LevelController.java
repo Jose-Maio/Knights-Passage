@@ -3,7 +3,7 @@ package controller;
 import controller.managers.AttackManager;
 import controller.managers.MovementManager;
 import model.Direction;
-import model.game.Level;
+import model.game.level.Level;
 import model.entities.characters.Player;
 import java.io.IOException;
 import java.util.HashSet;

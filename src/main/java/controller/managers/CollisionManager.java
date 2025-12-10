@@ -5,7 +5,7 @@ import model.Position;
 import model.entities.Entity;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Object;
-import model.game.Level;
+import model.game.level.Level;
 
 import java.awt.*;
 

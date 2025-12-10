@@ -4,7 +4,7 @@ package controller.managers;
 import model.Direction;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
-import model.game.Level;
+import model.game.level.Level;
 
 
 public class AttackManager {

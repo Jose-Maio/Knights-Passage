@@ -2,7 +2,7 @@ package view;
 
 import gui.Gui;
 import model.entities.characters.enemies.Enemy;
-import model.game.Level;
+import model.game.level.Level;
 import view.entities.CharacterRenderer;
 
 import java.io.IOException;

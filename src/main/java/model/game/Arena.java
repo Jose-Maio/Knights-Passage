@@ -64,6 +64,10 @@ public class Arena {
         return null;
     }
 
+    public void placeKey(Key key){
+        objectList.add(key);
+    }
+
     public void pickKey(){
         getKey().pick();
         objectList.remove(getKey());

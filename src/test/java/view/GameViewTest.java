@@ -2,7 +2,7 @@ package view;
 
 import gui.Gui;
 import model.game.Game;
-import model.game.Level;
+import model.game.level.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
