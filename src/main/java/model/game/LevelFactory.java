@@ -2,11 +2,12 @@ package model.game;
 
 import model.Position;
 import model.entities.characters.Player;
+import model.entities.characters.enemies.CastleEnemy;
+import model.entities.characters.enemies.DungeonEnemy;
 import model.entities.characters.enemies.Enemy;
 import model.entities.characters.enemies.ForestEnemy;
-import model.entities.objects.Key;
+import model.entities.objects.*;
 import model.entities.objects.Object;
-import model.entities.objects.Tree;
 import model.game.config.GameConfiguration;
 
 import java.awt.*;
@@ -37,7 +38,7 @@ public class LevelFactory {
 
 
         Position entryPosition = new Position(100,100);
-        Rectangle exitPosition = new Rectangle(384, 192, 16,16);
+        Rectangle exitPosition = new Rectangle(252, 144, 4,16);
         Player p = new Player(10,10);
         return new Level(enemies, createArena1(), entryPosition, exitPosition,p );
     }
@@ -46,15 +47,91 @@ public class LevelFactory {
         List<Object> objects = List.of(
                 new Tree(new Position(40, 20)),
                 new Tree(new Position(160,70 )),
-                new Tree(new Position(320, 98)),
+                new Tree(new Position(230, 98)),
                 new Key(new Position(200,100))
         );
-        return new Arena(objects, "sprites/backgrounds/forestbg.png", new Rectangle(0,0,400,208));
+        return new Arena(objects, "sprites/backgrounds/forestbg.png", new Rectangle(0,0, 256,160));
+    }
+
+    public Level createLevel2(){
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new DungeonEnemy(new Position(7,13), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new DungeonEnemy(new Position(110, 45), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new DungeonEnemy(new Position(55,143), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new DungeonEnemy(new Position(238, 9), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new DungeonEnemy(new Position(198, 137), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+
+
+        Position entryPosition = new Position(5,130);
+        Rectangle exitPosition = new Rectangle(252, 0, 4,16);
+        Player p = new Player(10,10);
+        return new Level(enemies, createArena2(), entryPosition, exitPosition,p );
+    }
+
+    public Arena createArena2(){
+        List<Object> objects = List.of(
+            new SmallWallH(new Position(0, 130)),
+            new SmallWallH(new Position(15, 130)),
+            new BigWallV(new Position(22, 78)),
+            new BigWallV(new Position(22, 27)),
+            new SmallWallH(new Position(15, 27)),
+            new SmallWallH(new Position(0, 27)),
+            new BigWallV(new Position(85, 109)),
+            new BigWallV(new Position(85, 58)),
+            new BigWallH(new Position(85, 58)),
+            new BigWallH(new Position(136, 58)),
+            new BigWallV(new Position(179, 58)),
+            new BigWallV(new Position(179, 109)),
+            new BigWallV(new Position(200, 0)),
+            new BigWallV(new Position(200, 50)),
+            new SmallWallV(new Position(85, 0)),
+            new SmallWallV(new Position(85, 7)),
+            new BigWallH(new Position(85, 14)),
+            new BigWallH(new Position(136, 14)),
+            new SmallWallV(new Position(179, 0)),
+            new SmallWallV(new Position(179, 7)),
+            new Key(new Position(5, 5))
+        );
+        return new Arena(objects, "sprites/backgrounds/dungeonbg.png", new Rectangle(0,0,256,160));
+    }
+
+    public Level createLevel3(){
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new CastleEnemy(new Position(210,63), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new CastleEnemy(new Position(210, 85), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+
+
+        Position entryPosition = new Position(100,100);
+        Rectangle exitPosition = new Rectangle(253, 68, 4,25);
+        Player p = new Player(10,10);
+        return new Level(enemies, createArena3(), entryPosition, exitPosition,p );
+    }
+
+    public Arena createArena3(){
+        List<Object> objects = List.of(
+            new BigWallH(new Position(1, 110)),
+            new BigWallH(new Position(51, 110)),
+            new BigWallH(new Position(101, 110)),
+            new BigWallH(new Position(151, 110)),
+            new BigWallH(new Position(201, 110)),
+            new BigWallH(new Position(205, 110)),
+            new BigWallH(new Position(1, 41)),
+            new BigWallH(new Position(51, 41)),
+            new BigWallH(new Position(101, 41)),
+            new BigWallH(new Position(151, 41)),
+            new BigWallH(new Position(201, 41)),
+            new BigWallH(new Position(205, 41)),
+            new Key(new Position(235, 76))
+
+        );
+        return new Arena(objects, "sprites/backgrounds/castlebg.png", new Rectangle(0,0,256,160));
     }
 
     public List<Level> getLevels(){
         return List.of(
-                createLevel1()
+                createLevel1(),
+                createLevel2(),
+                createLevel3()
         );
     }
 }
