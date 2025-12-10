@@ -40,7 +40,7 @@ public class LanternaGui implements Gui {
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(400, 208))
+                .setInitialTerminalSize(new TerminalSize(256, 160))
                 .setTerminalEmulatorFontConfiguration(createFont())
                 .setForceAWTOverSwing(true);
 
