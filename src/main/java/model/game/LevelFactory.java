@@ -60,7 +60,7 @@ public class LevelFactory {
         enemies.add(new DungeonEnemy(new Position(198, 137), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
 
-        Position entryPosition = new Position(5, 130);
+        Position entryPosition = new Position(5, 140);
         Rectangle exitPosition = new Rectangle(252, 0, 4, 16);
         Player p = new Player(10, 10);
         return new Level(enemies, createArena2(), entryPosition, exitPosition, p);
@@ -80,8 +80,8 @@ public class LevelFactory {
                 new BigWallH(new Position(136, 58)),
                 new BigWallV(new Position(179, 58)),
                 new BigWallV(new Position(179, 109)),
-                new BigWallV(new Position(200, 0)),
-                new BigWallV(new Position(200, 50)),
+                new BigWallV(new Position(210, 0)),
+                new BigWallV(new Position(210, 50)),
                 new SmallWallV(new Position(85, 0)),
                 new SmallWallV(new Position(85, 7)),
                 new BigWallH(new Position(85, 14)),

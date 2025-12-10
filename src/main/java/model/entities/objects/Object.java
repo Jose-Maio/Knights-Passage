@@ -8,13 +8,12 @@ import java.awt.*;
 
 public abstract class Object implements Entity {
     private final Position position;
-    private final Rectangle hitbox;
+    Rectangle hitbox;
 
     public abstract boolean isSolid();
 
     public Object(Position position){
         this.position = position;
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
     }
 
     @Override
