@@ -15,7 +15,7 @@ public class LevelFactory {
     private static LevelFactory instance;
     private final GameConfiguration configuration;
 
-    private Player player = new Player(20000, 10);
+    private Player player = new Player(500, 10);
 
     private LevelFactory(GameConfiguration configuration) {
         this.configuration = configuration;
@@ -38,7 +38,7 @@ public class LevelFactory {
 
 
         Position entryPosition = new Position(0,144);
-        Rectangle exitPosition = new Rectangle(240, 144, 16,16);
+        Rectangle exitPosition = new Rectangle(252, 144, 4,16);
         return new Level(enemies, createArena1(), entryPosition, exitPosition, player);
     }
 
@@ -95,8 +95,8 @@ public class LevelFactory {
 
     public Level createLevel3() {
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new CastleEnemy(new Position(210, 63), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new CastleEnemy(new Position(210, 85), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new CastleEnemy(new Position(210, 63), (int) (150 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new CastleEnemy(new Position(210, 85), (int) (150 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
 
         Position entryPosition = new Position(1, 71);
@@ -126,7 +126,7 @@ public class LevelFactory {
 
     public Level createLevel4() {
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Boss(new Position(160, 61), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new Boss(new Position(160, 61), (int) (500 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
 
         Position entryPosition = new Position(1, 71);
