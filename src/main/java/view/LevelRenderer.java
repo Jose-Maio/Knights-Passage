@@ -12,13 +12,19 @@ public class LevelRenderer {
     CharacterRenderer characterRenderer = new CharacterRenderer();
     ArenaRenderer arenaRenderer = new ArenaRenderer();
 
-
+    private Level prevLevel = null;
 
     public LevelRenderer() {
     }
 
     public void render(Level level, Gui gui) throws IOException {
 
+        if(prevLevel != level && prevLevel != null){
+            arenaRenderer.resetArennaBuffer();
+        }
+
+        prevLevel = level;
+        
         arenaRenderer.render(level.getArena(), gui);
 
         characterRenderer.render(level.getPlayer(), gui);

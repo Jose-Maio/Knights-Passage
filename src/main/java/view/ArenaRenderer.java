@@ -3,8 +3,6 @@ package view;
 import gui.Gui;
 import model.entities.objects.Key;
 import model.entities.objects.Object;
-import model.entities.objects.Tree;
-import model.entities.objects.Wall;
 import model.game.Arena;
 import view.entities.ObjectRenderer;
 
@@ -37,6 +35,10 @@ public class ArenaRenderer {
             if(obj instanceof Key) continue;
             else objectRenderer.renderToBuffer(obj, buffer , gui);
         }
+    }
+
+    public void resetArennaBuffer(){
+        this.arenaBuffer = null;
     }
 
 
