@@ -3,12 +3,9 @@ package view;
 import gui.Gui;
 import model.entities.objects.Key;
 import model.entities.objects.Object;
-import model.entities.objects.Tree;
-import model.entities.objects.Wall;
 import model.game.Arena;
 import view.entities.ObjectRenderer;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

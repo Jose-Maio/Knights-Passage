@@ -1,8 +1,8 @@
 package model;
 
+import model.entities.objects.BigWallH;
 import model.entities.objects.Key;
 import model.entities.objects.Tree;
-import model.entities.objects.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ObjectsTest {
 
     private Tree tree;
-    private Wall wall;
+    private BigWallH bigWallH;
     private Key key;
 
     @BeforeEach
     void setUp() {
         tree = new Tree(new Position(10, 10));
-        wall = new Wall(new Position(30, 30));
+        bigWallH = new BigWallH(new Position(30, 30));
         key = new Key(new Position(50, 50));
     }
 
@@ -27,9 +27,9 @@ public class ObjectsTest {
         assertEquals(10, tree.getPosition().getX());
         assertEquals(10, tree.getPosition().getY());
 
-        // Wall
-        assertEquals(30, wall.getPosition().getX());
-        assertEquals(30, wall.getPosition().getY());
+        // BigWallH
+        assertEquals(30, bigWallH.getPosition().getX());
+        assertEquals(30, bigWallH.getPosition().getY());
 
         // Key
         assertEquals(50, key.getPosition().getX());
@@ -39,7 +39,7 @@ public class ObjectsTest {
     @Test
     void testIsSolid() {
         assertTrue(tree.isSolid());
-        assertTrue(wall.isSolid());
+        assertTrue(bigWallH.isSolid());
         assertFalse(key.isSolid());
     }
 }

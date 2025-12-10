@@ -2,16 +2,16 @@ package model.entities.objects;
 
 import model.Position;
 
-public class Wall extends Object{
+public class SmallWallH extends Object{
 
 
-    public Wall(Position position){
+    public SmallWallH(Position position){
         super(position);
     }
 
     @Override
     public String toStringImg() {
-        return "Wall";
+        return "SmallWallV";
     }
 
     @Override
