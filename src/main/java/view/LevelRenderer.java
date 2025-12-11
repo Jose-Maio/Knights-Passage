@@ -20,7 +20,7 @@ public class LevelRenderer {
     public void render(Level level, Gui gui) throws IOException {
 
         if(prevLevel != level && prevLevel != null){
-            arenaRenderer.resetArennaBuffer();
+            arenaRenderer.resetArenaBuffer();
         }
 
         prevLevel = level;

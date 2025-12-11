@@ -36,7 +36,7 @@ public class ArenaRenderer {
         }
     }
 
-    public void resetArennaBuffer(){
+    public void resetArenaBuffer(){
         this.arenaBuffer = null;
     }
 

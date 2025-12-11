@@ -11,8 +11,14 @@ import java.util.HashSet;
 public class LevelController {
 
     private long lastEnemyUpdate = 0;
+    private boolean hasSpawnedPlayer = false;
+
 
     public void update(Level level, HashSet<Direction> input, Boolean isAttackPressed) throws IOException {
+
+        spawnPlayerIfNeeded(level);
+
+        level.specialBehavior();
 
         updatePlayer(level, input, isAttackPressed);
 
@@ -50,13 +56,23 @@ public class LevelController {
     }
 
     private void checkKeyPickup(Level level) {
-        if (level.getArena().getKey() == null) return;
+        if (level.getArena().getKey() == null) {
+            return;
+        }
+
 
         if (level.getPlayer().getHitbox()
                 .intersects(level.getArena().getKey().getHitbox())) {
 
             level.getArena().pickKey();
             level.getPlayer().pickUpKey();
+        }
+    }
+
+    private void spawnPlayerIfNeeded(Level level){
+        if(!hasSpawnedPlayer){
+            level.spawnPlayer();
+            hasSpawnedPlayer = true;
         }
     }
 }

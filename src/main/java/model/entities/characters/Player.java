@@ -20,7 +20,7 @@ public class Player implements Character, Damageable {
         this.attackPower = attackPower;
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
-        this.position = new Position(0,0);
+        this.position = new Position(0,144);
         this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
     }
 

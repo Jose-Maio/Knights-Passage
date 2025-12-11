@@ -34,9 +34,6 @@ public class Arena {
         return backgroundImg;
     }
 
-    public Rectangle getDimensions() {
-        return dimensions;
-    }
 
     public boolean isInsideArena(Rectangle hitbox) {
         int left   = hitbox.x;

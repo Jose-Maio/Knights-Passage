@@ -24,12 +24,13 @@ public class AttackManager {
 
     public static void enemyAttack(Level level){
         Player player = level.getPlayer();
+
+
         for(Enemy enemy : level.getCloseEnemyList()){
             enemy.setAttacking(false);
             Direction collideDir = collisionManager.getCollisionSide(enemy, player);
-            if((collideDir != null) && (collideDir == enemy.getFacing())){
-                player.takeDamage(enemy.getDamage());
-                enemy.setAttacking(true);
+            if((collideDir != null) && (collideDir == enemy.getFacing()) && enemy.canAttack()){
+                enemy.attack(player);
 
             }
         }

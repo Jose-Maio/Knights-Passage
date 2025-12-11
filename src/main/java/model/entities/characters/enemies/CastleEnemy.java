@@ -8,6 +8,7 @@ public class CastleEnemy extends Enemy {
     public CastleEnemy(Position startPosition, int health, int damage) {
         super(startPosition, health, damage);
         this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        this.attackDelay = 600;
     }
 
     @Override

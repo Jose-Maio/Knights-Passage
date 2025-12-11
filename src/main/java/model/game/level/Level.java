@@ -5,6 +5,8 @@ import model.Position;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
 import model.game.Arena;
+import model.game.level.CompletionRules.LevelCompletionRule;
+import model.game.level.SpecialBehavior.LevelSpecialBehavior;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,17 +17,19 @@ public class Level {
     private final Arena arena;
     private final Rectangle exitPosition;
     private final Player player;
-    private final Position entryPoition;
+    private final Position entryPosition;
     private final LevelCompletionRule levelCompletionRule;
+    private final LevelSpecialBehavior levelSpecialBehavior;
 
-    public Level(List<Enemy> enemies,  Arena arena, Position entryPosition, Rectangle exitPosition, Player player, LevelCompletionRule levelCompletionRule){
+    public Level(List<Enemy> enemies,  Arena arena, Position entryPosition, Rectangle exitPosition, Player player,
+                 LevelCompletionRule levelCompletionRule, LevelSpecialBehavior levelSpecialBehavior){
         this.enemyList = new ArrayList<>(enemies);
         this.arena = arena;
         this.exitPosition = exitPosition;
         this.player = player;
-        this.player.setPosition(entryPosition);
-        this.entryPoition = entryPosition;
+        this.entryPosition = entryPosition;
         this.levelCompletionRule = levelCompletionRule;
+        this.levelSpecialBehavior = levelSpecialBehavior;
     }
 
     public List<Enemy> getEnemyList() {
@@ -61,7 +65,15 @@ public class Level {
 
     }
 
-    public Position getEntryPoition() {
-        return entryPoition;
+    public Position getEntryPosition() {
+        return entryPosition;
+    }
+
+    public void specialBehavior(){
+        if(levelSpecialBehavior != null)levelSpecialBehavior.behavior(this);
+    }
+
+    public void spawnPlayer(){
+        player.setPosition(entryPosition);
     }
 }

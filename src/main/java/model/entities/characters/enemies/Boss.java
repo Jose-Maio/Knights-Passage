@@ -9,6 +9,7 @@ public class Boss extends Enemy {
     public Boss(Position startPosition, int health, int damage) {
         super(startPosition, health, damage);
         this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 39, 35);
+        this.attackDelay = 1000;
     }
 
     @Override

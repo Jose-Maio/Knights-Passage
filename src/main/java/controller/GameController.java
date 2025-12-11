@@ -75,7 +75,7 @@ public class GameController {
         if (level.isComplete()) {
             game.nextLevel(); // Temporary fixes
             level.getPlayer().setHasKey(false);
-            level.getPlayer().setPosition(game.getCurrentLevel().getEntryPoition());
+            level.getPlayer().setPosition(game.getCurrentLevel().getEntryPosition());
         }
 
         }
