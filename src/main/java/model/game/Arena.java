@@ -9,22 +9,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Arena {
-    private final List<Object> objectList;
+    private final List<Object> staticObjectList;
     private final String backgroundImg;
     private final Rectangle dimensions;
+    private final List<Object> dynamicObjectList;
 
-    public Arena(List<Object> objects, String backgroundImg, Rectangle dimensions){
-        this.objectList = new ArrayList<>(objects);
+    public Arena(List<Object> staticObjects, List<Object> dynamicObjects ,String backgroundImg, Rectangle dimensions){
+        this.staticObjectList = new ArrayList<>(staticObjects);
+        this.dynamicObjectList = new ArrayList<>(dynamicObjects);
         this.backgroundImg = backgroundImg;
         this.dimensions = dimensions;
     }
 
-    public List<Object> getObjectList() {
-        return objectList;
+    public List<Object> getStaticObjectList() {
+        return staticObjectList;
+    }
+
+    public List<Object> getDynamicObjectList() {
+        return dynamicObjectList;
+    }
+
+    public List<Object> getAllObjectList() {
+        List<Object> allObjects = new ArrayList<>();
+        allObjects.addAll(staticObjectList);
+        allObjects.addAll(dynamicObjectList);
+        return allObjects;
     }
 
     public boolean isBlocked(Position position){
-        for(Object object : objectList){
+        for(Object object : getAllObjectList()){
             if(object.getPosition().equals(position) && object.isSolid()) return true;
         }
         return false;
@@ -33,7 +46,6 @@ public class Arena {
     public String getBackgroundImg() {
         return backgroundImg;
     }
-
 
     public boolean isInsideArena(Rectangle hitbox) {
         int left   = hitbox.x;
@@ -53,7 +65,7 @@ public class Arena {
     }
 
     public Key getKey(){
-        for(Object object : objectList){
+        for(Object object : dynamicObjectList){
             if(object instanceof Key){
                 return (Key) object;
             }
@@ -62,12 +74,12 @@ public class Arena {
     }
 
     public void placeKey(Key key){
-        objectList.add(key);
+        dynamicObjectList.add(key);
     }
 
     public void pickKey(){
         getKey().pick();
-        objectList.remove(getKey());
+        dynamicObjectList.remove(getKey());
 
     }
 }

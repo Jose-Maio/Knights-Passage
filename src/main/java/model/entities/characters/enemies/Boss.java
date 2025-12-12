@@ -14,7 +14,6 @@ public class Boss extends Enemy {
 
     @Override
     public String toStringImg() {
-        System.out.println("boss is being drawn" + facing + attacking);;
         return "Boss " + switch (facing){
             case LEFT -> "left";
             case RIGHT -> "right";

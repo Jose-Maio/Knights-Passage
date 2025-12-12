@@ -48,13 +48,16 @@ public class LevelFactory {
     }
 
     public Arena createArena1() {
-        List<Object> objects = List.of(
+        List<Object> staticObjects = List.of(
                 new Tree(new Position(40, 20)),
                 new Tree(new Position(160, 70)),
-                new Tree(new Position(230, 98)),
+                new Tree(new Position(230, 98))
+
+        );
+        List<Object> dynamicObjects = List.of(
                 new Key(new Position(200, 100))
         );
-        return new Arena(objects, "sprites/backgrounds/forestbg.png", new Rectangle(0, 0, 256, 160));
+        return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/forestbg.png", new Rectangle(0, 0, 256, 160));
     }
 
     public Level createLevel2() {
@@ -72,7 +75,7 @@ public class LevelFactory {
     }
 
     public Arena createArena2() {
-        List<Object> objects = List.of(
+        List<Object> staticObjects = List.of(
                 new SmallWallH(new Position(0, 130)),
                 new SmallWallH(new Position(15, 130)),
                 new BigWallV(new Position(22, 78)),
@@ -81,8 +84,6 @@ public class LevelFactory {
                 new SmallWallH(new Position(0, 27)),
                 new BigWallV(new Position(85, 109)),
                 new BigWallV(new Position(85, 58)),
-                new BigWallH(new Position(85, 58)),
-                new BigWallH(new Position(136, 58)),
                 new BigWallV(new Position(179, 58)),
                 new BigWallV(new Position(179, 109)),
                 new BigWallV(new Position(210, 0)),
@@ -92,10 +93,15 @@ public class LevelFactory {
                 new BigWallH(new Position(85, 14)),
                 new BigWallH(new Position(136, 14)),
                 new SmallWallV(new Position(179, 0)),
-                new SmallWallV(new Position(179, 7)),
+                new SmallWallV(new Position(179, 7))
+        );
+        List<Object> dynamicObjects = List.of(
+                new BigWallH(new Position(85, 58)),
+                new BigWallH(new Position(136, 58)),
                 new Key(new Position(129, 120))
         );
-        return new Arena(objects, "sprites/backgrounds/dungeonbg.png", new Rectangle(0, 0, 256, 160));
+
+        return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/dungeonbg.png", new Rectangle(0, 0, 256, 160));
     }
 
     public Level createLevel3() {
@@ -111,7 +117,7 @@ public class LevelFactory {
     }
 
     public Arena createArena3() {
-        List<Object> objects = List.of(
+        List<Object> staticObjects = List.of(
                 new BigWallH(new Position(1, 110)),
                 new BigWallH(new Position(51, 110)),
                 new BigWallH(new Position(101, 110)),
@@ -127,7 +133,11 @@ public class LevelFactory {
 
 
         );
-        return new Arena(objects, "sprites/backgrounds/castlebg.png", new Rectangle(0, 0, 256, 160));
+
+        List<Object> dynamicObjects = List.of(
+        );
+
+        return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/castlebg.png", new Rectangle(0, 0, 256, 160));
     }
 
     public Level createLevel4() {
@@ -141,8 +151,9 @@ public class LevelFactory {
     }
 
     public Arena createArena4() {
-        List<Object> objects = List.of();
-        return new Arena(objects, "sprites/backgrounds/bossroombg.png", new Rectangle(0, 0, 256, 160));
+        List<Object> staticObjects = List.of();
+        List<Object> dynamicObjects = List.of();
+        return new Arena(staticObjects, dynamicObjects, "sprites/backgrounds/bossroombg.png", new Rectangle(0, 0, 256, 160));
     }
 
     public List<Level> getLevels() {

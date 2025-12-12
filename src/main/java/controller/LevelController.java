@@ -30,7 +30,8 @@ public class LevelController {
 
     private void updatePlayer(Level level, HashSet<Direction> input, Boolean isAttackPressed) {
         Player player = level.getPlayer();
-        player.setAttacking(isAttackPressed);
+        player.setAttacking(isAttackPressed && player.canAttack());
+
         if (player.isDead()) return;
 
         for(Direction direction : input){
@@ -72,7 +73,12 @@ public class LevelController {
     private void spawnPlayerIfNeeded(Level level){
         if(!hasSpawnedPlayer){
             level.spawnPlayer();
+            level.getPlayer().setHasKey(false);
             hasSpawnedPlayer = true;
         }
+    }
+
+    public void setHasSpawnedPlayer(boolean value){
+        hasSpawnedPlayer = value;
     }
 }

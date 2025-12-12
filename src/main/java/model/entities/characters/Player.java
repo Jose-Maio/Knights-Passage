@@ -14,6 +14,8 @@ public class Player implements Character, Damageable {
     private boolean hasKey;
     private boolean attacking = false;
     private Rectangle hitbox;
+    public long lastAttack = 0;
+    public long attackDelay = 200;
 
     public Player(int health, int attackPower) {
         this.health = health;
@@ -113,4 +115,18 @@ public class Player implements Character, Damageable {
     public void setHasKey(boolean hasKey) {
         this.hasKey = hasKey;
     }
+
+    public boolean canAttack() {
+        long now = System.currentTimeMillis();
+
+        return now - lastAttack >= attackDelay;
+    }
+
+    public void attack(Character character){
+        lastAttack =  System.currentTimeMillis();
+        character.takeDamage(attackPower);
+
+    }
+
+
 }

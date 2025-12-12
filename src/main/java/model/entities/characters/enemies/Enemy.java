@@ -6,7 +6,6 @@ import model.entities.characters.Character;
 
 import java.awt.*;
 
-import static java.lang.Math.abs;
 
 public abstract class Enemy implements Character {
     protected Position position;

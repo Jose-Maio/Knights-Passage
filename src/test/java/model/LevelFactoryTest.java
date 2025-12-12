@@ -54,6 +54,6 @@ public class LevelFactoryTest {
         Arena arena = factory.createArena1();
 
         assertNotNull(arena);
-        assertFalse(arena.getObjectList().isEmpty());
+        assertFalse(arena.getStaticObjectList().isEmpty());
     }
 }
