@@ -38,7 +38,7 @@ public class LevelFactory {
 
 
         Position entryPosition = new Position(0,144);
-        Rectangle exitPosition = new Rectangle(252, 144, 4,16);
+        Rectangle exitPosition = new Rectangle(249, 144, 7,16);
         return new Level(enemies, createArena1(), entryPosition, exitPosition, player);
     }
 
@@ -62,7 +62,7 @@ public class LevelFactory {
 
 
         Position entryPosition = new Position(0, 144);
-        Rectangle exitPosition = new Rectangle(252, 0, 4, 16);
+        Rectangle exitPosition = new Rectangle(247, 7, 7, 16);
         return new Level(enemies, createArena2(), entryPosition, exitPosition, player);
     }
 
@@ -100,7 +100,7 @@ public class LevelFactory {
 
 
         Position entryPosition = new Position(1, 71);
-        Rectangle exitPosition = new Rectangle(253, 68, 4, 25);
+        Rectangle exitPosition = new Rectangle(250, 75, 7, 16);
         return new Level(enemies, createArena3(), entryPosition, exitPosition, player);
     }
 
