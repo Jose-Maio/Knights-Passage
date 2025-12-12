@@ -6,7 +6,6 @@ import model.entities.characters.Character;
 
 import java.awt.*;
 
-import static java.lang.Math.abs;
 
 public abstract class Enemy implements Character {
     protected Position position;
@@ -16,6 +15,8 @@ public abstract class Enemy implements Character {
     protected Rectangle hitbox;
     private final Rectangle vision;
     protected boolean attacking = false;
+    public long lastAttack = 0;
+    public long attackDelay;
 
     public Enemy(Position startPosition, int health, int damage){
         this.position = startPosition;
@@ -76,10 +77,6 @@ public abstract class Enemy implements Character {
         this.attacking = value;
     }
 
-    public boolean isAttacking() {
-        return attacking;
-    }
-
     public Rectangle getHitbox(){
         return hitbox;
     }
@@ -99,4 +96,17 @@ public abstract class Enemy implements Character {
 
     @Override
     public abstract String toStringImg();
+
+    public boolean canAttack(){
+        long now = System.currentTimeMillis();
+
+        return now - lastAttack >= attackDelay;
+    }
+
+    public void attack(Character character){
+        lastAttack =  System.currentTimeMillis();
+        attacking = true;
+        character.takeDamage(damage);
+
+    }
 }

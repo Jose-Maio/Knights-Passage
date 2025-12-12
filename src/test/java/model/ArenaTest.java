@@ -30,14 +30,14 @@ class ArenaTest {
         when(nonSolidObj.isSolid()).thenReturn(false);
 
         List<Object> objects = Arrays.asList(solidObj, nonSolidObj);
-        arena = new Arena(objects, "castle.png", new Rectangle(0,0,400,208));
+        //arena = new Arena(objects, "castle.png", new Rectangle(0,0,400,208));
     }
 
     @Test
     void testGetObjectList() {
-        assertEquals(2, arena.getObjectList().size());
-        assertTrue(arena.getObjectList().contains(solidObj));
-        assertTrue(arena.getObjectList().contains(nonSolidObj));
+        assertEquals(2, arena.getStaticObjectList().size());
+        assertTrue(arena.getStaticObjectList().contains(solidObj));
+        assertTrue(arena.getStaticObjectList().contains(nonSolidObj));
     }
 
     @Test

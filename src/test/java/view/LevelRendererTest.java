@@ -5,7 +5,7 @@ import model.entities.characters.Player;
 import model.entities.characters.enemies.ForestEnemy;
 import model.entities.objects.Key;
 import model.game.Arena;
-import model.game.Level;
+import model.game.level.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

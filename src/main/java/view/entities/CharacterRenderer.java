@@ -18,8 +18,8 @@ public class CharacterRenderer extends EntityRenderer<Character> {
 
     @Override
     public void render(Character character, Gui gui) throws IOException {
-        gui.drawImage(getImgPath(character), character.getPosition());
-        drawHitboxOutline(gui.getGraphics(), character.getHitbox().x, character.getHitbox().y,
+        gui.drawImage(getImgPath(character), character.getPosition());}
+        /*drawHitboxOutline(gui.getGraphics(), character.getHitbox().x, character.getHitbox().y,
                 character.getHitbox().width, character.getHitbox().height);
 
     }
@@ -48,5 +48,5 @@ public class CharacterRenderer extends EntityRenderer<Character> {
         g.putString(x + w - 1, y, "+");               // top-right
         g.putString(x, y + h - 1, "+");               // bottom-left
         g.putString(x + w - 1, y + h - 1, "+");       // bottom-right
-    }
+    }*/
 }

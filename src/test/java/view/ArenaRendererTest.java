@@ -26,7 +26,7 @@ class ArenaRendererTest {
 
         Mockito.when(arena.getBackgroundImg()).thenReturn("bg.png");
 
-        Mockito.when(arena.getObjectList()).thenReturn(Arrays.asList(new BigWallH(new Position(1, 2)), new Tree(new Position(5, 5)), new BigWallH(new Position(3, 4))));
+        Mockito.when(arena.getStaticObjectList()).thenReturn(Arrays.asList(new BigWallH(new Position(1, 2)), new Tree(new Position(5, 5)), new BigWallH(new Position(3, 4))));
     }
 
     @Test

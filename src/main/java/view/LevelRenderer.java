@@ -2,7 +2,7 @@ package view;
 
 import gui.Gui;
 import model.entities.characters.enemies.Enemy;
-import model.game.Level;
+import model.game.level.Level;
 import view.entities.CharacterRenderer;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class LevelRenderer {
     public void render(Level level, Gui gui) throws IOException {
 
         if(prevLevel != level && prevLevel != null){
-            arenaRenderer.resetArennaBuffer();
+            arenaRenderer.resetArenaBuffer();
         }
 
         prevLevel = level;

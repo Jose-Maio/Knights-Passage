@@ -2,8 +2,8 @@ package model;
 
 import model.entities.characters.enemies.Enemy;
 import model.game.Arena;
-import model.game.Level;
-import model.game.LevelFactory;
+import model.game.level.Level;
+import model.game.level.LevelFactory;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
 import org.junit.jupiter.api.Test;
@@ -54,6 +54,6 @@ public class LevelFactoryTest {
         Arena arena = factory.createArena1();
 
         assertNotNull(arena);
-        assertFalse(arena.getObjectList().isEmpty());
+        assertFalse(arena.getStaticObjectList().isEmpty());
     }
 }
