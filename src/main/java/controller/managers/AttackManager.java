@@ -4,7 +4,7 @@ package controller.managers;
 import model.Direction;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
-import model.game.Level;
+import model.game.level.Level;
 
 
 public class AttackManager {
@@ -12,24 +12,29 @@ public class AttackManager {
 
     public static void playerAttack(Level level){
         Player player = level.getPlayer();
+        if (!player.isAttacking()) return;
+
+
         for(Enemy enemy : level.getCloseEnemyList()){
             Direction collideDir = collisionManager.getCollisionSide(player, enemy);
-            if((collideDir != null) && (collideDir == player.getFacing()) && player.isAttacking()){
-                enemy.takeDamage(level.getPlayer().getAttackPower());
+            if((collideDir != null) && (collideDir == player.getFacing())){
+                player.attack(enemy);
                 break;
             }
         }
+
+        player.lastAttack = System.currentTimeMillis();
 
     }
 
     public static void enemyAttack(Level level){
         Player player = level.getPlayer();
+
         for(Enemy enemy : level.getCloseEnemyList()){
             enemy.setAttacking(false);
             Direction collideDir = collisionManager.getCollisionSide(enemy, player);
-            if((collideDir != null) && (collideDir == enemy.getFacing())){
-                player.takeDamage(enemy.getDamage());
-                enemy.setAttacking(true);
+            if((collideDir != null) && (collideDir == enemy.getFacing()) && enemy.canAttack()){
+                enemy.attack(player);
 
             }
         }

@@ -4,7 +4,7 @@ import model.Direction;
 import model.Position;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
-import model.game.Level;
+import model.game.level.Level;
 
 import static java.lang.Math.abs;
 

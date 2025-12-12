@@ -4,7 +4,7 @@ package controller;
 import gui.Gui;
 import model.Direction;
 import model.game.Game;
-import model.game.Level;
+import model.game.level.Level;
 import view.GameView;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -14,8 +14,10 @@ public class GameController {
     private final Game game;
     private final GameView gameView;
     private final Gui gui;
-
     private final LevelController levelController;
+
+    /*long last = System.currentTimeMillis(); Calculate FPS
+    int frames = 0;*/
 
     public GameController(Game game, Gui gui) throws Exception {
         this.game = game;
@@ -38,6 +40,14 @@ public class GameController {
                 Thread.sleep(50); // ~20 FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            frames++;
+            long now = System.currentTimeMillis();
+            if (now - last >= 1000) {
+                System.out.println("FPS: " + frames);
+                frames = 0;
+                last = now;
             }*/
 
         }
@@ -73,9 +83,9 @@ public class GameController {
     
 
         if (level.isComplete()) {
-            game.nextLevel(); // Temporary fixes
-            level.getPlayer().setHasKey(false);
-            level.getPlayer().setPosition(game.getCurrentLevel().getEntryPoition());
+            game.nextLevel();
+            levelController.setHasSpawnedPlayer(false);
+
         }
 
         }

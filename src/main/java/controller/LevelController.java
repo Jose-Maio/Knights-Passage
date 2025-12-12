@@ -3,7 +3,7 @@ package controller;
 import controller.managers.AttackManager;
 import controller.managers.MovementManager;
 import model.Direction;
-import model.game.Level;
+import model.game.level.Level;
 import model.entities.characters.Player;
 import java.io.IOException;
 import java.util.HashSet;
@@ -11,8 +11,14 @@ import java.util.HashSet;
 public class LevelController {
 
     private long lastEnemyUpdate = 0;
+    private boolean hasSpawnedPlayer = false;
+
 
     public void update(Level level, HashSet<Direction> input, Boolean isAttackPressed) throws IOException {
+
+        spawnPlayerIfNeeded(level);
+
+        level.specialBehavior();
 
         updatePlayer(level, input, isAttackPressed);
 
@@ -24,7 +30,8 @@ public class LevelController {
 
     private void updatePlayer(Level level, HashSet<Direction> input, Boolean isAttackPressed) {
         Player player = level.getPlayer();
-        player.setAttacking(isAttackPressed);
+        player.setAttacking(isAttackPressed && player.canAttack());
+
         if (player.isDead()) return;
 
         for(Direction direction : input){
@@ -50,7 +57,10 @@ public class LevelController {
     }
 
     private void checkKeyPickup(Level level) {
-        if (level.getArena().getKey() == null) return;
+        if (level.getArena().getKey() == null) {
+            return;
+        }
+
 
         if (level.getPlayer().getHitbox()
                 .intersects(level.getArena().getKey().getHitbox())) {
@@ -58,5 +68,17 @@ public class LevelController {
             level.getArena().pickKey();
             level.getPlayer().pickUpKey();
         }
+    }
+
+    private void spawnPlayerIfNeeded(Level level){
+        if(!hasSpawnedPlayer){
+            level.spawnPlayer();
+            level.getPlayer().setHasKey(false);
+            hasSpawnedPlayer = true;
+        }
+    }
+
+    public void setHasSpawnedPlayer(boolean value){
+        hasSpawnedPlayer = value;
     }
 }

@@ -14,13 +14,15 @@ public class Player implements Character, Damageable {
     private boolean hasKey;
     private boolean attacking = false;
     private Rectangle hitbox;
+    public long lastAttack = 0;
+    public long attackDelay = 200;
 
     public Player(int health, int attackPower) {
         this.health = health;
         this.attackPower = attackPower;
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
-        this.position = new Position(0,0);
+        this.position = new Position(0,144);
         this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
     }
 
@@ -113,4 +115,18 @@ public class Player implements Character, Damageable {
     public void setHasKey(boolean hasKey) {
         this.hasKey = hasKey;
     }
+
+    public boolean canAttack() {
+        long now = System.currentTimeMillis();
+
+        return now - lastAttack >= attackDelay;
+    }
+
+    public void attack(Character character){
+        lastAttack =  System.currentTimeMillis();
+        character.takeDamage(attackPower);
+
+    }
+
+
 }

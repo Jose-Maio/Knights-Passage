@@ -2,7 +2,7 @@ package model;
 
 import model.entities.characters.Player;
 import model.game.Game;
-import model.game.Level;
+import model.game.level.Level;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class GameTest {
     private Game g;

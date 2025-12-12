@@ -6,7 +6,7 @@ import model.entities.characters.enemies.ForestEnemy;
 import model.entities.objects.Key;
 import model.entities.objects.Tree;
 import model.game.Arena;
-import model.game.Level;
+import model.game.level.Level;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class LevelTest {
     private Key key;

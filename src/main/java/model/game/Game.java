@@ -1,8 +1,9 @@
 package model.game;
 
 
-import model.Direction;
 import model.game.config.GameConfiguration;
+import model.game.level.Level;
+import model.game.level.LevelFactory;
 
 import java.util.List;
 
