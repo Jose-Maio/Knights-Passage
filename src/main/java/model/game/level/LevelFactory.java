@@ -20,7 +20,7 @@ public class LevelFactory {
     private static LevelFactory instance;
     private final GameConfiguration configuration;
 
-    private Player player = new Player(20000, 10);
+    private Player player = new Player(500, 10);
 
     private LevelFactory(GameConfiguration configuration) {
         this.configuration = configuration;
@@ -43,7 +43,7 @@ public class LevelFactory {
 
 
         Position entryPosition = new Position(0,144);
-        Rectangle exitPosition = new Rectangle(240, 144, 16,16);
+        Rectangle exitPosition = new Rectangle(252, 144, 4,16);
         return new Level(enemies, createArena1(), entryPosition, exitPosition, player, new KeyCollectedRule() , null);
     }
 
@@ -100,7 +100,6 @@ public class LevelFactory {
                 new BigWallH(new Position(136, 58)),
                 new Key(new Position(129, 120))
         );
-
         return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/dungeonbg.png", new Rectangle(0, 0, 256, 160));
     }
 
