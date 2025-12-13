@@ -82,4 +82,8 @@ public class Arena {
         dynamicObjectList.remove(getKey());
 
     }
+
+    public Rectangle getDimensions() {
+        return dimensions;
+    }
 }

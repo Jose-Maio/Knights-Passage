@@ -3,9 +3,11 @@ package model;
 public class Button {
     private Options option;
     private boolean isHovered;
+    private final Position position;
 
-    Button(Options option){
+    public Button(Options option, Position position){
         this.option = option;
+        this.position = position;
     }
 
     public Options getOption() {
@@ -22,5 +24,13 @@ public class Button {
 
     public boolean isHovered() {
         return isHovered;
+    }
+
+    public String toStringImg() {
+        return option.toString() + (isHovered ? "_selected" : "");
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }

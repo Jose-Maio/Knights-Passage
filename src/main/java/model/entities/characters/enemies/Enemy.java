@@ -11,6 +11,7 @@ public abstract class Enemy implements Character {
     protected Position position;
     protected Direction facing;
     private int health;
+    private final int maxHealth;
     private int damage;
     protected Rectangle hitbox;
     private final Rectangle vision;
@@ -20,7 +21,8 @@ public abstract class Enemy implements Character {
 
     public Enemy(Position startPosition, int health, int damage){
         this.position = startPosition;
-        this.health = health;
+        this.maxHealth = health;
+        this.health = maxHealth;
         this.damage = damage;
         this.facing = Direction.RIGHT; // default direction
         this.vision = new Rectangle(position.getX() - 50, position.getY() - 50, 100, 100 );
@@ -67,6 +69,11 @@ public abstract class Enemy implements Character {
 
     public int getHealth() {
         return health;
+    }
+
+    @Override
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public int getDamage() {
