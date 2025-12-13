@@ -9,6 +9,7 @@ public class Player implements Character, Damageable {
 
     private Position position;
     private int health;
+    private int maxHealth;
     private final int attackPower;
     private Direction facing;
     private boolean hasKey;
@@ -18,7 +19,8 @@ public class Player implements Character, Damageable {
     public long attackDelay = 200;
 
     public Player(int health, int attackPower) {
-        this.health = health;
+        this.maxHealth = health;
+        this.health = maxHealth;
         this.attackPower = attackPower;
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
@@ -69,6 +71,11 @@ public class Player implements Character, Damageable {
 
     public int getHealth() {
         return health;
+    }
+
+    @Override
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public int getAttackPower() {

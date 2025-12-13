@@ -8,7 +8,7 @@ import model.game.level.LevelFactory;
 import java.util.List;
 
 public class Game {
-    private int currentLevel = 0;
+    private int currentLevel = 3;
     private final List<Level> levels;
     private boolean gameOver = false;
 

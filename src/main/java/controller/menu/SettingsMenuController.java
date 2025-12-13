@@ -3,9 +3,11 @@ package controller.menu;
 import com.googlecode.lanterna.input.KeyStroke;
 import controller.Controller;
 import gui.Gui;
+import model.Button;
 import model.Options;
 import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
+import view.MenuView;
 import view.SettingsMenuView;
 
 import java.io.IOException;
@@ -13,20 +15,20 @@ import java.io.IOException;
 
 public class SettingsMenuController implements Controller<Difficulty> {
     private final SettingsMenu settingsMenu;
-    private final SettingsMenuView settingsMenuView;
+    private final MenuView menuView;
     private final Gui gui;
 
-    public SettingsMenuController(SettingsMenu settingsMenu, Gui gui) throws Exception {
+    public SettingsMenuController(SettingsMenu settingsMenu, Gui gui){
         this.settingsMenu = settingsMenu;
         this.gui = gui;
-        this.settingsMenuView = new SettingsMenuView(gui);
+        this.menuView = new MenuView(gui);
     }
 
     public Difficulty start() throws Exception {
 
         while(!settingsMenu.isSelected()){
 
-            settingsMenuView.render(settingsMenu);
+            menuView.render(settingsMenu);
 
             handleInput();
 
@@ -42,19 +44,20 @@ public class SettingsMenuController implements Controller<Difficulty> {
         switch (keystroke.getKeyType()) {
             case ArrowUp -> settingsMenu.previousOption();
             case ArrowDown -> settingsMenu.nextOption();
-            case Enter -> settingsMenu.setSelected();
+            case Enter -> settingsMenu.setSelected(true);
         };
     }
 
     public Difficulty update(){
-        if(settingsMenu.getCurrOption() == Options.EASY_MODE){
+        Button selectedButton = settingsMenu.getSelectedButton();
+        if(selectedButton.getOption() == Options.EASY_MODE){
             return Difficulty.EASY;
         }
-        else if(settingsMenu.getCurrOption() == Options.MEDIUM_MODE){
+        else if(selectedButton.getOption() == Options.MEDIUM_MODE){
             return Difficulty.MEDIUM;
 
         }
-        else if (settingsMenu.getCurrOption() == Options.HARD_MODE){
+        else if (selectedButton.getOption() == Options.HARD_MODE){
             return Difficulty.HARD;
 
         }

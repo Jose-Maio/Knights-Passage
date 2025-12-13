@@ -1,41 +1,22 @@
 package model.game.menu;
 
+import model.Button;
 import model.Options;
+import model.Position;
+
+import java.util.List;
 
 public class StartMenu extends Menu {
 
     public StartMenu(){
-        this.currOption = Options.START;
+        this.buttons = List.of(new Button(Options.START, new Position(92, 60)),
+                new Button(Options.SETTINGS, new Position(83,85)),
+                new Button(Options.CONTROLS, new Position(72, 110)),
+                new Button(Options.EXIT, new Position(102,135))
+               );
+        updateCurrentButton(true);
     }
 
-    @Override
-    public void nextOption(){
-        switch (currOption){
-            case START:
-                currOption = Options.SETTINGS;
-                break;
-            case SETTINGS:
-                currOption = Options.EXIT;
-                break;
-            case EXIT:
-                currOption = Options.START;
-                break;
-        }
-    }
 
-    @Override
-    public void previousOption(){
-        switch (currOption){
-            case START:
-                currOption = Options.EXIT;
-                break;
-            case SETTINGS:
-                currOption = Options.START;
-                break;
-            case EXIT:
-                currOption = Options.SETTINGS;
-                break;
-        }
-    }
 
 }

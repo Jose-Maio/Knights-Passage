@@ -4,6 +4,7 @@ package model.game.level;
 import model.Position;
 import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
+import model.entities.objects.BloodDrops;
 import model.game.Arena;
 import model.game.level.CompletionRules.LevelCompletionRule;
 import model.game.level.SpecialBehavior.LevelSpecialBehavior;
@@ -61,6 +62,11 @@ public class Level {
     }
 
     public void removeDeadEnemies(){
+        for(Enemy enemy : enemyList){
+            if(enemy.isDead()){
+                arena.getDynamicObjectList().add(new BloodDrops(enemy.getPosition()));
+            }
+        }
         enemyList.removeIf(Enemy::isDead);
 
     }

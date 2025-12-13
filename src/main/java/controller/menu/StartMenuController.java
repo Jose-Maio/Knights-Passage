@@ -4,12 +4,15 @@ import com.googlecode.lanterna.input.KeyStroke;
 import controller.Controller;
 import controller.GameController;
 import gui.Gui;
+import model.Button;
 import model.Options;
 import model.game.Game;
+import model.game.menu.ControlsMenu;
 import model.game.menu.StartMenu;
 import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
+import view.MenuView;
 import view.StartMenuView;
 
 import java.io.IOException;
@@ -17,13 +20,13 @@ import java.io.IOException;
 
 public class StartMenuController implements Controller<Void> {
     private final StartMenu menu;
-    private final StartMenuView menuView;
+    private final MenuView menuView;
     private final Gui gui;
 
     public StartMenuController(StartMenu menu, Gui gui) throws Exception {
         this.menu = menu;
         this.gui = gui;
-        this.menuView = new StartMenuView(gui);
+        this.menuView = new MenuView(gui);
     }
 
     public Void start() throws Exception {
@@ -47,24 +50,33 @@ public class StartMenuController implements Controller<Void> {
         switch (keystroke.getKeyType()) {
             case ArrowUp -> menu.previousOption();
             case ArrowDown -> menu.nextOption();
-            case Enter -> menu.setSelected();
+            case Enter -> menu.setSelected(true);
         };
     }
 
     public Void update() throws Exception {
-        if(menu.getCurrOption() == Options.EXIT){
+        Button selectedButton = menu.getSelectedButton();
+        if(selectedButton.getOption() == Options.EXIT){
             gui.getScreen().close();
         }
-        else if(menu.getCurrOption() == Options.START){
+        else if(selectedButton.getOption() == Options.START){
             GameController gameController = new GameController(new Game(new GameConfiguration(Difficulty.MEDIUM)), gui);
             gameController.start();
 
         }
-        else if (menu.getCurrOption() == Options.SETTINGS){
+        else if (selectedButton.getOption() == Options.SETTINGS){
             SettingsMenuController settingsMenuController = new SettingsMenuController(new SettingsMenu(), gui);
             Difficulty chosen = settingsMenuController.start();
             GameController gameController = new GameController(new Game(new GameConfiguration(chosen)), gui);
             gameController.start();
+        }
+
+        else if(selectedButton.getOption() == Options.CONTROLS){
+            ControlsMenuController controlsMenuController = new ControlsMenuController(new ControlsMenu(), gui);
+            controlsMenuController.start();
+            menu.resetSelection();
+            this.start();
+
         }
 
         return  null;

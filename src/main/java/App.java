@@ -1,5 +1,6 @@
 import controller.menu.StartMenuController;
 import gui.LanternaGui;
+import model.Options;
 import model.game.menu.StartMenu;
 
 import java.awt.*;
