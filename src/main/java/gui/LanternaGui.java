@@ -192,4 +192,12 @@ public class LanternaGui implements Gui {
     public TextGraphics getGraphics() {
         return graphics;
     }
+
+    @Override
+    public void clearInput() throws IOException {
+        KeyStroke key;
+        do {
+            key = screen.pollInput();
+        } while (key != null);
+    }
 }

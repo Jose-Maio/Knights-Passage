@@ -13,7 +13,6 @@ import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
 import view.MenuView;
-import view.StartMenuView;
 
 import java.io.IOException;
 

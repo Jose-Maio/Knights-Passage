@@ -1,10 +1,12 @@
 package controller;
 
 
+import controller.menu.GameOverMenuController;
 import gui.Gui;
 import model.Direction;
 import model.game.Game;
 import model.game.level.Level;
+import model.game.menu.GameOverMenu;
 import view.GameView;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class GameController {
         this.levelController = new LevelController();
     }
 
-    public void start() throws IOException {
+    public void start() throws Exception {
 
         while(!game.isGameOver()){
 
@@ -51,7 +53,9 @@ public class GameController {
             }*/
 
         }
-        gui.getScreen().close();
+        GameOverMenuController gameOverMenuController = new GameOverMenuController(new GameOverMenu(game), gui);
+        gui.clearInput();
+        gameOverMenuController.start();
     }
 
     public HashSet<Direction> handleMovInput() {

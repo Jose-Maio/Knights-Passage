@@ -8,7 +8,6 @@ import model.Options;
 import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
 import view.MenuView;
-import view.SettingsMenuView;
 
 import java.io.IOException;
 
