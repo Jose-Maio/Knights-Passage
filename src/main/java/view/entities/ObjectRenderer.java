@@ -6,7 +6,7 @@ import model.entities.objects.Object;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ObjectRenderer extends EntityRenderer<Object>{
+public class ObjectRenderer implements EntityRenderer<Object>{
 
     public String getImgPath(Object object){
         return "sprites/objects/" + object.toStringImg() + ".png";
