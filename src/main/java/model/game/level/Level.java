@@ -41,7 +41,6 @@ public class Level {
         return arena;
     }
 
-
     public Player getPlayer() {
         return player;
     }
@@ -61,18 +60,17 @@ public class Level {
         return levelCompletionRule.isComplete(this) && player.getHitbox().intersects(exitPosition);
     }
 
-    public void removeDeadEnemies(){
+    public List<Position> removeDeadEnemies(){
+        List<Position> deadEnemyPositions = new ArrayList<>();
         for(Enemy enemy : enemyList){
             if(enemy.isDead()){
-                arena.getDynamicObjectList().add(new BloodDrops(enemy.getPosition()));
+                deadEnemyPositions.add(enemy.getPosition());
             }
         }
         enemyList.removeIf(Enemy::isDead);
 
-    }
+        return deadEnemyPositions;
 
-    public Position getEntryPosition() {
-        return entryPosition;
     }
 
     public void specialBehavior(){

@@ -6,10 +6,12 @@ import model.Position;
 import java.awt.*;
 
 public class Boss extends Enemy {
+    private static final int BOSS_HITBOX_WIDTH = 39;
+    private static final int BOSS_HITBOX_HEIGHT = 35;
+    private static final long BOSS_ATTACK_DELAY = 1000;
+
     public Boss(Position startPosition, int health, int damage) {
-        super(startPosition, health, damage);
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 39, 35);
-        this.attackDelay = 1000;
+        super(startPosition, health, damage, BOSS_HITBOX_WIDTH, BOSS_HITBOX_HEIGHT, BOSS_ATTACK_DELAY);
     }
 
     @Override

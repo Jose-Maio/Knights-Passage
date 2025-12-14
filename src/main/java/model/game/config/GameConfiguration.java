@@ -7,25 +7,8 @@ public class GameConfiguration {
 
     public GameConfiguration(Difficulty difficulty){
         this.difficulty = difficulty;
-
-        switch (difficulty){
-            case EASY:
-                enemyDamageMultiplier = 0.75;
-                enemyHealthMultiplier = 0.75;
-                break;
-            case MEDIUM:
-                enemyDamageMultiplier = 1;
-                enemyHealthMultiplier = 1;
-                break;
-            case HARD:
-                enemyDamageMultiplier = 1.5;
-                enemyHealthMultiplier = 1.5;
-                break;
-            default:
-                enemyDamageMultiplier = 1;
-                enemyHealthMultiplier = 1;
-                break;
-        }
+        this.enemyDamageMultiplier = difficulty.getDamageMultiplier();
+        this.enemyHealthMultiplier = difficulty.getHealthMultiplier();
     }
 
     public Difficulty getDifficulty() {

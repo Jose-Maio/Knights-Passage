@@ -84,14 +84,12 @@ public class GameController {
             game.setGameOver();
         }
 
-    
 
         if (level.isComplete()) {
             game.nextLevel();
             levelController.setHasSpawnedPlayer(false);
 
         }
-
         }
     }
 

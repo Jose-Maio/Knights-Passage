@@ -64,26 +64,30 @@ public class Arena {
                 bottom <= arenaBottom;
     }
 
-    public Key getKey(){
-        for(Object object : dynamicObjectList){
-            if(object instanceof Key){
+    private Key findKeyObject() {
+        for (Object object : dynamicObjectList) {
+            if (object instanceof Key) {
                 return (Key) object;
             }
         }
         return null;
     }
 
+    public Key getKey(){
+        return  findKeyObject();
+    }
+
     public void placeKey(Key key){
         dynamicObjectList.add(key);
     }
 
-    public void pickKey(){
-        getKey().pick();
-        dynamicObjectList.remove(getKey());
+    public void pickKey() {
+        Key key = findKeyObject();
+        if (key != null) {
+            key.pick();
+            dynamicObjectList.remove(key);
+        }
 
-    }
-
-    public Rectangle getDimensions() {
-        return dimensions;
     }
 }
+

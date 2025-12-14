@@ -7,10 +7,11 @@ import java.awt.*;
 
 public class ForestEnemy extends Enemy {
 
+    private static final int ENEMY_HITBOX_SIZE = 12;
+    private static final long FOREST_ATTACK_DELAY = 300;
+
     public ForestEnemy(Position startPosition, int health, int damage) {
-        super(startPosition, health, damage);
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
-        this.attackDelay = 300;
+        super(startPosition, health, damage, ENEMY_HITBOX_SIZE, ENEMY_HITBOX_SIZE, FOREST_ATTACK_DELAY);
     }
 
     @Override

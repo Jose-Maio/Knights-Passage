@@ -1,50 +1,22 @@
 package controller.menu;
 
-import com.googlecode.lanterna.input.KeyStroke;
+
+import controller.Controller;
 import gui.Gui;
 import model.Button;
 import model.Options;
 import model.game.menu.GameOverMenu;
 import model.game.menu.StartMenu;
-import view.MenuView;
-import java.io.IOException;
 
-public class GameOverMenuController {
-    private final GameOverMenu menu;
-    private final MenuView menuView;
-    private final Gui gui;
+
+public class GameOverMenuController extends AbstractMenuController<Void, GameOverMenu> implements Controller<Void> {
 
     public GameOverMenuController(GameOverMenu menu , Gui gui){
-        this.menu = menu;
-        this.gui = gui;
-        this.menuView = new MenuView(gui);
+        super(menu,gui);
     }
 
-    public void start() throws Exception {
 
-        while(!menu.isSelected()){
-
-            menuView.render(menu);
-
-            handleInput();
-
-
-        }
-        update();
-    }
-
-    public void handleInput() throws IOException {
-        KeyStroke keystroke = gui.step();
-        if(keystroke == null) return;
-
-        switch (keystroke.getKeyType()) {
-            case ArrowUp -> menu.previousOption();
-            case ArrowDown -> menu.nextOption();
-            case Enter -> menu.setSelected(true);
-        };
-    }
-
-    public void update() throws Exception {
+    public Void update() throws Exception {
         Button selectedButton = menu.getSelectedButton();
         if (selectedButton.getOption() == Options.BACK) {
             StartMenuController startMenuController = new StartMenuController(new StartMenu(), gui);
@@ -53,6 +25,7 @@ public class GameOverMenuController {
             gui.getScreen().close();
 
         }
+        return null;
     }
 
 };

@@ -1,54 +1,24 @@
 package controller.menu;
 
-import com.googlecode.lanterna.input.KeyStroke;
+
 import controller.Controller;
 import gui.Gui;
 import model.Button;
 import model.Options;
 import model.game.menu.SettingsMenu;
 import model.game.config.Difficulty;
-import view.MenuView;
-
-import java.io.IOException;
 
 
-public class SettingsMenuController implements Controller<Difficulty> {
-    private final SettingsMenu settingsMenu;
-    private final MenuView menuView;
-    private final Gui gui;
+public class SettingsMenuController extends AbstractMenuController<Difficulty, SettingsMenu> implements Controller<Difficulty> {
 
-    public SettingsMenuController(SettingsMenu settingsMenu, Gui gui){
-        this.settingsMenu = settingsMenu;
-        this.gui = gui;
-        this.menuView = new MenuView(gui);
+
+    public SettingsMenuController(SettingsMenu menu, Gui gui){
+        super(menu,gui);
     }
 
-    public Difficulty start() throws Exception {
-
-        while(!settingsMenu.isSelected()){
-
-            menuView.render(settingsMenu);
-
-            handleInput();
-
-
-        }
-        return update();
-    }
-
-    public void handleInput() throws IOException {
-        KeyStroke keystroke = gui.step();
-        if(keystroke == null) return;
-
-        switch (keystroke.getKeyType()) {
-            case ArrowUp -> settingsMenu.previousOption();
-            case ArrowDown -> settingsMenu.nextOption();
-            case Enter -> settingsMenu.setSelected(true);
-        };
-    }
 
     public Difficulty update(){
-        Button selectedButton = settingsMenu.getSelectedButton();
+        Button selectedButton = menu.getSelectedButton();
         if(selectedButton.getOption() == Options.EASY_MODE){
             return Difficulty.EASY;
         }

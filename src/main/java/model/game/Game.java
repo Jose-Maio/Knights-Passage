@@ -9,15 +9,14 @@ import model.game.level.LevelFactory;
 import java.util.List;
 
 public class Game {
-    private Player player = new Player(500, 10);
     private int currentLevel = 0;
     private final List<Level> levels;
     private boolean gameOver = false;
     private boolean win = false;
 
     public Game(GameConfiguration configuration) {
-
-        LevelFactory factory = LevelFactory.getInstance(configuration);
+        LevelFactory factory = new LevelFactory(configuration);
+        Player player = new Player(500, 10);
         this.levels = factory.getLevels(player);
     }
 

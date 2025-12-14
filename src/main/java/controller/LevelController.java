@@ -3,16 +3,26 @@ package controller;
 import controller.managers.AttackManager;
 import controller.managers.MovementManager;
 import model.Direction;
+import model.Position;
+import model.entities.objects.BloodDrops;
 import model.game.level.Level;
 import model.entities.characters.Player;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 
 public class LevelController {
+
+    private final MovementManager movementManager;
+    private final AttackManager attackManager;
 
     private long lastEnemyUpdate = 0;
     private boolean hasSpawnedPlayer = false;
 
+    public LevelController() {
+        this.movementManager = new MovementManager();
+        this.attackManager = new AttackManager();
+    }
 
     public void update(Level level, HashSet<Direction> input, Boolean isAttackPressed) throws IOException {
 
@@ -35,10 +45,10 @@ public class LevelController {
         if (player.isDead()) return;
 
         for(Direction direction : input){
-            MovementManager.movePlayer(level, direction);
+            movementManager.movePlayer(level, direction);
         }
 
-        AttackManager.playerAttack(level);
+        attackManager.playerAttack(level);
     }
 
     private void updateEnemies(Level level) {
@@ -48,12 +58,17 @@ public class LevelController {
         if (now - lastEnemyUpdate < enemyMoveDelay) return;
         lastEnemyUpdate = now;
 
-        MovementManager.moveEnemies(level);
+        movementManager.moveEnemies(level);
 
-        AttackManager.enemyAttack(level);
+        attackManager.enemyAttack(level);
 
 
-        level.removeDeadEnemies();
+        List<Position> deadPositions = level.removeDeadEnemies();
+        for (Position pos : deadPositions) {
+            level.getArena().getDynamicObjectList().add(new BloodDrops(pos));
+        }
+
+
     }
 
     private void checkKeyPickup(Level level) {

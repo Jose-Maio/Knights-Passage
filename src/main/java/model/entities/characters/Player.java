@@ -7,9 +7,13 @@ import java.awt.*;
 
 public class Player implements Character, Damageable {
 
+    private static final int HITBOX_WIDTH = 12;
+    private static final int HITBOX_HEIGHT = 12;
+    private static final int HITBOX_OFFSET = 2;
+
     private Position position;
     private int health;
-    private int maxHealth;
+    private final int maxHealth;
     private final int attackPower;
     private Direction facing;
     private boolean hasKey;
@@ -25,7 +29,8 @@ public class Player implements Character, Damageable {
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
         this.position = new Position(0,144);
-        this.hitbox = new Rectangle(position.getX(), position.getY(), 16, 16);
+
+        this.hitbox = new Rectangle(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH, HITBOX_HEIGHT);
     }
 
     @Override
@@ -40,14 +45,13 @@ public class Player implements Character, Damageable {
 
     public void setPosition(Position position) {
         this.position = position;
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        this.hitbox.setBounds(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH, HITBOX_HEIGHT);
     }
 
     @Override
     public void move(Direction direction) {
-        this.position = nextPos(direction);
-        this.facing = direction;
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+        setFacing(direction);
+        setPosition(nextPos(direction));
     }
 
     @Override
@@ -92,16 +96,6 @@ public class Player implements Character, Damageable {
 
     public void pickUpKey() {
         this.hasKey = true;
-    }
-
-    public Position nextPos(Direction direction) {
-
-        return switch (direction) {
-            case UP -> new Position(position.getX(), position.getY() - 1);
-            case DOWN -> new Position(position.getX(), position.getY() + 1);
-            case LEFT -> new Position(position.getX() - 1, position.getY());
-            case RIGHT -> new Position(position.getX() + 1, position.getY());
-        };
     }
 
     public void setFacing(Direction facing) {

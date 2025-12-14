@@ -17,21 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelFactory {
-    private static LevelFactory instance;
+
     private final GameConfiguration configuration;
 
-
-
-    private LevelFactory(GameConfiguration configuration) {
+    public LevelFactory(GameConfiguration configuration) {
         this.configuration = configuration;
     }
 
-    public static LevelFactory getInstance(GameConfiguration configuration) {
-        if (instance == null) {
-            instance = new LevelFactory(configuration);
-        }
-        return instance;
-    }
 
     public Level createLevel1(Player player) {
         List<Enemy> enemies = new ArrayList<>();

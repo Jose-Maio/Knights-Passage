@@ -7,5 +7,5 @@ import java.awt.*;
 public interface Entity {
     Position getPosition();
     Rectangle getHitbox();
-    String toStringImg();
+
 }
