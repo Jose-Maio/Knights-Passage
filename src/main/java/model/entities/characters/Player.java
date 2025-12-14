@@ -10,6 +10,7 @@ public class Player implements Character, Damageable {
     private static final int HITBOX_WIDTH = 12;
     private static final int HITBOX_HEIGHT = 12;
     private static final int HITBOX_OFFSET = 2;
+    private static final int ATTACK_RANGE_EXTENSION = 2;
 
     private Position position;
     private int health;
@@ -18,7 +19,8 @@ public class Player implements Character, Damageable {
     private Direction facing;
     private boolean hasKey;
     private boolean attacking = false;
-    private Rectangle hitbox;
+    private final Rectangle hitbox;
+    private final Rectangle attackRange;
     public long lastAttack = 0;
     public long attackDelay = 200;
 
@@ -31,6 +33,7 @@ public class Player implements Character, Damageable {
         this.position = new Position(0,144);
 
         this.hitbox = new Rectangle(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH, HITBOX_HEIGHT);
+        this.attackRange = new Rectangle(hitbox.x - ATTACK_RANGE_EXTENSION, hitbox.y - ATTACK_RANGE_EXTENSION , HITBOX_WIDTH + 2 * ATTACK_RANGE_EXTENSION , HITBOX_HEIGHT + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -43,9 +46,15 @@ public class Player implements Character, Damageable {
         return hitbox;
     }
 
+    @Override
+    public Rectangle getAttackRange() {
+        return attackRange;
+    }
+
     public void setPosition(Position position) {
         this.position = position;
         this.hitbox.setBounds(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH, HITBOX_HEIGHT);
+        this.attackRange.setBounds(hitbox.x - ATTACK_RANGE_EXTENSION, hitbox.y - ATTACK_RANGE_EXTENSION , HITBOX_WIDTH + 2 * ATTACK_RANGE_EXTENSION , HITBOX_HEIGHT + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -124,9 +133,36 @@ public class Player implements Character, Damageable {
     }
 
     public void attack(Character character){
+
         lastAttack =  System.currentTimeMillis();
         character.takeDamage(attackPower);
 
+    }
+
+    private void updateAttackRange() {
+        int x = hitbox.x;
+        int y = hitbox.y;
+        int width = HITBOX_WIDTH;
+        int height = HITBOX_HEIGHT;
+
+        switch (facing) {
+            case LEFT:
+                x = hitbox.x - ATTACK_RANGE_EXTENSION;
+                width = HITBOX_WIDTH + ATTACK_RANGE_EXTENSION;
+                break;
+            case RIGHT:
+                width = HITBOX_WIDTH + ATTACK_RANGE_EXTENSION;
+                break;
+            case UP:
+                y = hitbox.y - ATTACK_RANGE_EXTENSION;
+                height = HITBOX_HEIGHT + ATTACK_RANGE_EXTENSION;
+                break;
+            case DOWN:
+                height = HITBOX_HEIGHT + ATTACK_RANGE_EXTENSION;
+                break;
+        }
+
+        this.attackRange.setBounds(x, y, width, height);
     }
 
 

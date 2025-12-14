@@ -18,8 +18,8 @@ public class GameController {
     private final Gui gui;
     private final LevelController levelController;
 
-    /*long last = System.currentTimeMillis(); Calculate FPS
-    int frames = 0;*/
+    long last = System.currentTimeMillis(); //Calculate FPS
+    int frames = 0;
 
     public GameController(Game game, Gui gui) throws Exception {
         this.game = game;
@@ -42,7 +42,7 @@ public class GameController {
                 Thread.sleep(50); // ~20 FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             frames++;
             long now = System.currentTimeMillis();
@@ -50,7 +50,7 @@ public class GameController {
                 System.out.println("FPS: " + frames);
                 frames = 0;
                 last = now;
-            }*/
+            }
 
         }
         GameOverMenuController gameOverMenuController = new GameOverMenuController(new GameOverMenu(game), gui);

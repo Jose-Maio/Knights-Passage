@@ -3,7 +3,6 @@ package model.entities.characters.enemies;
 
 import model.Position;
 
-import java.awt.*;
 
 public class Boss extends Enemy {
     private static final int BOSS_HITBOX_WIDTH = 39;
@@ -17,9 +16,8 @@ public class Boss extends Enemy {
     @Override
     public String toStringImg() {
         return "Boss " + switch (facing){
-            case LEFT -> "left";
+            case LEFT, DOWN, UP -> "left";
             case RIGHT -> "right";
-            case DOWN, UP -> "left";
             case null -> "";
         } + (attacking ? " attack end" : "");
     }

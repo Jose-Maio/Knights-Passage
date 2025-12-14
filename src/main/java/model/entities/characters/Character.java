@@ -4,11 +4,14 @@ import model.Direction;
 import model.Position;
 import model.entities.Entity;
 
+import java.awt.*;
+
 public interface Character extends Entity , Damageable, Drawable{
     void move(Direction direction);
     Direction getFacing();
     int getHealth();
     int getMaxHealth();
+    Rectangle getAttackRange();
 
     default Position nextPos(Direction direction) {
         Position position = getPosition();

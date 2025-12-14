@@ -10,6 +10,7 @@ import java.awt.*;
 public abstract class Enemy implements Character {
     protected static final int HITBOX_OFFSET = 2;
     protected static final int VISION_SIZE = 100;
+    protected static final int ATTACK_RANGE_EXTENSION = 1;
 
     protected Position position;
     protected Direction facing;
@@ -17,6 +18,7 @@ public abstract class Enemy implements Character {
     private final int maxHealth;
     private final int damage;
     protected Rectangle hitbox;
+    protected Rectangle attackRange;
     protected final int hitboxWidth;
     protected final int hitboxHeight;
     public long attackDelay;
@@ -38,6 +40,7 @@ public abstract class Enemy implements Character {
 
         this.hitbox = new Rectangle(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, hitboxWidth, hitboxHeight);
         this.vision = new Rectangle(position.getX() - (VISION_SIZE / 2), position.getY() - (VISION_SIZE / 2), VISION_SIZE, VISION_SIZE);
+        this.attackRange = new Rectangle(hitbox.x - ATTACK_RANGE_EXTENSION , hitbox.y - ATTACK_RANGE_EXTENSION, hitboxWidth + 2 * ATTACK_RANGE_EXTENSION, hitboxHeight + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -49,6 +52,7 @@ public abstract class Enemy implements Character {
         this.position = position;
         this.hitbox.setBounds(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, hitboxWidth, hitboxHeight);
         this.vision.setBounds(position.getX() - VISION_SIZE / 2, position.getY() - VISION_SIZE / 2, VISION_SIZE, VISION_SIZE);
+        this.attackRange.setBounds(hitbox.x - ATTACK_RANGE_EXTENSION , hitbox.y - ATTACK_RANGE_EXTENSION, hitboxWidth + 2 * ATTACK_RANGE_EXTENSION, hitboxHeight + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -88,6 +92,10 @@ public abstract class Enemy implements Character {
         return hitbox;
     }
 
+    public Rectangle getAttackRange() {
+        return attackRange;
+    }
+
     public Rectangle getVision() {
         return vision;
     }
@@ -116,4 +124,6 @@ public abstract class Enemy implements Character {
         character.takeDamage(damage);
 
     }
+
+
 }
