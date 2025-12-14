@@ -1,7 +1,6 @@
 package view;
 
 import gui.Gui;
-import model.entities.characters.HealthBar;
 import model.entities.characters.enemies.Enemy;
 import model.game.level.Level;
 import view.entities.CharacterRenderer;
@@ -30,11 +29,11 @@ public class LevelRenderer {
         arenaRenderer.render(level.getArena(), gui);
 
         characterRenderer.render(level.getPlayer(), gui);
-        healthBarRenderer.render(new HealthBar(level.getPlayer()),gui);
+        healthBarRenderer.render(level.getPlayer(),gui);
 
         for(Enemy enemy : level.getEnemyList()){
             characterRenderer.render(enemy,gui);
-            healthBarRenderer.render(new HealthBar(enemy), gui);
+            healthBarRenderer.render(enemy, gui);
 
     }
     }

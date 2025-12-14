@@ -2,12 +2,8 @@ package model.entities.objects;
 
 import model.Position;
 
-import java.awt.*;
-
-
 public class Key extends Object{
     private boolean picked;
-    private boolean visible;
 
     @Override
     public boolean isSolid() {
@@ -15,9 +11,8 @@ public class Key extends Object{
     }
 
     public Key(Position position) {
-        super(position);
+        super(position, 12, 12);
         this.picked = false;
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
 
     }
 
@@ -26,19 +21,9 @@ public class Key extends Object{
         return "Key";
     }
 
-    public boolean isPicked() {
-        return picked;
-    }
-
     public void pick() {
         this.picked = true;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
 
-    public boolean isVisible() {
-        return visible;
-    }
 }

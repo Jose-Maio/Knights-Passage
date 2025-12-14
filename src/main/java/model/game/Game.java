@@ -1,6 +1,7 @@
 package model.game;
 
 
+import model.entities.characters.Player;
 import model.game.config.GameConfiguration;
 import model.game.level.Level;
 import model.game.level.LevelFactory;
@@ -11,11 +12,12 @@ public class Game {
     private int currentLevel = 3;
     private final List<Level> levels;
     private boolean gameOver = false;
+    private boolean win = false;
 
     public Game(GameConfiguration configuration) {
-
-        LevelFactory factory = LevelFactory.getInstance(configuration);
-        this.levels = factory.getLevels();
+        LevelFactory factory = new LevelFactory(configuration);
+        Player player = new Player(500, 10);
+        this.levels = factory.getLevels(player);
     }
 
     public Level getCurrentLevel() {
@@ -28,8 +30,11 @@ public class Game {
 
     public void nextLevel() {
 
-        if (currentLevel == levels.size() - 1)
+        if (currentLevel == levels.size() - 1){
             gameOver = true;
+            win = true;
+        }
+
         else currentLevel++;
 
     }
@@ -42,5 +47,7 @@ public class Game {
         return gameOver;
     }
 
-
+    public boolean isWin() {
+        return win;
+    }
 }

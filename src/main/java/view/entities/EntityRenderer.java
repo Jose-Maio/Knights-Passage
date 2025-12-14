@@ -2,12 +2,13 @@ package view.entities;
 
 import gui.Gui;
 import model.entities.Entity;
+import model.entities.characters.Drawable;
 
 
 import java.io.IOException;
 
-public abstract class EntityRenderer<T extends Entity> {
-    public abstract String getImgPath(T Entity);
-    public abstract void render(T entity,Gui gui) throws IOException;
+public interface EntityRenderer<T extends Drawable> {
+    String getImgPath(T drawable);
+    void render(T drawable ,Gui gui) throws IOException;
 
 }

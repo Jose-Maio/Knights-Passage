@@ -1,10 +1,12 @@
 package controller;
 
 
+import controller.menu.GameOverMenuController;
 import gui.Gui;
 import model.Direction;
 import model.game.Game;
 import model.game.level.Level;
+import model.game.menu.GameOverMenu;
 import view.GameView;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -16,8 +18,8 @@ public class GameController {
     private final Gui gui;
     private final LevelController levelController;
 
-    /*long last = System.currentTimeMillis(); Calculate FPS
-    int frames = 0;*/
+    long last = System.currentTimeMillis(); //Calculate FPS
+    int frames = 0;
 
     public GameController(Game game, Gui gui) throws Exception {
         this.game = game;
@@ -26,7 +28,7 @@ public class GameController {
         this.levelController = new LevelController();
     }
 
-    public void start() throws IOException {
+    public void start() throws Exception {
 
         while(!game.isGameOver()){
 
@@ -40,7 +42,7 @@ public class GameController {
                 Thread.sleep(50); // ~20 FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             frames++;
             long now = System.currentTimeMillis();
@@ -48,10 +50,12 @@ public class GameController {
                 System.out.println("FPS: " + frames);
                 frames = 0;
                 last = now;
-            }*/
+            }
 
         }
-        gui.getScreen().close();
+        GameOverMenuController gameOverMenuController = new GameOverMenuController(new GameOverMenu(game), gui);
+        gui.clearInput();
+        gameOverMenuController.start();
     }
 
     public HashSet<Direction> handleMovInput() {
@@ -80,14 +84,12 @@ public class GameController {
             game.setGameOver();
         }
 
-    
 
         if (level.isComplete()) {
             game.nextLevel();
             levelController.setHasSpawnedPlayer(false);
 
         }
-
         }
     }
 

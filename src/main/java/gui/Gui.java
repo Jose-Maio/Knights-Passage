@@ -30,6 +30,7 @@ public interface Gui {
 
     TextGraphics getGraphics();
 
+    void clearInput() throws IOException;
 
     Set<Integer> getActiveKeys();
 

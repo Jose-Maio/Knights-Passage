@@ -8,15 +8,16 @@ import model.game.level.Level;
 
 
 public class AttackManager {
-    private static final CollisionManager collisionManager = new CollisionManager();
+    private final CollisionManager collisionManager = new CollisionManager();
 
-    public static void playerAttack(Level level){
+    public void playerAttack(Level level){
         Player player = level.getPlayer();
         if (!player.isAttacking()) return;
 
 
         for(Enemy enemy : level.getCloseEnemyList()){
             Direction collideDir = collisionManager.getCollisionSide(player, enemy);
+            System.out.println("player is colliding in " + collideDir);
             if((collideDir != null) && (collideDir == player.getFacing())){
                 player.attack(enemy);
                 break;
@@ -27,12 +28,13 @@ public class AttackManager {
 
     }
 
-    public static void enemyAttack(Level level){
+    public void enemyAttack(Level level){
         Player player = level.getPlayer();
 
         for(Enemy enemy : level.getCloseEnemyList()){
             enemy.setAttacking(false);
             Direction collideDir = collisionManager.getCollisionSide(enemy, player);
+            System.out.println("enemy colliding in " + collideDir);
             if((collideDir != null) && (collideDir == enemy.getFacing()) && enemy.canAttack()){
                 enemy.attack(player);
 

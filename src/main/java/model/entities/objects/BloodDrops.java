@@ -2,7 +2,6 @@ package model.entities.objects;
 
 import model.Position;
 
-import java.awt.*;
 
 public class BloodDrops extends Object {
 
@@ -12,9 +11,7 @@ public class BloodDrops extends Object {
     }
 
     public BloodDrops(Position position) {
-        super(position);
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
-
+        super(position, 12, 12);
     }
 
     @Override

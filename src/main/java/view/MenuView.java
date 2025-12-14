@@ -10,16 +10,18 @@ import java.io.IOException;
 public class MenuView {
 
     private final Gui gui;
+    ButtonRenderer buttonRenderer;
 
     public MenuView(Gui gui){
         this.gui = gui;
+        this.buttonRenderer = new ButtonRenderer();
     }
 
     public void render(Menu menu) throws IOException {
         gui.drawImage(menu.getBackgroundImg(), new Position(0,0));
-        ButtonRenderer br = new ButtonRenderer();
+
         for(Button button : menu.getButtons()){
-            br.render(button,gui);
+            buttonRenderer.render(button,gui);
         }
         gui.refresh();
 

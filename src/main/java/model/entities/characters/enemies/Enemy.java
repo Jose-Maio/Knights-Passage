@@ -8,24 +8,39 @@ import java.awt.*;
 
 
 public abstract class Enemy implements Character {
+    protected static final int HITBOX_OFFSET = 2;
+    protected static final int VISION_SIZE = 100;
+    protected static final int ATTACK_RANGE_EXTENSION = 1;
+
     protected Position position;
     protected Direction facing;
     private int health;
     private final int maxHealth;
-    private int damage;
+    private final int damage;
     protected Rectangle hitbox;
+    protected Rectangle attackRange;
+    protected final int hitboxWidth;
+    protected final int hitboxHeight;
+    public long attackDelay;
+
     private final Rectangle vision;
     protected boolean attacking = false;
     public long lastAttack = 0;
-    public long attackDelay;
 
-    public Enemy(Position startPosition, int health, int damage){
+    public Enemy(Position startPosition, int health, int damage, int hitboxWidth, int hitboxHeight, long attackDelay){
         this.position = startPosition;
         this.maxHealth = health;
         this.health = maxHealth;
         this.damage = damage;
-        this.facing = Direction.RIGHT; // default direction
-        this.vision = new Rectangle(position.getX() - 50, position.getY() - 50, 100, 100 );
+        this.facing = Direction.RIGHT;
+
+        this.hitboxWidth = hitboxWidth;
+        this.hitboxHeight = hitboxHeight;
+        this.attackDelay = attackDelay;
+
+        this.hitbox = new Rectangle(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, hitboxWidth, hitboxHeight);
+        this.vision = new Rectangle(position.getX() - (VISION_SIZE / 2), position.getY() - (VISION_SIZE / 2), VISION_SIZE, VISION_SIZE);
+        this.attackRange = new Rectangle(hitbox.x - ATTACK_RANGE_EXTENSION , hitbox.y - ATTACK_RANGE_EXTENSION, hitboxWidth + 2 * ATTACK_RANGE_EXTENSION, hitboxHeight + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -35,26 +50,15 @@ public abstract class Enemy implements Character {
 
     public void setPosition(Position position) {
         this.position = position;
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, hitbox.width,  hitbox.height);
-        this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
+        this.hitbox.setBounds(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, hitboxWidth, hitboxHeight);
+        this.vision.setBounds(position.getX() - VISION_SIZE / 2, position.getY() - VISION_SIZE / 2, VISION_SIZE, VISION_SIZE);
+        this.attackRange.setBounds(hitbox.x - ATTACK_RANGE_EXTENSION , hitbox.y - ATTACK_RANGE_EXTENSION, hitboxWidth + 2 * ATTACK_RANGE_EXTENSION, hitboxHeight + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
     public void move(Direction direction) {
-        this.facing = direction;
-        this.position = nextPos(direction);
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, hitbox.width, hitbox.height);
-        this.vision.setBounds(position.getX() - 50, position.getY() - 50, 100, 100);
-    }
-
-    public Position nextPos(Direction direction) {
-
-        return switch (direction) {
-            case UP -> new Position(position.getX(), position.getY() - 1);
-            case DOWN -> new Position(position.getX(), position.getY() + 1);
-            case LEFT -> new Position(position.getX() - 1, position.getY());
-            case RIGHT -> new Position(position.getX() + 1, position.getY());
-        };
+        setFacing(direction);
+        setPosition(nextPos(direction));
     }
 
     @Override
@@ -88,6 +92,10 @@ public abstract class Enemy implements Character {
         return hitbox;
     }
 
+    public Rectangle getAttackRange() {
+        return attackRange;
+    }
+
     public Rectangle getVision() {
         return vision;
     }
@@ -116,4 +124,6 @@ public abstract class Enemy implements Character {
         character.takeDamage(damage);
 
     }
+
+
 }

@@ -5,10 +5,11 @@ import model.Position;
 import java.awt.*;
 
 public class DungeonEnemy extends Enemy {
+    private static final int ENEMY_HITBOX_SIZE = 12;
+    private static final long DUNGEON_ATTACK_DELAY = 500;
+
     public DungeonEnemy(Position startPosition, int health, int damage) {
-        super(startPosition, health, damage);
-        this.hitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
-        this.attackDelay = 500;
+        super(startPosition, health, damage, ENEMY_HITBOX_SIZE, ENEMY_HITBOX_SIZE, DUNGEON_ATTACK_DELAY);
     }
 
     @Override

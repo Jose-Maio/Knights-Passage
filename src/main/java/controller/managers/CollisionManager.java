@@ -3,6 +3,7 @@ package controller.managers;
 import model.Direction;
 import model.Position;
 import model.entities.Entity;
+import model.entities.characters.Character;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Object;
 import model.game.level.Level;
@@ -10,27 +11,38 @@ import model.game.level.Level;
 import java.awt.*;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.min;
 
 public class CollisionManager {
 
     //Get Side Entity1 is hitting Entity2
-    public Direction getCollisionSide(Entity entity1, Entity entity2){
-        Rectangle entity1H = new Rectangle(entity1.getPosition().getX() - 1, entity1.getPosition().getY() - 1, entity1.getHitbox().width + 2, entity1.getHitbox().height +2);
-        Rectangle entity2H = new Rectangle(entity2.getPosition().getX() - 1, entity2.getPosition().getY() - 1, entity2.getHitbox().width + 2, entity2.getHitbox().height +2);
 
-        if(entity1H.intersects(entity2H)){
-            Position entity1Position = entity1.getPosition();
-            Position entity2Position = entity2.getPosition();
-            int distX = entity1Position.getX() - entity2Position.getX();
-            int distY = entity1Position.getY() - entity2Position.getY();
+    public Direction getCollisionSide(Character attacker, Character target) {
+        Rectangle attackRange = attacker.getAttackRange();
+        Rectangle targetHitbox = target.getHitbox();
 
-            if(abs(distX) < abs(distY)){
-                return distY < 0 ? Direction.DOWN : Direction.UP;
-            }
-            else{
-                return distX < 0 ? Direction.RIGHT : Direction.LEFT;
-            }
+        if (!attackRange.intersects(targetHitbox)) {
+            return null;
         }
+
+        double rightOverlap = attackRange.getMaxX() - targetHitbox.getMinX();
+        double leftOverlap = targetHitbox.getMaxX() - attackRange.getMinX();
+        double bottomOverlap = attackRange.getMaxY() - targetHitbox.getMinY();
+        double topOverlap = targetHitbox.getMaxY() - attackRange.getMinY();
+
+        double minOverlap = min(min(leftOverlap, rightOverlap), min(topOverlap, bottomOverlap));
+
+
+        if (minOverlap == leftOverlap) {
+            return Direction.LEFT;
+        } else if (minOverlap == rightOverlap) {
+            return Direction.RIGHT;
+        } else if (minOverlap == topOverlap) {
+            return Direction.UP;
+        } else if (minOverlap == bottomOverlap) {
+            return Direction.DOWN;
+        }
+
         return null;
     }
 

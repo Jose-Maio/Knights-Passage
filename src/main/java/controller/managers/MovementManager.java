@@ -9,9 +9,9 @@ import model.game.level.Level;
 import static java.lang.Math.abs;
 
 public class MovementManager {
-    private static final CollisionManager collisionManager = new CollisionManager();
+    private final CollisionManager collisionManager = new CollisionManager();
 
-    public static void moveEnemies(Level level) {
+    public void moveEnemies(Level level) {
         for (Enemy enemy : level.getCloseEnemyList()) {
 
             Direction nextDir = calculateNextEnemyMove(enemy,level.getPlayer());
@@ -24,7 +24,7 @@ public class MovementManager {
         }
     }
 
-    private static Direction calculateNextEnemyMove(Enemy enemy, Player player) {
+    private Direction calculateNextEnemyMove(Enemy enemy, Player player) {
         Position ePos = enemy.getPosition();
         Position pPos = player.getPosition();
         int distX = pPos.getX() - ePos.getX();
@@ -38,7 +38,7 @@ public class MovementManager {
 
     }
 
-    public static void movePlayer(Level level, Direction direction){
+    public void movePlayer(Level level, Direction direction){
         if (direction == null) return;
         Player player = level.getPlayer();
         Position next = player.nextPos(direction);

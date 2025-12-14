@@ -26,9 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 public class LanternaGui implements Gui {
@@ -38,8 +36,12 @@ public class LanternaGui implements Gui {
     private final int height;
     private final Set<Integer> activeKeys = new HashSet<>();
 
+    private final Map<String, BufferedImage> imageCache;
+
 
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
+
+        this.imageCache = new HashMap<>();
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
                 .setInitialTerminalSize(new TerminalSize(256, 160))
@@ -98,14 +100,33 @@ public class LanternaGui implements Gui {
         return fontConfig;
     }
 
+    private BufferedImage loadImage(String path) throws IOException {
+        if (imageCache.containsKey(path)) {
+            return imageCache.get(path);
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(
+                    Objects.requireNonNull(
+                            getClass().getClassLoader().getResourceAsStream(path)
+                    )
+            );
+
+            imageCache.put(path, image);
+
+            return image;
+
+        } catch (IOException e) {
+            System.err.println("Failed to load image: " + path);
+            throw e;
+        }
+    }
+
     @Override
     public void drawImage(String img, Position position) throws IOException {
 
-        BufferedImage sprite = ImageIO.read(
-                Objects.requireNonNull(
-                        getClass().getClassLoader().getResourceAsStream(img)
-                )
-        );
+        BufferedImage sprite = loadImage(img);
+
         for (int x = 0; x < sprite.getWidth(); x++){
             for (int y = 0; y < sprite.getHeight(); y++){
                 int a = sprite.getRGB(x, y);
@@ -132,9 +153,7 @@ public class LanternaGui implements Gui {
     }
 
     public void drawImageToBuffer(String img, int xOffset, int yOffset, BufferedImage buffer) throws IOException {
-        BufferedImage sprite = ImageIO.read(
-                Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(img))
-        );
+        BufferedImage sprite = loadImage(img);
 
         for (int x = 0; x < sprite.getWidth(); x++) {
             for (int y = 0; y < sprite.getHeight(); y++) {
@@ -191,5 +210,13 @@ public class LanternaGui implements Gui {
 
     public TextGraphics getGraphics() {
         return graphics;
+    }
+
+    @Override
+    public void clearInput() throws IOException {
+        KeyStroke key;
+        do {
+            key = screen.pollInput();
+        } while (key != null);
     }
 }
