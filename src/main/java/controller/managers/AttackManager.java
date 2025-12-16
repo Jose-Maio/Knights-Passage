@@ -17,7 +17,6 @@ public class AttackManager {
 
         for(Enemy enemy : level.getCloseEnemyList()){
             Direction collideDir = collisionManager.getCollisionSide(player, enemy);
-            System.out.println("player is colliding in " + collideDir);
             if((collideDir != null) && (collideDir == player.getFacing())){
                 player.attack(enemy);
                 break;
@@ -34,7 +33,6 @@ public class AttackManager {
         for(Enemy enemy : level.getCloseEnemyList()){
             enemy.setAttacking(false);
             Direction collideDir = collisionManager.getCollisionSide(enemy, player);
-            System.out.println("enemy colliding in " + collideDir);
             if((collideDir != null) && (collideDir == enemy.getFacing()) && enemy.canAttack()){
                 enemy.attack(player);
 

@@ -38,11 +38,11 @@ public class GameController {
 
             update();
 
-           /*try {
-                Thread.sleep(50); // ~20 FPS
+           try {
+                Thread.sleep(25); // ~20 FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }
 
             frames++;
             long now = System.currentTimeMillis();
@@ -94,5 +94,3 @@ public class GameController {
         }
         }
     }
-
-
