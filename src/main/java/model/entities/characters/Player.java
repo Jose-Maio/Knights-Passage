@@ -10,7 +10,7 @@ public class Player implements Character, Damageable {
     private static final int HITBOX_WIDTH = 12;
     private static final int HITBOX_HEIGHT = 12;
     private static final int HITBOX_OFFSET = 2;
-    private static final int ATTACK_RANGE_EXTENSION = 2;
+    private static final int ATTACK_RANGE_EXTENSION = 5;
 
     private Position position;
     private int health;

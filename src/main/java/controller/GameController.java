@@ -53,7 +53,9 @@ public class GameController {
             }
 
         }
-        GameOverMenuController gameOverMenuController = new GameOverMenuController(new GameOverMenu(game), gui);
+        GameOverMenu gameOverMenu = new GameOverMenu(game);
+        gameOverMenu.resetSelection();
+        GameOverMenuController gameOverMenuController = new GameOverMenuController(gameOverMenu, gui);
         gui.clearInput();
         gameOverMenuController.start();
     }

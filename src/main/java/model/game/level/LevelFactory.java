@@ -133,7 +133,7 @@ public class LevelFactory {
 
     public Level createLevel4(Player player) {
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Boss(new Position(160, 61), (int) (200 * configuration.getEnemyHealthMultiplier()), (int) (15 * configuration.getEnemyDamageMultiplier())));
+        enemies.add(new Boss(new Position(160, 61), (int) (200 * configuration.getEnemyHealthMultiplier()), (int) (20 * configuration.getEnemyDamageMultiplier())));
 
 
         Position entryPosition = new Position(1, 71);
