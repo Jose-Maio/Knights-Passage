@@ -4,6 +4,7 @@ import model.Direction;
 import model.Position;
 import model.entities.Entity;
 import model.entities.characters.Character;
+import model.entities.characters.Player;
 import model.entities.characters.enemies.Enemy;
 import model.entities.objects.Object;
 import model.game.level.Level;
@@ -15,7 +16,7 @@ import static java.lang.Math.min;
 
 public class CollisionManager {
 
-    //Get Side Entity1 is hitting Entity2
+    // Get Side Entity1 is hitting Entity2
 
     public Direction getCollisionSide(Character attacker, Character target) {
         Rectangle attackRange = attacker.getAttackRange();
@@ -32,7 +33,6 @@ public class CollisionManager {
 
         double minOverlap = min(min(leftOverlap, rightOverlap), min(topOverlap, bottomOverlap));
 
-
         if (minOverlap == leftOverlap) {
             return Direction.LEFT;
         } else if (minOverlap == rightOverlap) {
@@ -46,8 +46,9 @@ public class CollisionManager {
         return null;
     }
 
-    public boolean checkPlayerCollisions(Position position , Level level) {
-        Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, 12, 12);
+    public boolean checkPlayerCollisions(Position position, Level level) {
+        Rectangle newHitbox = new Rectangle(position.getX() + Player.HITBOX_OFFSET,
+                position.getY() + Player.HITBOX_OFFSET, Player.HITBOX_WIDTH, Player.HITBOX_HEIGHT);
 
         for (Object object : level.getArena().getAllObjectList()) {
             if (object.isSolid() && newHitbox.intersects(object.getHitbox())) {
@@ -61,17 +62,19 @@ public class CollisionManager {
             }
         }
 
-        //Check inside Arena
+        // Check inside Arena
         if (!level.getArena().isInsideArena(newHitbox)) {
             return true;
         }
 
         return false;
 
-
     }
-    public boolean checkEnemyCollisions(Position position, Enemy enemy,  Level level) {
-        Rectangle newHitbox = new Rectangle(position.getX() + 2, position.getY() + 2, enemy.getHitbox().width, enemy.getHitbox().height);
+
+    public boolean checkEnemyCollisions(Position position, Enemy enemy, Level level) {
+        Rectangle newHitbox = new Rectangle(position.getX() + Enemy.HITBOX_OFFSET,
+                position.getY() + Enemy.HITBOX_OFFSET, enemy.getHitbox().width,
+                enemy.getHitbox().height);
         // Collisions with Arena Objects
         for (Object object : level.getArena().getAllObjectList()) {
             if (object.isSolid() && object.getHitbox().intersects(newHitbox)) {
@@ -79,20 +82,19 @@ public class CollisionManager {
             }
         }
 
-
-         // Collisions with other enemies
-        for(Enemy other_enemy : level.getEnemyList()){
-            if(newHitbox.intersects(other_enemy.getHitbox()) && enemy != other_enemy){
+        // Collisions with other enemies
+        for (Enemy other_enemy : level.getEnemyList()) {
+            if (newHitbox.intersects(other_enemy.getHitbox()) && enemy != other_enemy) {
                 return true;
             }
         }
 
-        //Collisions with player
-        if(newHitbox.intersects(level.getPlayer().getHitbox())){
+        // Collisions with player
+        if (newHitbox.intersects(level.getPlayer().getHitbox())) {
             return true;
         }
 
-        //Check insideArena
+        // Check insideArena
         return !level.getArena().isInsideArena(newHitbox);
 
     }

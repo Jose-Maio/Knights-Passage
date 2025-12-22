@@ -32,6 +32,11 @@ public class GameController {
 
         while(!game.isGameOver()){
 
+            if (gui.getActiveKeys().contains(KeyEvent.VK_Q)) {
+                gui.getScreen().close();
+                return;
+            }
+
             gameView.render(game);
 
             levelController.update(game.getCurrentLevel(), handleMovInput(), isAttackPressed());
