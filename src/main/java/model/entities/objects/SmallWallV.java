@@ -2,12 +2,10 @@ package model.entities.objects;
 
 import model.Position;
 
+public class SmallWallV extends Object {
 
-public class SmallWallV extends Object{
-
-
-    public SmallWallV(Position position){
-        super(position,8, 15);
+    public SmallWallV(Position position) {
+        super(position, 8, 15);
     }
 
     @Override

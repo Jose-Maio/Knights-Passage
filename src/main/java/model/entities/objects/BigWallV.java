@@ -2,11 +2,9 @@ package model.entities.objects;
 
 import model.Position;
 
+public class BigWallV extends Object {
 
-public class BigWallV extends Object{
-
-
-    public BigWallV(Position position){
+    public BigWallV(Position position) {
         super(position, 8, 51);
     }
 

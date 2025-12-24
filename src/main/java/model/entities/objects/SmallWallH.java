@@ -2,10 +2,9 @@ package model.entities.objects;
 
 import model.Position;
 
-public class SmallWallH extends Object{
+public class SmallWallH extends Object {
 
-
-    public SmallWallH(Position position){
+    public SmallWallH(Position position) {
         super(position, 15, 8);
     }
 
