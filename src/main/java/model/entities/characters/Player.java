@@ -7,9 +7,9 @@ import java.awt.*;
 
 public class Player implements Character, Damageable {
 
-    private static final int HITBOX_WIDTH = 12;
-    private static final int HITBOX_HEIGHT = 12;
-    private static final int HITBOX_OFFSET = 2;
+    public static final int HITBOX_WIDTH = 12;
+    public static final int HITBOX_HEIGHT = 12;
+    public static final int HITBOX_OFFSET = 2;
     private static final int ATTACK_RANGE_EXTENSION = 5;
 
     private Position position;
@@ -30,10 +30,12 @@ public class Player implements Character, Damageable {
         this.attackPower = attackPower;
         this.facing = Direction.RIGHT; // default direction
         this.hasKey = false;
-        this.position = new Position(0,144);
+        this.position = new Position(0, 144);
 
-        this.hitbox = new Rectangle(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH, HITBOX_HEIGHT);
-        this.attackRange = new Rectangle(hitbox.x - ATTACK_RANGE_EXTENSION, hitbox.y - ATTACK_RANGE_EXTENSION , HITBOX_WIDTH + 2 * ATTACK_RANGE_EXTENSION , HITBOX_HEIGHT + 2 * ATTACK_RANGE_EXTENSION);
+        this.hitbox = new Rectangle(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH,
+                HITBOX_HEIGHT);
+        this.attackRange = new Rectangle(hitbox.x - ATTACK_RANGE_EXTENSION, hitbox.y - ATTACK_RANGE_EXTENSION,
+                HITBOX_WIDTH + 2 * ATTACK_RANGE_EXTENSION, HITBOX_HEIGHT + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -53,8 +55,10 @@ public class Player implements Character, Damageable {
 
     public void setPosition(Position position) {
         this.position = position;
-        this.hitbox.setBounds(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH, HITBOX_HEIGHT);
-        this.attackRange.setBounds(hitbox.x - ATTACK_RANGE_EXTENSION, hitbox.y - ATTACK_RANGE_EXTENSION , HITBOX_WIDTH + 2 * ATTACK_RANGE_EXTENSION , HITBOX_HEIGHT + 2 * ATTACK_RANGE_EXTENSION);
+        this.hitbox.setBounds(position.getX() + HITBOX_OFFSET, position.getY() + HITBOX_OFFSET, HITBOX_WIDTH,
+                HITBOX_HEIGHT);
+        this.attackRange.setBounds(hitbox.x - ATTACK_RANGE_EXTENSION, hitbox.y - ATTACK_RANGE_EXTENSION,
+                HITBOX_WIDTH + 2 * ATTACK_RANGE_EXTENSION, HITBOX_HEIGHT + 2 * ATTACK_RANGE_EXTENSION);
     }
 
     @Override
@@ -112,8 +116,8 @@ public class Player implements Character, Damageable {
     }
 
     @Override
-    public String toStringImg(){
-        return "Knight " + switch (facing){
+    public String toStringImg() {
+        return "Knight " + switch (facing) {
             case LEFT -> "left";
             case RIGHT -> "right";
             case DOWN -> "front";
@@ -132,38 +136,13 @@ public class Player implements Character, Damageable {
         return now - lastAttack >= attackDelay;
     }
 
-    public void attack(Character character){
+    public void attack(Character character) {
 
-        lastAttack =  System.currentTimeMillis();
+        lastAttack = System.currentTimeMillis();
         character.takeDamage(attackPower);
 
     }
 
-    private void updateAttackRange() {
-        int x = hitbox.x;
-        int y = hitbox.y;
-        int width = HITBOX_WIDTH;
-        int height = HITBOX_HEIGHT;
-
-        switch (facing) {
-            case LEFT:
-                x = hitbox.x - ATTACK_RANGE_EXTENSION;
-                width = HITBOX_WIDTH + ATTACK_RANGE_EXTENSION;
-                break;
-            case RIGHT:
-                width = HITBOX_WIDTH + ATTACK_RANGE_EXTENSION;
-                break;
-            case UP:
-                y = hitbox.y - ATTACK_RANGE_EXTENSION;
-                height = HITBOX_HEIGHT + ATTACK_RANGE_EXTENSION;
-                break;
-            case DOWN:
-                height = HITBOX_HEIGHT + ATTACK_RANGE_EXTENSION;
-                break;
-        }
-
-        this.attackRange.setBounds(x, y, width, height);
-    }
 
 
 }

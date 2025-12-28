@@ -13,7 +13,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import model.Direction;
 import model.Position;
-
+import model.game.config.GameConstants;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,7 +28,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
-
 public class LanternaGui implements Gui {
     private final Screen screen;
     private final TextGraphics graphics;
@@ -38,13 +37,12 @@ public class LanternaGui implements Gui {
 
     private final Map<String, BufferedImage> imageCache;
 
-
     public LanternaGui() throws IOException, FontFormatException, URISyntaxException {
 
         this.imageCache = new HashMap<>();
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(256, 160))
+                .setInitialTerminalSize(new TerminalSize(GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT))
                 .setTerminalEmulatorFontConfiguration(createFont())
                 .setForceAWTOverSwing(true);
 
@@ -54,8 +52,8 @@ public class LanternaGui implements Gui {
         screen.startScreen();
         graphics = screen.newTextGraphics();
 
-        this.width = 256;
-        this.height = 160;
+        this.width = GameConstants.GAME_WIDTH;
+        this.height = GameConstants.GAME_HEIGHT;
 
         if (terminal instanceof AWTTerminalFrame terminalFrame) {
             terminalFrame.getComponent(0).addKeyListener(new KeyAdapter() {
@@ -84,18 +82,18 @@ public class LanternaGui implements Gui {
             System.err.println("Warning: Terminal is not a graphical frame, KeyListener may not work as expected.");
         }
     }
+
     private AWTTerminalFontConfiguration createFont() throws IOException, FontFormatException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");
         assert resource != null;
 
         File fontFile = new File(resource.toURI());
-        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
+        Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-        Font newfont = font.deriveFont(Font.PLAIN, 5);
+        Font newfont = font.deriveFont(Font.PLAIN, 4);
 
-        AWTTerminalFontConfiguration fontConfig =
-                AWTTerminalFontConfiguration.newInstance(newfont);
+        AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(newfont);
 
         return fontConfig;
     }
@@ -108,9 +106,7 @@ public class LanternaGui implements Gui {
         try {
             BufferedImage image = ImageIO.read(
                     Objects.requireNonNull(
-                            getClass().getClassLoader().getResourceAsStream(path)
-                    )
-            );
+                            getClass().getClassLoader().getResourceAsStream(path)));
 
             imageCache.put(path, image);
 
@@ -127,8 +123,8 @@ public class LanternaGui implements Gui {
 
         BufferedImage sprite = loadImage(img);
 
-        for (int x = 0; x < sprite.getWidth(); x++){
-            for (int y = 0; y < sprite.getHeight(); y++){
+        for (int x = 0; x < sprite.getWidth(); x++) {
+            for (int y = 0; y < sprite.getHeight(); y++) {
                 int a = sprite.getRGB(x, y);
                 int alpha = (a >> 24) & 0xff;
                 int red = (a >> 16) & 255;
@@ -136,7 +132,8 @@ public class LanternaGui implements Gui {
                 int blue = a & 255;
 
                 if (alpha != 0) {
-                    TextCharacter c = new TextCharacter(' ', new TextColor.RGB(red, green, blue), new TextColor.RGB(red, green, blue));
+                    TextCharacter c = new TextCharacter(' ', new TextColor.RGB(red, green, blue),
+                            new TextColor.RGB(red, green, blue));
                     graphics.setCharacter(position.getX() + x, position.getY() + y, c);
                 }
 
@@ -144,7 +141,7 @@ public class LanternaGui implements Gui {
         }
     }
 
-    public void clear(){
+    public void clear() {
         screen.clear();
     }
 
@@ -160,13 +157,17 @@ public class LanternaGui implements Gui {
                 int rgb = sprite.getRGB(x, y);
                 int alpha = (rgb >> 24) & 0xff;
                 if (alpha != 0) {
-                    buffer.setRGB(x + xOffset, y + yOffset, rgb);
+                    int destX = x + xOffset;
+                    int destY = y + yOffset;
+                    if (destX >= 0 && destX < buffer.getWidth() && destY >= 0 && destY < buffer.getHeight()) {
+                        buffer.setRGB(destX, destY, rgb);
+                    }
                 }
             }
         }
     }
 
-    public void drawBuffer(BufferedImage buffer)  {
+    public void drawBuffer(BufferedImage buffer) {
         for (int x = 0; x < buffer.getWidth(); x++) {
             for (int y = 0; y < buffer.getHeight(); y++) {
                 int rgb = buffer.getRGB(x, y);

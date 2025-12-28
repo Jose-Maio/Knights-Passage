@@ -22,7 +22,7 @@ public class App {
 
     public void start() throws Exception {
         StartMenu menu = new StartMenu();
-        StartMenuController menuController= new StartMenuController(menu,gui);
+        StartMenuController menuController = new StartMenuController(menu, gui);
 
         menuController.start();
     }

@@ -12,6 +12,13 @@ import model.game.level.CompletionRules.KeyCollectedRule;
 import model.game.level.SpecialBehavior.EnemiesDropKey;
 import model.game.level.SpecialBehavior.RemoveObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,127 +31,146 @@ public class LevelFactory {
         this.configuration = configuration;
     }
 
-
-    public Level createLevel1(Player player) {
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new ForestEnemy(new Position(25, 55), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new ForestEnemy(new Position(200, 30), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new ForestEnemy(new Position(170, 104), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new ForestEnemy(new Position(210, 100), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new ForestEnemy(new Position(25, 130), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-
-
-        Position entryPosition = new Position(0,144);
-        Rectangle exitPosition = new Rectangle(252, 144, 4,16);
-        return new Level(enemies, createArena1(), entryPosition, exitPosition, player, new KeyCollectedRule() , null);
+    private void parseLevelStrings(List<String> layout, List<Enemy> enemies, List<Object> staticObjects,
+            List<Object> dynamicObjects) {
+        for (int y = 0; y < layout.size(); y++) {
+            String row = layout.get(y);
+            for (int x = 0; x < row.length(); x++) {
+                char c = row.charAt(x);
+                Position pos = new Position(x * 16, y * 16);
+                switch (c) {
+                    // Objects
+                    case 'T' -> staticObjects.add(new Tree(pos));
+                    case 'K' -> dynamicObjects.add(new Key(pos));
+                    // Walls
+                    case 'h' -> staticObjects.add(new SmallWallH(pos));
+                    case 'H' -> staticObjects.add(new BigWallH(pos));
+                    case 'v' -> staticObjects.add(new SmallWallV(pos));
+                    case 'V' -> staticObjects.add(new BigWallV(pos));
+                    // Enemies
+                    case 'F' -> enemies.add(new ForestEnemy(pos, (int) (50 * configuration.getEnemyHealthMultiplier()),
+                            (int) (10 * configuration.getEnemyDamageMultiplier())));
+                    case 'D' -> enemies.add(new DungeonEnemy(pos, (int) (50 * configuration.getEnemyHealthMultiplier()),
+                            (int) (10 * configuration.getEnemyDamageMultiplier())));
+                    case 'C' -> enemies.add(new CastleEnemy(pos, (int) (50 * configuration.getEnemyHealthMultiplier()),
+                            (int) (10 * configuration.getEnemyDamageMultiplier())));
+                    case 'B' -> enemies.add(new Boss(pos, (int) (200 * configuration.getEnemyHealthMultiplier()),
+                            (int) (20 * configuration.getEnemyDamageMultiplier())));
+                    // Intersecting Walls (Corners)
+                    // X: Top-Left (Down, Right)
+                    case 'X' -> {
+                        staticObjects.add(new BigWallV(pos));
+                        staticObjects.add(new BigWallH(pos));
+                    }
+                    // Y: Top-Right (Down, Left)
+                    case 'Y' -> {
+                        staticObjects.add(new BigWallV(pos));
+                        staticObjects.add(new BigWallH(new Position(pos.getX() - 43, pos.getY())));
+                    }
+                    // Z: Bottom-Left (Up, Right)
+                    case 'Z' -> {
+                        staticObjects.add(new BigWallV(new Position(pos.getX(), pos.getY() - 43)));
+                        staticObjects.add(new BigWallH(pos));
+                    }
+                    // Q: Bottom-Right (Up, Left)
+                    case 'Q' -> {
+                        staticObjects.add(new BigWallV(new Position(pos.getX(), pos.getY() - 43)));
+                        staticObjects.add(new BigWallH(new Position(pos.getX() - 43, pos.getY())));
+                    }
+                    // Dynamic Corners (lowercase)
+                    // x: Dynamic Top-Left
+                    case 'x' -> {
+                        dynamicObjects.add(new BigWallV(pos));
+                        dynamicObjects.add(new BigWallH(pos));
+                    }
+                    // y: Dynamic Top-Right
+                    case 'y' -> {
+                        dynamicObjects.add(new BigWallV(pos));
+                        dynamicObjects.add(new BigWallH(new Position(pos.getX() - 43, pos.getY())));
+                    }
+                    // z: Dynamic Bottom-Left
+                    case 'z' -> {
+                        dynamicObjects.add(new BigWallV(new Position(pos.getX(), pos.getY() - 43)));
+                        dynamicObjects.add(new BigWallH(pos));
+                    }
+                    // q: Dynamic Bottom-Right
+                    case 'q' -> {
+                        dynamicObjects.add(new BigWallV(new Position(pos.getX(), pos.getY() - 43)));
+                        dynamicObjects.add(new BigWallH(new Position(pos.getX() - 43, pos.getY())));
+                    }
+                }
+            }
+        }
     }
 
-    public Arena createArena1() {
-        List<Object> staticObjects = List.of(
-                new Tree(new Position(40, 20)),
-                new Tree(new Position(160, 70)),
-                new Tree(new Position(230, 98))
+    public Level createLevel1(Player player) {
+        List<String> layout = loadLevel("level1.txt");
 
-        );
-        List<Object> dynamicObjects = List.of(
-                new Key(new Position(200, 100))
-        );
-        return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/forestbg.png", new Rectangle(0, 0, 256, 160));
+        List<Enemy> enemies = new ArrayList<>();
+        List<Object> staticObjects = new ArrayList<>();
+        List<Object> dynamicObjects = new ArrayList<>();
+
+        parseLevelStrings(layout, enemies, staticObjects, dynamicObjects);
+
+        Position entryPosition = new Position(0, 144);
+        Rectangle exitPosition = new Rectangle(252, 144, 4, 16);
+        return new Level(enemies,
+                new Arena(staticObjects, dynamicObjects, "sprites/backgrounds/forestbg.png",
+                        new Rectangle(0, 0, 256, 160)),
+                entryPosition, exitPosition, player, new KeyCollectedRule(), null);
     }
 
     public Level createLevel2(Player player) {
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new DungeonEnemy(new Position(7, 13), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new DungeonEnemy(new Position(110, 45), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new DungeonEnemy(new Position(55, 143), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new DungeonEnemy(new Position(238, 9), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new DungeonEnemy(new Position(198, 137), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
 
+        List<String> layout = loadLevel("level2.txt");
+
+        List<Enemy> enemies = new ArrayList<>();
+        List<Object> staticObjects = new ArrayList<>();
+        List<Object> dynamicObjects = new ArrayList<>();
+
+        parseLevelStrings(layout, enemies, staticObjects, dynamicObjects);
 
         Position entryPosition = new Position(0, 144);
         Rectangle exitPosition = new Rectangle(252, 0, 4, 16);
-        return new Level(enemies, createArena2(), entryPosition, exitPosition, player, new KeyCollectedRule(), new RemoveObject());
-    }
-
-    public Arena createArena2() {
-        List<Object> staticObjects = List.of(
-                new SmallWallH(new Position(0, 130)),
-                new SmallWallH(new Position(15, 130)),
-                new BigWallV(new Position(22, 78)),
-                new BigWallV(new Position(22, 27)),
-                new SmallWallH(new Position(15, 27)),
-                new SmallWallH(new Position(0, 27)),
-                new BigWallV(new Position(85, 109)),
-                new BigWallV(new Position(85, 58)),
-                new BigWallV(new Position(179, 58)),
-                new BigWallV(new Position(179, 109)),
-                new BigWallV(new Position(210, 0)),
-                new BigWallV(new Position(210, 50)),
-                new SmallWallV(new Position(85, 0)),
-                new SmallWallV(new Position(85, 7)),
-                new BigWallH(new Position(85, 14)),
-                new BigWallH(new Position(136, 14)),
-                new SmallWallV(new Position(179, 0)),
-                new SmallWallV(new Position(179, 7))
-        );
-        List<Object> dynamicObjects = List.of(
-                new BigWallH(new Position(85, 58)),
-                new BigWallH(new Position(136, 58)),
-                new Key(new Position(129, 120))
-        );
-        return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/dungeonbg.png", new Rectangle(0, 0, 256, 160));
+        return new Level(enemies,
+                new Arena(staticObjects, dynamicObjects, "sprites/backgrounds/dungeonbg.png",
+                        new Rectangle(0, 0, 256, 160)),
+                entryPosition, exitPosition, player, new KeyCollectedRule(), new RemoveObject());
     }
 
     public Level createLevel3(Player player) {
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new CastleEnemy(new Position(210, 63), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
-        enemies.add(new CastleEnemy(new Position(210, 85), (int) (50 * configuration.getEnemyHealthMultiplier()), (int) (10 * configuration.getEnemyDamageMultiplier())));
+        List<String> layout = loadLevel("level3.txt");
 
+        List<Enemy> enemies = new ArrayList<>();
+        List<Object> staticObjects = new ArrayList<>();
+        List<Object> dynamicObjects = new ArrayList<>();
+
+        parseLevelStrings(layout, enemies, staticObjects, dynamicObjects);
 
         Position entryPosition = new Position(1, 71);
         Rectangle exitPosition = new Rectangle(253, 68, 4, 25);
-        Key key = new Key(new Position(30,75));
-        return new Level(enemies, createArena3(), entryPosition, exitPosition, player , new KeyCollectedRule(), new EnemiesDropKey(key));
-    }
-
-    public Arena createArena3() {
-        List<Object> staticObjects = List.of(
-                new BigWallH(new Position(1, 110)),
-                new BigWallH(new Position(51, 110)),
-                new BigWallH(new Position(101, 110)),
-                new BigWallH(new Position(151, 110)),
-                new BigWallH(new Position(201, 110)),
-                new BigWallH(new Position(205, 110)),
-                new BigWallH(new Position(1, 41)),
-                new BigWallH(new Position(51, 41)),
-                new BigWallH(new Position(101, 41)),
-                new BigWallH(new Position(151, 41)),
-                new BigWallH(new Position(201, 41)),
-                new BigWallH(new Position(205, 41))
-
-
-        );
-
-        List<Object> dynamicObjects = List.of(
-        );
-
-        return new Arena(staticObjects, dynamicObjects,"sprites/backgrounds/castlebg.png", new Rectangle(0, 0, 256, 160));
+        Key key = new Key(new Position(30, 75));
+        return new Level(enemies,
+                new Arena(staticObjects, dynamicObjects, "sprites/backgrounds/castlebg.png",
+                        new Rectangle(0, 0, 256, 160)),
+                entryPosition, exitPosition, player, new KeyCollectedRule(), new EnemiesDropKey(key));
     }
 
     public Level createLevel4(Player player) {
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Boss(new Position(160, 61), (int) (200 * configuration.getEnemyHealthMultiplier()), (int) (20 * configuration.getEnemyDamageMultiplier())));
+        List<String> layout = loadLevel("level4.txt");
 
+        List<Enemy> enemies = new ArrayList<>();
+        List<Object> staticObjects = new ArrayList<>();
+        List<Object> dynamicObjects = new ArrayList<>();
+
+        parseLevelStrings(layout, enemies, staticObjects, dynamicObjects);
 
         Position entryPosition = new Position(1, 71);
         Rectangle exitPosition = new Rectangle(234, 51, 15, 61);
-        return new Level(enemies, createArena4(), entryPosition, exitPosition, player , new AllEnemiesDeadRule(), null);
-    }
-
-    public Arena createArena4() {
-        List<Object> staticObjects = List.of();
-        List<Object> dynamicObjects = List.of();
-        return new Arena(staticObjects, dynamicObjects, "sprites/backgrounds/bossroombg.png", new Rectangle(0, 0, 256, 160));
+        return new Level(enemies,
+                new Arena(staticObjects, dynamicObjects, "sprites/backgrounds/bossroombg.png",
+                        new Rectangle(0, 0, 256, 160)),
+                entryPosition, exitPosition, player, new AllEnemiesDeadRule(), null);
     }
 
     public List<Level> getLevels(Player player) {
@@ -152,7 +178,28 @@ public class LevelFactory {
                 createLevel1(player),
                 createLevel2(player),
                 createLevel3(player),
-                createLevel4(player)
-        );
+                createLevel4(player));
     }
-};
+
+    private List<String> loadLevel(String filename) {
+        List<String> lines = new ArrayList<>();
+        URL resource = getClass().getClassLoader().getResource("levels/" + filename);
+        if (resource == null) {
+            System.err.println("Level file not found: " + filename);
+            return lines;
+        }
+
+        try (InputStream is = resource.openStream();
+                InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr)) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+}
