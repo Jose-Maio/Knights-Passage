@@ -39,3 +39,12 @@ For a more detailed version of this description click [here](./docs/README.md).
 <p align="center">
   <b><i>Fig 4. Game Over (Loss)</i></b>
 </p> 
+
+<p align="center" justify="center">
+  <img src="docs/gifs/game.gif"/>
+</p>
+<p align="center">
+  <b><i>Gif 1. Gameplay</i></b>
+</p> 
+
+    
