@@ -12,6 +12,13 @@ import model.game.level.CompletionRules.KeyCollectedRule;
 import model.game.level.SpecialBehavior.EnemiesDropKey;
 import model.game.level.SpecialBehavior.RemoveObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,18 +104,7 @@ public class LevelFactory {
     }
 
     public Level createLevel1(Player player) {
-        List<String> layout = List.of(
-                "                ", 
-                "  T    F        ", 
-                "            F   ", 
-                " F     K        ", 
-                "          T     ", 
-                "                ", 
-                "    T     F     ", 
-                "                ", 
-                " F              ", 
-                "                " 
-        );
+        List<String> layout = loadLevel("level1.txt");
 
         List<Enemy> enemies = new ArrayList<>();
         List<Object> staticObjects = new ArrayList<>();
@@ -125,19 +121,8 @@ public class LevelFactory {
     }
 
     public Level createLevel2(Player player) {
-        
-        List<String> layout = List.of(
-                "D    v     v  V  ", 
-                "hV   H  H        ", 
-                " V     D      V  ", 
-                "     x     y   D ", 
-                "                 ",
-                " V   V     V     ", 
-                "                 ", 
-                "     V  K  V     ", 
-                "h           D    ", 
-                "   D             " 
-        );
+
+        List<String> layout = loadLevel("level2.txt");
 
         List<Enemy> enemies = new ArrayList<>();
         List<Object> staticObjects = new ArrayList<>();
@@ -154,18 +139,7 @@ public class LevelFactory {
     }
 
     public Level createLevel3(Player player) {
-        List<String> layout = List.of(
-                "                ",
-                "                ",
-                "HHHHHHHHHHHHHHHH", 
-                "                ", 
-                "             C  ", 
-                "             C  ", 
-                "                ", 
-                "HHHHHHHHHHHHHHHH", 
-                "                ", 
-                "                " 
-        );
+        List<String> layout = loadLevel("level3.txt");
 
         List<Enemy> enemies = new ArrayList<>();
         List<Object> staticObjects = new ArrayList<>();
@@ -183,18 +157,7 @@ public class LevelFactory {
     }
 
     public Level createLevel4(Player player) {
-        List<String> layout = List.of(
-                "                ", 
-                "                ", 
-                "                ",
-                "                ",
-                "          B     ",
-                "                ", 
-                "                ",
-                "                ", 
-                "                ", 
-                "                " 
-        );
+        List<String> layout = loadLevel("level4.txt");
 
         List<Enemy> enemies = new ArrayList<>();
         List<Object> staticObjects = new ArrayList<>();
@@ -216,5 +179,27 @@ public class LevelFactory {
                 createLevel2(player),
                 createLevel3(player),
                 createLevel4(player));
+    }
+
+    private List<String> loadLevel(String filename) {
+        List<String> lines = new ArrayList<>();
+        URL resource = getClass().getClassLoader().getResource("levels/" + filename);
+        if (resource == null) {
+            System.err.println("Level file not found: " + filename);
+            return lines;
+        }
+
+        try (InputStream is = resource.openStream();
+                InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr)) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 }

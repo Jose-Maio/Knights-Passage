@@ -13,6 +13,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import model.Direction;
 import model.Position;
+import model.game.config.GameConstants;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -41,7 +42,7 @@ public class LanternaGui implements Gui {
         this.imageCache = new HashMap<>();
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setInitialTerminalSize(new TerminalSize(256, 160))
+                .setInitialTerminalSize(new TerminalSize(GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT))
                 .setTerminalEmulatorFontConfiguration(createFont())
                 .setForceAWTOverSwing(true);
 
@@ -51,8 +52,8 @@ public class LanternaGui implements Gui {
         screen.startScreen();
         graphics = screen.newTextGraphics();
 
-        this.width = 256;
-        this.height = 160;
+        this.width = GameConstants.GAME_WIDTH;
+        this.height = GameConstants.GAME_HEIGHT;
 
         if (terminal instanceof AWTTerminalFrame terminalFrame) {
             terminalFrame.getComponent(0).addKeyListener(new KeyAdapter() {
