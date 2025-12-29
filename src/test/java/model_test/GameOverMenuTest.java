@@ -1,6 +1,6 @@
 package model_test;
 
-import model.Options;
+
 import model.game.Game;
 import model.game.config.Difficulty;
 import model.game.config.GameConfiguration;
@@ -9,7 +9,7 @@ import model.game.menu.GameOverMenu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
 
 class GameOverMenuTest {
 

@@ -3,42 +3,39 @@ package controller_test;
 import controller.GameController;
 import gui.Gui;
 import model.game.Game;
-import model.game.config.Difficulty;
-import model.game.config.GameConfiguration;
-import model.game.level.LevelFactory;
+import model.game.level.Level;
+import model.entities.characters.Player;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class GameControllerTest {
+    private Game mockGame;
+    private Gui mockGui;
+    private GameController gameController;
 
-    @Test
-    void testConstructor() throws Exception {
-        Game game = new Game(new LevelFactory(new GameConfiguration(Difficulty.MEDIUM)));
-        Gui gui = mock(Gui.class);
-        GameController controller = new GameController(game, gui);
-        assertNotNull(controller);
+    @BeforeEach
+    void setUp() throws Exception {
+        mockGame = mock(Game.class);
+        mockGui = mock(Gui.class);
+
+        Level mockLevel = mock(Level.class);
+        Player mockPlayer = mock(Player.class);
+
+        when(mockGame.getCurrentLevel()).thenReturn(mockLevel);
+        when(mockLevel.getPlayer()).thenReturn(mockPlayer);
+
+        when(mockGame.isGameOver()).thenReturn(true);
+
+        gameController = new GameController(mockGame, mockGui);
     }
 
     @Test
-    void testHandleInput() {
-        try {
-            Game game = new Game(new LevelFactory(new GameConfiguration(Difficulty.MEDIUM)));
-            Gui gui = mock(Gui.class);
-            GameController controller = new GameController(game, gui);
-            controller.handleInput();
-            assertTrue(true);
-        } catch (Exception e) {
-            fail("Should not throw exception");
-        }
-    }
+    void testUpdateAndHandleInputDoNothing() throws Exception {
 
-    @Test
-    void testUpdate() throws Exception {
-        Game game = new Game(new LevelFactory(new GameConfiguration(Difficulty.MEDIUM)));
-        Gui gui = mock(Gui.class);
-        GameController controller = new GameController(game, gui);
-        assertNull(controller.update());
+        gameController.handleInput();
+        gameController.update();
+
+        verifyNoInteractions(mockGui);
     }
 }

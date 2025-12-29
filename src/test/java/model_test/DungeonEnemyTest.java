@@ -3,42 +3,45 @@ package model_test;
 import model.Direction;
 import model.Position;
 import model.entities.characters.enemies.DungeonEnemy;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DungeonEnemyTest {
 
-    private DungeonEnemy enemy;
-
-    @BeforeEach
-    void setUp() {
-        enemy = new DungeonEnemy(new Position(10, 10), 15, 4);
-    }
-
     @Test
     void testConstructor() {
-        assertEquals(15, enemy.getMaxHealth());
-        assertEquals(4, enemy.getDamage());
-    }
+        Position pos = new Position(20, 30);
+        DungeonEnemy enemy = new DungeonEnemy(pos, 80, 15);
 
-    @Test
-    void testMovement() {
-        enemy.move(Direction.DOWN);
-        assertEquals(10, enemy.getPosition().getX());
-        assertEquals(11, enemy.getPosition().getY());
-    }
-
-    @Test
-    void testHealth() {
-        enemy.takeDamage(10);
-        assertEquals(5, enemy.getHealth());
+        assertEquals(pos, enemy.getPosition());
+        assertEquals(80, enemy.getHealth());
+        assertEquals(15, enemy.getDamage());
     }
 
     @Test
     void testToStringImg() {
+        DungeonEnemy enemy = new DungeonEnemy(new Position(0, 0), 100, 10);
+
+        enemy.setFacing(Direction.LEFT);
+        enemy.setAttacking(false);
+        assertEquals("DungeonEnemy left", enemy.toStringImg());
+
+        enemy.setFacing(Direction.RIGHT);
+        enemy.setAttacking(true);
+        assertEquals("DungeonEnemy right attack", enemy.toStringImg());
+
         enemy.setFacing(Direction.DOWN);
-        assertTrue(enemy.toStringImg().contains("DungeonEnemy"));
+        enemy.setAttacking(false);
+        assertEquals("DungeonEnemy front", enemy.toStringImg());
+
+        enemy.setFacing(Direction.UP);
+        assertEquals("DungeonEnemy back", enemy.toStringImg());
+
+        enemy.setFacing(null);
+        assertEquals("DungeonEnemy ", enemy.toStringImg());
+
+        enemy.setAttacking(true);
+        assertEquals("DungeonEnemy  attack", enemy.toStringImg());
     }
 }

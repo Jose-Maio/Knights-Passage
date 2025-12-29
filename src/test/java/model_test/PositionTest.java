@@ -1,22 +1,26 @@
 package model_test;
 
 import model.Position;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PositionTest {
+    private Position pos;
 
+    @BeforeEach
+    void setUp() {
+        pos = new Position(10, 20);
+    }
     @Test
     void testConstructor() {
-        Position pos = new Position(10, 20);
         assertEquals(10, pos.getX());
         assertEquals(20, pos.getY());
     }
 
     @Test
     void testSetters() {
-        Position pos = new Position(5, 5);
         pos.setX(15);
         pos.setY(25);
         assertEquals(15, pos.getX());
@@ -24,13 +28,26 @@ class PositionTest {
     }
 
     @Test
-    void testEquals() {
-        Position pos1 = new Position(10, 20);
-        Position pos2 = new Position(10, 20);
-        Position pos3 = new Position(10, 21);
+    void testEqualsDifferentObjectSameValues() {
+        Position other = new Position(10, 20);
+        assertTrue(pos.equals(other));
+    }
 
-        assertEquals(pos1, pos2);
-        assertNotEquals(pos1, pos3);
-        assertNotEquals(pos1, null);
+    @Test
+    void testEqualsNull() {
+        // Covers: if (o == null) return false;
+        assertFalse(pos.equals(null));
+    }
+
+    @Test
+    void testEqualsDifferentClass() {
+        // Covers: if (getClass() != o.getClass()) return false;
+        assertFalse(pos.equals("Not a position object"));
+    }
+
+    @Test
+    void testEqualsDifferentValues() {
+        assertFalse(pos.equals(new Position(10, 21))); // Different Y
+        assertFalse(pos.equals(new Position(11, 20))); // Different X
     }
 }

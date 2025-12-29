@@ -25,7 +25,8 @@ application{
 }
 pitest {
     junit5PluginVersion = '1.2.1'
-    targetClasses = ['model.*', 'view.*']
+    targetClasses = ['model.*', 'view.*', 'controller.*','gui.*']
+    targetTests = ['model_test.*', 'view_test.*', 'controller_test.*','gui_test.*']
     timestampedReports = true
     verbose = true
 

@@ -14,9 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class InputManagerTest {
-
-    private Gui mockGui;
     private InputManager inputManager;
+    private Gui mockGui;
 
     @BeforeEach
     void setUp() {
@@ -25,30 +24,48 @@ class InputManagerTest {
     }
 
     @Test
-    void testGetPressedDirections() {
-        Set<Integer> activeKeys = new HashSet<>();
-        activeKeys.add(KeyEvent.VK_UP);
-        activeKeys.add(KeyEvent.VK_RIGHT);
-        when(mockGui.getActiveKeys()).thenReturn(activeKeys);
+    void testGetPressedDirectionsAll() {
+        Set<Integer> keys = new HashSet<>();
+        keys.add(KeyEvent.VK_UP);
+        keys.add(KeyEvent.VK_DOWN);
+        keys.add(KeyEvent.VK_LEFT);
+        keys.add(KeyEvent.VK_RIGHT);
 
-        HashSet<Direction> directions = inputManager.getPressedDirections();
-        assertTrue(directions.contains(Direction.UP));
-        assertTrue(directions.contains(Direction.RIGHT));
+        when(mockGui.getActiveKeys()).thenReturn(keys);
+
+        HashSet<Direction> result = inputManager.getPressedDirections();
+
+        assertEquals(4, result.size());
+        assertTrue(result.contains(Direction.UP));
+        assertTrue(result.contains(Direction.DOWN));
+        assertTrue(result.contains(Direction.LEFT));
+        assertTrue(result.contains(Direction.RIGHT));
+    }
+
+    @Test
+    void testGetPressedDirectionsNone() {
+        when(mockGui.getActiveKeys()).thenReturn(new HashSet<>());
+
+        HashSet<Direction> result = inputManager.getPressedDirections();
+
+        assertTrue(result.isEmpty());
     }
 
     @Test
     void testIsAttackPressed() {
-        Set<Integer> activeKeys = new HashSet<>();
-        activeKeys.add(KeyEvent.VK_E);
-        when(mockGui.getActiveKeys()).thenReturn(activeKeys);
+        when(mockGui.getActiveKeys()).thenReturn(Set.of(KeyEvent.VK_E));
         assertTrue(inputManager.isAttackPressed());
+
+        when(mockGui.getActiveKeys()).thenReturn(new HashSet<>());
+        assertFalse(inputManager.isAttackPressed());
     }
 
     @Test
     void testIsExitPressed() {
-        Set<Integer> activeKeys = new HashSet<>();
-        activeKeys.add(KeyEvent.VK_Q);
-        when(mockGui.getActiveKeys()).thenReturn(activeKeys);
+        when(mockGui.getActiveKeys()).thenReturn(Set.of(KeyEvent.VK_Q));
         assertTrue(inputManager.isExitPressed());
+
+        when(mockGui.getActiveKeys()).thenReturn(new HashSet<>());
+        assertFalse(inputManager.isExitPressed());
     }
 }

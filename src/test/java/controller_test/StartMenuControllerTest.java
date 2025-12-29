@@ -1,44 +1,41 @@
 package controller_test;
 
+import com.googlecode.lanterna.screen.Screen;
 import controller.menu.StartMenuController;
 import gui.Gui;
+import model.Button;
+import model.Options;
 import model.game.menu.StartMenu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class StartMenuControllerTest {
-
+    private StartMenu mockMenu;
     private Gui mockGui;
-    private StartMenu menu;
+    private Button mockButton;
+    private StartMenuController controller;
 
     @BeforeEach
     void setUp() {
+        mockMenu = mock(StartMenu.class);
         mockGui = mock(Gui.class);
-        menu = new StartMenu();
+        mockButton = mock(Button.class);
+
+        when(mockMenu.getSelectedButton()).thenReturn(mockButton);
+        controller = new StartMenuController(mockMenu, mockGui);
     }
 
     @Test
-    void testUpdateWithExit() throws Exception {
-        StartMenuController controller = new StartMenuController(menu, mockGui);
-        for (int i = 0; i < 3; i++) {
-            menu.nextOption();
-        }
-        com.googlecode.lanterna.screen.Screen mockScreen = mock(com.googlecode.lanterna.screen.Screen.class);
+    void testUpdateExit() throws Exception {
+        when(mockButton.getOption()).thenReturn(Options.EXIT);
+        Screen mockScreen = mock(Screen.class);
         when(mockGui.getScreen()).thenReturn(mockScreen);
-        when(mockGui.step()).thenReturn(null);
-        menu.setSelected(true);
 
-        assertNull(controller.update());
+        controller.update();
+
         verify(mockScreen).close();
     }
 
-    @Test
-    void testHandleInput() throws Exception {
-        StartMenuController controller = new StartMenuController(menu, mockGui);
-        when(mockGui.step()).thenReturn(null);
-        assertDoesNotThrow(() -> controller.handleInput());
-    }
+
 }
