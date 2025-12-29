@@ -185,9 +185,14 @@ The strategies are defined in:
 Since the last updates made all the previous found code smells have been fixed.
 ### TESTING
 
-TO DO
-Coverage Report
-Mutation Testing
+<p align="center" justify="center">
+  <img src="images/coverageReport.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 6. Coverage Report</i></b>
+</p>
+
+- [Mutation Testing](../docs/202512291853/index.html)
 
 ### SELF-EVALUATION
 
