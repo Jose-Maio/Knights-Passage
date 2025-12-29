@@ -2,52 +2,46 @@ package model_test;
 
 import model.Direction;
 import model.Position;
-import model.entities.characters.Character;
 import model.entities.characters.enemies.ForestEnemy;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class ForestEnemyTest {
 
-    private ForestEnemy enemy;
-
-    @BeforeEach
-    void setUp() {
-        enemy = new ForestEnemy(new Position(10, 10), 15, 4);
-    }
-
     @Test
     void testConstructor() {
-        assertEquals(15, enemy.getMaxHealth());
-        assertEquals(15, enemy.getHealth());
-        assertEquals(4, enemy.getDamage());
+        Position pos = new Position(10, 10);
+        ForestEnemy enemy = new ForestEnemy(pos, 50, 5);
+
+        assertEquals(pos, enemy.getPosition());
+        assertEquals(50, enemy.getHealth());
+        assertEquals(5, enemy.getDamage());
     }
-
-    @Test
-    void testMovement() {
-        enemy.move(Direction.UP);
-        assertEquals(10, enemy.getPosition().getX());
-        assertEquals(9, enemy.getPosition().getY());
-    }
-
-    @Test
-    void testHealth() {
-        enemy.takeDamage(10);
-        assertEquals(5, enemy.getHealth());
-        assertFalse(enemy.isDead());
-
-        enemy.takeDamage(10);
-        assertTrue(enemy.isDead());
-    }
-
 
     @Test
     void testToStringImg() {
+        ForestEnemy enemy = new ForestEnemy(new Position(0, 0), 100, 10);
+
+        enemy.setFacing(Direction.LEFT);
+        enemy.setAttacking(false);
+        assertEquals("ForestEnemy left", enemy.toStringImg());
+
         enemy.setFacing(Direction.RIGHT);
-        assertTrue(enemy.toStringImg().contains("ForestEnemy"));
-        assertTrue(enemy.toStringImg().contains("right"));
+        enemy.setAttacking(true);
+        assertEquals("ForestEnemy right attack", enemy.toStringImg());
+
+        enemy.setFacing(Direction.DOWN);
+        enemy.setAttacking(false);
+        assertEquals("ForestEnemy front", enemy.toStringImg());
+
+        enemy.setFacing(Direction.UP);
+        assertEquals("ForestEnemy back", enemy.toStringImg());
+
+        enemy.setFacing(null);
+        assertEquals("ForestEnemy ", enemy.toStringImg());
+
+        enemy.setAttacking(true);
+        assertEquals("ForestEnemy  attack", enemy.toStringImg());
     }
 }

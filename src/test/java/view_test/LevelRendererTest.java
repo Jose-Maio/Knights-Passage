@@ -1,52 +1,73 @@
-package view_test;
+package view;
 
 import gui.Gui;
-import model.Position;
 import model.entities.characters.Player;
+import model.entities.characters.enemies.Enemy;
 import model.game.Arena;
 import model.game.level.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view.LevelRenderer;
+import view.entities.CharacterRenderer;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import java.io.IOException;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 class LevelRendererTest {
-
     private LevelRenderer levelRenderer;
-    private Level mockLevel;
-    private Gui mockGui;
-    private Arena mockArena;
-    private Player mockPlayer;
+    private Gui gui;
+    private Level level;
+    private Arena arena;
+    private Player player;
 
     @BeforeEach
     void setUp() {
         levelRenderer = new LevelRenderer();
-        mockLevel = mock(Level.class);
-        mockGui = mock(Gui.class);
-        mockArena = mock(Arena.class);
-        mockPlayer = mock(Player.class);
 
-        when(mockGui.getWidth()).thenReturn(200);
-        when(mockGui.getHeight()).thenReturn(200);
-        when(mockLevel.getArena()).thenReturn(mockArena);
-        when(mockLevel.getPlayer()).thenReturn(mockPlayer);
-        when(mockLevel.getEnemyList()).thenReturn(new java.util.ArrayList<>());
-        when(mockArena.getBackgroundImg()).thenReturn("bg.png");
-        when(mockArena.getStaticObjectList()).thenReturn(new java.util.ArrayList<>());
-        when(mockArena.getDynamicObjectList()).thenReturn(new java.util.ArrayList<>());
-        when(mockPlayer.getPosition()).thenReturn(new Position(10, 10));
-        when(mockPlayer.getHealth()).thenReturn(100);
-        when(mockPlayer.getMaxHealth()).thenReturn(100);
-        when(mockPlayer.getHitbox()).thenReturn(new java.awt.Rectangle(10, 10, 12, 12));
-        when(mockPlayer.toStringImg()).thenReturn("Knight right");
+        levelRenderer.characterRenderer = mock(CharacterRenderer.class);
+        levelRenderer.arenaRenderer = mock(ArenaRenderer.class);
+        levelRenderer.healthBarRenderer = mock(HealthBarRenderer.class);
+
+        gui = mock(Gui.class);
+        level = mock(Level.class);
+        arena = mock(Arena.class);
+        player = mock(Player.class);
+
+        when(level.getArena()).thenReturn(arena);
+        when(level.getPlayer()).thenReturn(player);
     }
 
     @Test
-    void testRender() throws Exception {
-        assertDoesNotThrow(() -> levelRenderer.render(mockLevel, mockGui));
-        verify(mockLevel, atLeastOnce()).getArena();
-        verify(mockLevel, atLeastOnce()).getPlayer();
+    void testRenderCallsSubRenderers() throws IOException {
+        Enemy enemy = mock(Enemy.class);
+        when(level.getEnemyList()).thenReturn(List.of(enemy));
+
+        levelRenderer.render(level, gui);
+
+        verify(levelRenderer.arenaRenderer).render(arena, gui);
+
+        verify(levelRenderer.characterRenderer).render(player, gui);
+        verify(levelRenderer.healthBarRenderer).render(player, gui);
+
+        verify(levelRenderer.characterRenderer).render(enemy, gui);
+        verify(levelRenderer.healthBarRenderer).render(enemy, gui);
+    }
+
+    @Test
+    void testLevelTransitionResetsBuffer() throws IOException {
+        Level secondLevel = mock(Level.class);
+        when(secondLevel.getArena()).thenReturn(mock(Arena.class));
+        when(secondLevel.getPlayer()).thenReturn(player);
+        when(secondLevel.getEnemyList()).thenReturn(List.of());
+
+        levelRenderer.render(level, gui);
+        verify(levelRenderer.arenaRenderer, never()).resetArenaBuffer();
+
+        levelRenderer.render(level, gui);
+        verify(levelRenderer.arenaRenderer, never()).resetArenaBuffer();
+
+        levelRenderer.render(secondLevel, gui);
+        verify(levelRenderer.arenaRenderer, times(1)).resetArenaBuffer();
     }
 }

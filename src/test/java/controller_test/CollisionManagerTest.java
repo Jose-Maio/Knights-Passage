@@ -3,77 +3,127 @@ package controller_test;
 import controller.managers.CollisionManager;
 import model.Direction;
 import model.Position;
+import model.entities.characters.Character;
 import model.entities.characters.Player;
+import model.entities.characters.enemies.Enemy;
+import model.entities.objects.Object;
+import model.game.Arena;
 import model.game.level.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CollisionManagerTest {
-
     private CollisionManager collisionManager;
     private Level mockLevel;
+    private Arena mockArena;
     private Player mockPlayer;
-    private model.game.Arena mockArena;
 
     @BeforeEach
     void setUp() {
         collisionManager = new CollisionManager();
         mockLevel = mock(Level.class);
+        mockArena = mock(Arena.class);
         mockPlayer = mock(Player.class);
-        mockArena = mock(model.game.Arena.class);
-
-        when(mockLevel.getPlayer()).thenReturn(mockPlayer);
         when(mockLevel.getArena()).thenReturn(mockArena);
-        when(mockLevel.getCloseEnemyList()).thenReturn(new ArrayList<>());
-        when(mockLevel.getEnemyList()).thenReturn(new ArrayList<>());
+        when(mockLevel.getPlayer()).thenReturn(mockPlayer);
     }
 
     @Test
-    void testGetCollisionSide() {
-        when(mockPlayer.getAttackRange()).thenReturn(new Rectangle(10, 10, 20, 20));
-        model.entities.characters.enemies.Enemy mockEnemy = mock(model.entities.characters.enemies.Enemy.class);
-        when(mockEnemy.getHitbox()).thenReturn(new Rectangle(15, 15, 10, 10));
+    void testGetCollisionSideNull() {
+        Character attacker = mock(Character.class);
+        Character target = mock(Character.class);
+        when(attacker.getAttackRange()).thenReturn(new Rectangle(0, 0, 10, 10));
+        when(target.getHitbox()).thenReturn(new Rectangle(50, 50, 10, 10));
 
-        Direction side = collisionManager.getCollisionSide(mockPlayer, mockEnemy);
-        assertNotNull(side);
+        assertNull(collisionManager.getCollisionSide(attacker, target));
     }
 
     @Test
-    void testGetCollisionSideNoIntersection() {
-        when(mockPlayer.getAttackRange()).thenReturn(new Rectangle(10, 10, 20, 20));
-        model.entities.characters.enemies.Enemy mockEnemy = mock(model.entities.characters.enemies.Enemy.class);
-        when(mockEnemy.getHitbox()).thenReturn(new Rectangle(100, 100, 10, 10));
+    void testGetCollisionSideDirections() {
+        Character attacker = mock(Character.class);
+        Character target = mock(Character.class);
 
-        Direction side = collisionManager.getCollisionSide(mockPlayer, mockEnemy);
-        assertNull(side);
+        when(attacker.getAttackRange()).thenReturn(new Rectangle(0, 0, 10, 10));
+        when(target.getHitbox()).thenReturn(new Rectangle(-2, 0, 10, 10));
+        assertEquals(Direction.LEFT, collisionManager.getCollisionSide(attacker, target));
+
+        when(target.getHitbox()).thenReturn(new Rectangle(2, 0, 10, 10));
+        assertEquals(Direction.RIGHT, collisionManager.getCollisionSide(attacker, target));
+
+        when(target.getHitbox()).thenReturn(new Rectangle(0, -2, 10, 10));
+        assertEquals(Direction.UP, collisionManager.getCollisionSide(attacker, target));
+
+        when(target.getHitbox()).thenReturn(new Rectangle(0, 2, 10, 10));
+        assertEquals(Direction.DOWN, collisionManager.getCollisionSide(attacker, target));
     }
 
     @Test
     void testCheckPlayerCollisions() {
-        Position position = new Position(10, 10);
-        when(mockArena.getAllObjectList()).thenReturn(new ArrayList<>());
+        Position pos = new Position(10, 10);
+        Object solidObj = mock(Object.class);
+        Enemy closeEnemy = mock(Enemy.class);
+
+        when(mockArena.getAllObjectList()).thenReturn(Collections.singletonList(solidObj));
+        when(mockLevel.getCloseEnemyList()).thenReturn(Collections.singletonList(closeEnemy));
         when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(true);
 
-        boolean collision = collisionManager.checkPlayerCollisions(position, mockLevel);
-        assertFalse(collision);
+
+        when(solidObj.isSolid()).thenReturn(true);
+        when(solidObj.getHitbox()).thenReturn(new Rectangle(10, 10, 32, 32));
+        assertTrue(collisionManager.checkPlayerCollisions(pos, mockLevel));
+
+
+        when(solidObj.isSolid()).thenReturn(false);
+        when(closeEnemy.getHitbox()).thenReturn(new Rectangle(10, 10, 32, 32));
+        assertTrue(collisionManager.checkPlayerCollisions(pos, mockLevel));
+
+
+        when(closeEnemy.getHitbox()).thenReturn(new Rectangle(500, 500, 1, 1));
+        when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(false);
+        assertTrue(collisionManager.checkPlayerCollisions(pos, mockLevel));
+
+
+        when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(true);
+        assertFalse(collisionManager.checkPlayerCollisions(pos, mockLevel));
     }
 
     @Test
     void testCheckEnemyCollisions() {
-        Position position = new Position(10, 10);
-        model.entities.characters.enemies.Enemy mockEnemy = mock(model.entities.characters.enemies.Enemy.class);
-        when(mockEnemy.getHitbox()).thenReturn(new Rectangle(10, 10, 12, 12));
-        when(mockArena.getAllObjectList()).thenReturn(new ArrayList<>());
-        when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(true);
-        when(mockPlayer.getHitbox()).thenReturn(new Rectangle(20, 20, 12, 12));
+        Position pos = new Position(10, 10);
+        Enemy self = mock(Enemy.class);
+        Enemy other = mock(Enemy.class);
+        Object solidObj = mock(Object.class);
 
-        boolean collision = collisionManager.checkEnemyCollisions(position, mockEnemy, mockLevel);
-        assertFalse(collision);
+        when(self.getHitbox()).thenReturn(new Rectangle(0, 0, 10, 10));
+        when(other.getHitbox()).thenReturn(new Rectangle(10, 10, 10, 10));
+        when(mockLevel.getEnemyList()).thenReturn(Arrays.asList(self, other));
+        when(mockArena.getAllObjectList()).thenReturn(Collections.singletonList(solidObj));
+        when(mockPlayer.getHitbox()).thenReturn(new Rectangle(500, 500, 1, 1));
+        when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(true);
+
+        when(solidObj.isSolid()).thenReturn(true);
+        when(solidObj.getHitbox()).thenReturn(new Rectangle(10, 10, 10, 10));
+        assertTrue(collisionManager.checkEnemyCollisions(pos, self, mockLevel));
+
+        when(solidObj.isSolid()).thenReturn(false);
+        assertTrue(collisionManager.checkEnemyCollisions(pos, self, mockLevel));
+
+        when(mockLevel.getEnemyList()).thenReturn(Collections.singletonList(self));
+        when(mockPlayer.getHitbox()).thenReturn(new Rectangle(10, 10, 10, 10));
+        assertTrue(collisionManager.checkEnemyCollisions(pos, self, mockLevel));
+
+        when(mockPlayer.getHitbox()).thenReturn(new Rectangle(500, 500, 1, 1));
+        when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(false);
+        assertTrue(collisionManager.checkEnemyCollisions(pos, self, mockLevel));
+
+        when(mockArena.isInsideArena(any(Rectangle.class))).thenReturn(true);
+        assertFalse(collisionManager.checkEnemyCollisions(pos, self, mockLevel));
     }
 }

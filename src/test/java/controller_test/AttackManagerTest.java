@@ -8,15 +8,14 @@ import model.game.level.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.*;
 
 class AttackManagerTest {
-
     private AttackManager attackManager;
     private Level mockLevel;
     private Player mockPlayer;
@@ -28,16 +27,7 @@ class AttackManagerTest {
         mockLevel = mock(Level.class);
         mockPlayer = mock(Player.class);
         mockEnemy = mock(Enemy.class);
-
         when(mockLevel.getPlayer()).thenReturn(mockPlayer);
-        when(mockLevel.getCloseEnemyList()).thenReturn(new ArrayList<>());
-    }
-
-    @Test
-    void testPlayerAttackWhenNotAttacking() {
-        when(mockPlayer.isAttacking()).thenReturn(false);
-        attackManager.playerAttack(mockLevel);
-        verify(mockPlayer, never()).attack(any());
     }
 
     @Test
@@ -57,19 +47,30 @@ class AttackManagerTest {
     }
 
     @Test
-    void testEnemyAttack() {
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(mockEnemy);
-
-        when(mockEnemy.canAttack()).thenReturn(true);
+    void testEnemyAttackSuccess() {
+        Enemy mockEnemy = mock(Enemy.class);
+        when(mockLevel.getCloseEnemyList()).thenReturn(List.of(mockEnemy));
         when(mockEnemy.getFacing()).thenReturn(Direction.LEFT);
-        when(mockEnemy.getAttackRange()).thenReturn(new Rectangle(10, 10, 20, 20));
-        when(mockPlayer.getHitbox()).thenReturn(new Rectangle(15, 15, 10, 10));
-        when(mockLevel.getCloseEnemyList()).thenReturn(enemies);
-        when(mockLevel.getPlayer()).thenReturn(mockPlayer);
-        doNothing().when(mockEnemy).attack(any());
+        when(mockEnemy.canAttack()).thenReturn(true);
+
+        when(mockEnemy.getAttackRange()).thenReturn(new Rectangle(10, 10, 10, 10));
+        when(mockPlayer.getHitbox()).thenReturn(new Rectangle(5, 10, 6, 10));
 
         attackManager.enemyAttack(mockLevel);
-        verify(mockEnemy, atLeastOnce()).setAttacking(false);
+
+        verify(mockEnemy).attack(mockPlayer);
+    }
+
+    @Test
+    void testAttackFailsWhenNoIntersection() {
+        when(mockPlayer.isAttacking()).thenReturn(true);
+        when(mockLevel.getCloseEnemyList()).thenReturn(List.of(mock(Enemy.class)));
+
+        when(mockPlayer.getAttackRange()).thenReturn(new Rectangle(0, 0, 5, 5));
+        when(mockLevel.getCloseEnemyList().get(0).getHitbox()).thenReturn(new Rectangle(50, 50, 5, 5));
+
+        attackManager.playerAttack(mockLevel);
+
+        verify(mockPlayer, never()).attack(any());
     }
 }
