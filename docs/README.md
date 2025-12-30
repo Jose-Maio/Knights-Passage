@@ -36,10 +36,10 @@ To solve this problem we applied the **Factory Method** pattern. This pattern al
 **Implementation**
 
 <p align="center" justify="center">
-  <img src="images/UML/GUI.png"/>
+  <img src="UML/factoryMethod.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 1. Factory Method screenshot</i></b>
+  <b><i>Fig 5. Factory Method screenshot</i></b>
 </p>    
 
 This class can be found in the following file:
@@ -68,6 +68,13 @@ We applied the **Model-View-Controller (MVC)** pattern. This architectural patte
 
 **Implementation**
 
+<p align="center" justify="center">
+  <img src="UML/mvc.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 6. MVC screenshot</i></b>
+</p>  
+
 The main components can be found in:
 
 - **Model**: [model](../src/main/java/model)
@@ -90,6 +97,13 @@ We implemented the **Game Loop** pattern. This pattern decouples the progression
 
 **Implementation**
 
+<p align="center" justify="center">
+  <img src="UML/gameLoop.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 7. GameLoop screenshot</i></b>
+</p>  
+
 The Game Loop is implemented in:
 
 - [GameLoop](../src/main/java/controller/GameLoop.java)
@@ -108,6 +122,13 @@ We have different types of menus (Start, Settings, Controls) that all follow the
 We applied the **Template Method** pattern in the `AbstractMenuController`. This abstract class defines the "skeleton" of the control flow (the `start()` method loops rendering and input handling) but lets subclasses implement the specific steps (like `update()` or specific menu actions).
 
 **Implementation**
+
+<p align="center" justify="center">
+  <img src="UML/template.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 8. Template screenshot</i></b>
+</p> 
 
 This pattern is applied in:
 
@@ -128,6 +149,13 @@ We used the **Facade**  pattern in the `LanternaGui` class. This class provides 
 
 **Implementation**
 
+<p align="center" justify="center">
+  <img src="UML/facade.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 9. Facade screenshot</i></b>
+</p> 
+
 The Facade is implemented in:
 
 - [Gui](../src/main/java/gui/Gui.java)
@@ -147,6 +175,13 @@ The application behaves very differently depending on whether the user is in the
 We utilized a **State**-like pattern by having different Controller classes (`StartMenuController`, `GameController`, `GameOverMenuController`) representing the different states of the application. The main application flow switches between these controllers.
 
 **Implementation**
+
+<p align="center" justify="center">
+  <img src="UML/state.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 10. State screenshot</i></b>
+</p> 
 
 The states are represented by the controllers:
 
@@ -170,6 +205,13 @@ We applied the **Strategy** pattern for `CompletionRules` and `SpecialBehavior`.
 
 **Implementation**
 
+<p align="center" justify="center">
+  <img src="UML/strategy.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 11. Strategy screenshot</i></b>
+</p> 
+
 The strategies are defined in:
 
 - [CompletionRules](../src/main/java/model/game/level/CompletionRules)
@@ -189,7 +231,7 @@ Since the last updates made all the previous found code smells have been fixed.
   <img src="images/coverageReport.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 6. Coverage Report</i></b>
+  <b><i>Fig 12. Coverage Report</i></b>
 </p>
 
 - [Mutation Testing](../docs/202512301444/index.html)
