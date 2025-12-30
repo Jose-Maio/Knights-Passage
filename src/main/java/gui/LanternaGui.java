@@ -83,6 +83,18 @@ public class LanternaGui implements Gui {
         }
     }
 
+    public LanternaGui(Screen screen, TextGraphics graphics, int width, int height) {
+        //Constructor for testing
+        this.screen = screen;
+        this.graphics = graphics;
+        this.width = width;
+        this.height = height;
+        this.imageCache = new HashMap<>();
+
+    }
+
+
+
     private AWTTerminalFontConfiguration createFont() throws IOException, FontFormatException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");
         assert resource != null;
